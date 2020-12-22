@@ -1,0 +1,47 @@
+plugins {
+    id 'org.spongepowered.plugin' version '0.9.0'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
+    id 'java'
+}
+
+group = 'games.synx'
+version = '1.0-SNAPSHOT'
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+dependencies {
+
+    // SPONGE API
+    compileOnly 'org.spongepowered:spongeapi:7.1.0'
+    annotationProcessor 'org.spongepowered:spongeapi:7.1.0'
+
+    // AIKAR ANNOTATION COMMAND FRAMEWORK
+    compile "co.aikar:acf-sponge:0.5.0-SNAPSHOT"
+
+    // LOCAL PLUGINS
+    // Basically shit which is unsupported but I need
+    compileOnly fileTree(dir: 'libs', include: ['*.jar'])
+
+}
+
+repositories {
+    // AIKAR ANNOTATION COMMAND FRAMEWORK
+    maven { url = "https://repo.aikar.co/content/groups/aikar/" }
+
+}
+
+compileJava {
+    options.compilerArgs += ["-parameters"]
+    options.fork = true
+    options.forkOptions.executable = 'javac'
+}
+
+shadowJar {
+    relocate 'co.aikar.commands', 'games.synx.acf'
+    relocate 'co.aikar.locales', 'games.synx.locales'
+}
+
+build.dependsOn shadowJar
+
+sponge.plugin.id = 'spongysb'
