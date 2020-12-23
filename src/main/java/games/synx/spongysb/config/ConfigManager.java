@@ -16,15 +16,22 @@ import java.nio.file.Paths;
 
 public class ConfigManager {
 
+  public static ConfigManager get() {
+    return instance;
+  }
+
+  private static ConfigManager instance;
+
   private Conf conf;
 
   private Path confPath = Paths.get(SpongySB.get().getConfigDir() + File.separator + "conf.json");
 
 
   public ConfigManager() {
+    instance = this;
 
     try {
-      Conf conf = new Conf(confPath);
+      conf = new Conf(confPath);
 
     } catch (IOException e) {
       SpongySB.get().getLogger().error("Could not instantiate a config!");
@@ -38,8 +45,8 @@ public class ConfigManager {
   // GETTERS
   // ----------------------------------------------- //
 
-  public Conf getConf() {
-    return this.conf;
+  public ConfSettings getConf() {
+    return this.conf.getConf();
   }
 
 }

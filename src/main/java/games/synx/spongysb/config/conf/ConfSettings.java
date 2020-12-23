@@ -17,10 +17,8 @@ public class ConfSettings {
   public static class World {
 
     @Setting
-    public String worldPrefix = "SpongySB";
-
-    @Setting
-    public int testInt = 100;
+    public String worldName = "SpongeSkyblock";
+    
   }
 
 }

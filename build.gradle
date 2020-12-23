@@ -19,6 +19,10 @@ dependencies {
     // AIKAR ANNOTATION COMMAND FRAMEWORK
     compile "co.aikar:acf-sponge:0.5.0-SNAPSHOT"
 
+    // NUCLEUS API
+    compileOnly 'io.github.nucleuspowered:nucleus-api:1.14.2-S7.1'
+    annotationProcessor 'io.github.nucleuspowered:nucleus-api:1.14.2-S7.1'
+
     // LOCAL PLUGINS
     // Basically shit which is unsupported but I need
     compileOnly fileTree(dir: 'libs', include: ['*.jar'])
@@ -28,6 +32,8 @@ dependencies {
 repositories {
     // AIKAR ANNOTATION COMMAND FRAMEWORK
     maven { url = "https://repo.aikar.co/content/groups/aikar/" }
+    // NUCLEUS POWERED
+    maven { url = "http://repo.drnaylor.co.uk/artifactory/list/minecraft" }
 
 }
 

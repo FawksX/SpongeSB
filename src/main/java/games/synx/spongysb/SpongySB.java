@@ -2,12 +2,14 @@ package games.synx.spongysb;
 
 import com.google.inject.Inject;
 import games.synx.spongysb.config.ConfigManager;
+import games.synx.spongysb.generation.WorldManager;
 import org.slf4j.Logger;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.event.game.state.GameAboutToStartServerEvent;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.plugin.Dependency;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
 
@@ -22,7 +24,7 @@ import java.nio.file.Paths;
     version = "1.0.0",
     description = "Sponge Skyblock Core",
     dependencies = {
-
+        @Dependency(id="nucleus")
     })
 public class SpongySB {
 
@@ -30,7 +32,9 @@ public class SpongySB {
 
     private Path configDir;
 
+
     private ConfigManager configManager;
+    private WorldManager worldManager;
 
     // ----------------------------------------------- //
     // SPONGE DEPENDENCY INJECTIONS
@@ -55,6 +59,7 @@ public class SpongySB {
 
     @Listener
     public void onAboutToStart(GameAboutToStartServerEvent event) {
+        logger.info("Initialising Config Directories");
         instance = this;
         this.setupConfigDirectories();
     }
@@ -62,7 +67,11 @@ public class SpongySB {
     @Listener
     public void onServerStart(GameStartedServerEvent event) {
 
+        logger.info("Registering Config Manager");
         configManager = new ConfigManager();
+        logger.info("Registering World Manager");
+        worldManager = new WorldManager();
+
 
     }
 
@@ -104,6 +113,10 @@ public class SpongySB {
 
     public ConfigManager getConfigManager() {
         return this.configManager;
+    }
+
+    public WorldManager getWorldManager() {
+        return this.worldManager;
     }
 
 }
