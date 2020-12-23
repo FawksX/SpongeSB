@@ -18,7 +18,10 @@ public class ConfSettings {
 
     @Setting
     public String worldName = "SpongeSkyblock";
-    
+
+    @Setting
+    public int islandDistance = 600;
+
   }
 
 }

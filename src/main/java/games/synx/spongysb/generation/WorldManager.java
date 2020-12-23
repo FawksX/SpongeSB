@@ -26,13 +26,13 @@ public class WorldManager {
   }
 
   public World getIslandWorld() {
-    SpongySB.get().getLogger().info("Getting Island World");
+    SpongySB.get().getLogger().info("Getting island World");
     if(!Sponge.getServer().getWorld(ConfigManager.get().getConf().world.worldName).isPresent()) {
-      SpongySB.get().getLogger().info("Island World does not exist!");
+      SpongySB.get().getLogger().info("island World does not exist!");
       createWorld();
       return Sponge.getServer().getWorld(ConfigManager.get().getConf().world.worldName).get();
     }
-    SpongySB.get().getLogger().info("Island World found!");
+    SpongySB.get().getLogger().info("island World found!");
     return Sponge.getServer().getWorld(ConfigManager.get().getConf().world.worldName).get();
 
   }
@@ -40,7 +40,7 @@ public class WorldManager {
 
   public void createWorld() {
 
-    SpongySB.get().getLogger().info("Creating Island World...");
+    SpongySB.get().getLogger().info("Creating island World...");
     Sponge.getCommandManager().process(Sponge.getServer().getConsole(), "world create -p the_void " + ConfigManager.get().getConf().world.worldName);
   }
 

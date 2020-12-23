@@ -1,13 +1,10 @@
 package games.synx.spongysb.config;
 
-import com.google.inject.Inject;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.conf.Conf;
 import games.synx.spongysb.config.conf.ConfSettings;
-import ninja.leaping.configurate.ConfigurationNode;
-import ninja.leaping.configurate.gson.GsonConfigurationLoader;
-import ninja.leaping.configurate.objectmapping.ObjectMappingException;
-import org.slf4j.Logger;
+import games.synx.spongysb.config.messages.MessageSettings;
+import games.synx.spongysb.config.messages.Messages;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,8 +20,10 @@ public class ConfigManager {
   private static ConfigManager instance;
 
   private Conf conf;
+  private Messages message;
 
-  private Path confPath = Paths.get(SpongySB.get().getConfigDir() + File.separator + "conf.json");
+  private final Path confPath = Paths.get(SpongySB.get().getConfigDir() + File.separator + "conf.json");
+  private final Path messagePath = Paths.get(SpongySB.get().getConfigDir() + File.separator + "messages.json");
 
 
   public ConfigManager() {
@@ -32,6 +31,8 @@ public class ConfigManager {
 
     try {
       conf = new Conf(confPath);
+      message = new Messages(messagePath);
+
 
     } catch (IOException e) {
       SpongySB.get().getLogger().error("Could not instantiate a config!");
@@ -47,6 +48,10 @@ public class ConfigManager {
 
   public ConfSettings getConf() {
     return this.conf.getConf();
+  }
+
+  public MessageSettings getMessages() {
+    return this.message.getMessage();
   }
 
 }

@@ -1,4 +1,4 @@
-package games.synx.spongysb.config.conf;
+package games.synx.spongysb.config;
 
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.objectmapping.ObjectMapper;
@@ -11,11 +11,9 @@ public interface IConfiguration {
 
   @NonNull Object loadConfiguration(ObjectMapper<?> objectMapper, final ConfigurationNode node) throws ObjectMappingException;
 
-  void saveConfiguration(final ConfSettings configuration, final ConfigurationNode node) throws ObjectMappingException;
+  void saveConfiguration(final Object configuration, final ConfigurationNode node) throws ObjectMappingException;
   void setup();
 
-
-  ConfigurationNode getNode();
   Path getConfigFile();
 
 }

@@ -1,7 +1,8 @@
-package games.synx.spongysb.config.conf;
+package games.synx.spongysb.config.messages;
 
 import games.synx.spongysb.config.AbstractConfiguration;
 import games.synx.spongysb.config.IConfiguration;
+import games.synx.spongysb.config.conf.ConfSettings;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.gson.GsonConfigurationLoader;
 import ninja.leaping.configurate.objectmapping.ObjectMapper;
@@ -10,19 +11,19 @@ import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import java.io.IOException;
 import java.nio.file.Path;
 
-public final class Conf extends AbstractConfiguration implements IConfiguration {
+public class Messages extends AbstractConfiguration implements IConfiguration {
 
-  private static final ObjectMapper<ConfSettings> MAPPER;
-  private ConfSettings conf;
+  private static final ObjectMapper<MessageSettings> MAPPER;
+  private MessageSettings message;
 
-  public Conf(Path configFile) throws IOException {
+  public Messages(Path configFile) throws IOException {
     super(configFile);
     setup();
   }
 
   static {
     try {
-      MAPPER = ObjectMapper.forClass(ConfSettings.class);
+      MAPPER = ObjectMapper.forClass(MessageSettings.class);
     } catch (final ObjectMappingException e) {
       throw new ExceptionInInitializerError(e);
     }
@@ -31,7 +32,7 @@ public final class Conf extends AbstractConfiguration implements IConfiguration 
 
   @Override
   public void saveConfiguration(final Object configuration, final ConfigurationNode node) throws ObjectMappingException {
-    MAPPER.bind((ConfSettings) configuration).serialize(node);
+    MAPPER.bind((MessageSettings) configuration).serialize(node);
   }
 
   @Override
@@ -41,10 +42,10 @@ public final class Conf extends AbstractConfiguration implements IConfiguration 
       ConfigurationNode raw = loader.load();
 
       // Loading
-      this.conf = (ConfSettings) loadConfiguration(MAPPER, raw);
+      this.message = (MessageSettings) loadConfiguration(MAPPER, raw);
 
       // Saving
-      saveConfiguration(this.getConf(), raw);
+      saveConfiguration(this.getMessage(), raw);
       loader.save(raw);
 
     } catch (IOException | ObjectMappingException e) {
@@ -56,10 +57,8 @@ public final class Conf extends AbstractConfiguration implements IConfiguration 
   // ----------------------------------------------- //
   // GETTERS
   // ----------------------------------------------- //
-  public ConfSettings getConf() {
-    return conf;
+  public MessageSettings getMessage() {
+    return message;
   }
 
 }
-
-

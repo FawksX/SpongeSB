@@ -24,7 +24,8 @@ import java.nio.file.Paths;
     version = "1.0.0",
     description = "Sponge Skyblock Core",
     dependencies = {
-        @Dependency(id="nucleus")
+        @Dependency(id="nucleus"),
+        @Dependency(id="luckperms")
     })
 public class SpongySB {
 
@@ -97,6 +98,10 @@ public class SpongySB {
 
     public Logger getLogger() {
         return this.logger;
+    }
+
+    public PluginContainer getPluginContainer() {
+        return pluginContainer;
     }
 
     public Game getGame() {

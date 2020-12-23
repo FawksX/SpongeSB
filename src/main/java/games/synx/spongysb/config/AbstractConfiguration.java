@@ -1,6 +1,5 @@
 package games.synx.spongysb.config;
 
-import games.synx.spongysb.config.conf.IConfiguration;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.ConfigurationOptions;
 import ninja.leaping.configurate.gson.GsonConfigurationLoader;
