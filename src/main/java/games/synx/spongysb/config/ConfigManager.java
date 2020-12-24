@@ -27,6 +27,9 @@ public class ConfigManager {
 
 
   public ConfigManager() {
+
+    SpongySB.get().getLogger().info("Registering Config Manager");
+
     instance = this;
 
     try {

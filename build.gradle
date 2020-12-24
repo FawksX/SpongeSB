@@ -26,6 +26,10 @@ dependencies {
     // LUCKPERMS API
     compileOnly 'net.luckperms:api:5.2'
 
+    // HIKARI CP
+    compileOnly 'com.zaxxer:HikariCP:3.4.5'
+    implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.1'
+
     // LOCAL PLUGINS
     // Basically shit which is unsupported but I need
     compileOnly fileTree(dir: 'libs', include: ['*.jar'])

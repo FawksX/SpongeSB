@@ -3,6 +3,7 @@ package games.synx.spongysb;
 import com.google.inject.Inject;
 import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.generation.WorldManager;
+import games.synx.spongysb.storage.DatabaseManager;
 import org.slf4j.Logger;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.config.ConfigDir;
@@ -36,6 +37,7 @@ public class SpongySB {
 
     private ConfigManager configManager;
     private WorldManager worldManager;
+    private DatabaseManager databaseManager;
 
     // ----------------------------------------------- //
     // SPONGE DEPENDENCY INJECTIONS
@@ -68,9 +70,8 @@ public class SpongySB {
     @Listener
     public void onServerStart(GameStartedServerEvent event) {
 
-        logger.info("Registering Config Manager");
         configManager = new ConfigManager();
-        logger.info("Registering World Manager");
+        databaseManager = new DatabaseManager();
         worldManager = new WorldManager();
 
 

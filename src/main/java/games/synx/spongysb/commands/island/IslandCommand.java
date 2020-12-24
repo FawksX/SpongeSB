@@ -12,8 +12,6 @@ public class IslandCommand extends BaseCommand {
   @CatchUnknown @Default
   public void onDefault(Player player) {
 
-
-
   }
 
 }

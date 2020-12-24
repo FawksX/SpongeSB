@@ -3,10 +3,8 @@ package games.synx.spongysb.generation;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.ConfigManager;
 import org.spongepowered.api.Sponge;
-import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.world.World;
 
-import java.util.concurrent.TimeUnit;
 
 public class WorldManager {
 
@@ -21,8 +19,9 @@ public class WorldManager {
   public WorldManager() {
     instance = this;
 
-    SpongySB.get().getLogger().info("Beginning World Manager Initialisation");
+    SpongySB.get().getLogger().info("Registering World Manager");
     islandWorld = getIslandWorld();
+    SpongySB.get().getLogger().info("World Manager has been Registered!");
   }
 
   public World getIslandWorld() {
@@ -34,6 +33,8 @@ public class WorldManager {
     }
     SpongySB.get().getLogger().info("island World found!");
     return Sponge.getServer().getWorld(ConfigManager.get().getConf().world.worldName).get();
+
+
 
   }
 
