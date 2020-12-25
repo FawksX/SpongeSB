@@ -25,12 +25,15 @@ public class DatabaseManager implements IDatabase {
 
     HikariConfig config = new HikariConfig();
 
-    config.setDataSourceClassName("org.mariadb.jdbc.MySQLDataSource");
+    config.setDataSourceClassName("com.mysql.jdbc.jdbc2.optional.MysqlDataSource");
     config.addDataSourceProperty("serverName", databaseConf.address);
     config.addDataSourceProperty("port", databaseConf.port);
     config.addDataSourceProperty("databaseName", databaseConf.database);
     config.setUsername(databaseConf.username);
     config.setPassword(databaseConf.password);
+    config.addDataSourceProperty( "cachePrepStmts" , "true" );
+    config.addDataSourceProperty( "prepStmtCacheSize" , "250" );
+    config.addDataSourceProperty( "prepStmtCacheSqlLimit" , "2048" );
 
     logger.info("Creating HikariDataSource");
     this.dataSource = new HikariDataSource(config);
