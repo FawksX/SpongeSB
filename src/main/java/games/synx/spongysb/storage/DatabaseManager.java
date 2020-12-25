@@ -31,9 +31,6 @@ public class DatabaseManager implements IDatabase {
     config.addDataSourceProperty("databaseName", databaseConf.database);
     config.setUsername(databaseConf.username);
     config.setPassword(databaseConf.password);
-    config.addDataSourceProperty( "cachePrepStmts" , "true" );
-    config.addDataSourceProperty( "prepStmtCacheSize" , "250" );
-    config.addDataSourceProperty( "prepStmtCacheSqlLimit" , "2048" );
 
     logger.info("Creating HikariDataSource");
     this.dataSource = new HikariDataSource(config);
