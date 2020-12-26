@@ -20,7 +20,7 @@ public class ConfSettings {
   public static class Database {
 
     @Setting
-    public String address = "127.0.0.1";
+    public String address = "london.enchantmc.com";
 
     @Setting
     public int port = 3306;

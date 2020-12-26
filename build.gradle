@@ -10,6 +10,8 @@ version = '1.0-SNAPSHOT'
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
+apply plugin: 'org.spongepowered.plugin'
+
 dependencies {
 
     // SPONGE API
@@ -28,7 +30,7 @@ dependencies {
 
     // HIKARI CP
     compileOnly 'com.zaxxer:HikariCP:3.4.5'
-    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.13'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.22'
 
     // LOCAL PLUGINS
     // Basically shit which is unsupported but I need
