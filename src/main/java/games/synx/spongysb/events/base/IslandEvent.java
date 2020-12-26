@@ -27,24 +27,5 @@ public abstract class IslandEvent extends AbstractEvent {
         return this.island;
     }
 
-    public boolean isLocked() {
-        return this.island.isLocked();
-    }
-
-    public int getProtectionRange() {
-        return this.island.getProtectionRange();
-    }
-
-    public UUID getIslandOwnerUUID() {
-        return this.island.getOwnerUUID();
-    }
-
-    public Location<World> getCenterLocation() {
-        return this.island.getCenter();
-    }
-
-    public Location<World> getHomeLocation() {
-        return this.island.getIslandHome();
-    }
 
 }
