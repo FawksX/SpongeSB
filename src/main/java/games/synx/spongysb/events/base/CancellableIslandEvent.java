@@ -1,0 +1,24 @@
+package games.synx.spongysb.events.base;
+
+import games.synx.spongysb.objects.Island;
+import org.spongepowered.api.event.Cancellable;
+import org.spongepowered.api.event.cause.Cause;
+
+public abstract class CancellableIslandEvent extends IslandEvent implements Cancellable {
+
+    private boolean cancelled = false;
+
+    public CancellableIslandEvent(Island island, Cause cause) {
+        super(island, cause);
+    }
+
+    @Override
+    public boolean isCancelled() {
+        return cancelled;
+    }
+
+    @Override
+    public void setCancelled(boolean cancel) {
+        this.cancelled = cancel;
+    }
+}
