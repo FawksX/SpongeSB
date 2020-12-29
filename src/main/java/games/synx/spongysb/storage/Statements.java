@@ -28,4 +28,5 @@ public class Statements {
   public static final String UPDATE_LAST_GRID_ISLAND = "REPLACE INTO spongysb_grid (id, lastisland) VALUES(1,?);";
 
 
+
 }

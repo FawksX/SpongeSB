@@ -1,5 +1,6 @@
 package games.synx.spongysb.config.messages;
 
+import co.aikar.commands.annotation.HelpCommand;
 import ninja.leaping.configurate.objectmapping.Setting;
 import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
 
@@ -29,23 +30,6 @@ public class MessageSettings {
 
   @Setting
   public String could_not_teleport_to_island = "&cCould not teleport to your island. Contact Staff for help!";
-
-  @Setting
-  public HelpCommand helpCommand = new HelpCommand();
-
-  @ConfigSerializable
-  public static class HelpCommand {
-
-    @Setting
-    public String header = "&8&m--------------------&e&lHELP&8&m--------------------";
-
-    @Setting
-    public List<String> body = Arrays.asList(
-        "&7- &6/is new <island name> &7- &eCreate a new Island!",
-        "&7- &6/is go &7- &eTeleport to your Island"
-        );
-
-  }
 
 
 }

@@ -72,10 +72,12 @@ public class DatabaseManager implements IDatabase {
       PreparedStatement preparedStatement = connection.prepareStatement(Statements.CREATE_ISLANDS_TABLE);
       PreparedStatement preparedStatement2 = connection.prepareStatement(Statements.CREATE_PLAYERS_TABLE);
       PreparedStatement preparedStatement3 = connection.prepareStatement(Statements.CREATE_GRID_TABLE);
+      PreparedStatement preparedStatement4 = connection.prepareStatement(Statements.CREATE_ISLAND_UPGRADES_TABLE);
 
       preparedStatement.execute();
       preparedStatement2.execute();
       preparedStatement3.execute();
+      preparedStatement4.execute();
       logger.info("Successfully created default tables (if they do not exist)");
 
     } catch (SQLException e) {

@@ -3,6 +3,7 @@ package games.synx.spongysb.generation;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.events.IslandNewEvent;
+import games.synx.spongysb.events.IslandPreDeleteEvent;
 import games.synx.spongysb.objects.Island;
 import games.synx.spongysb.objects.SPlayer;
 import games.synx.spongysb.storage.Statements;
@@ -54,8 +55,8 @@ public class GridManager {
     IslandNewEvent islandNewEvent = new IslandNewEvent(player, island, islandLoc);
     Sponge.getEventManager().post(islandNewEvent);
 
-
   }
+
 
 
   private Location<World> getNextIslandLocation() {
