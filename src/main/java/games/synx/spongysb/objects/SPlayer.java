@@ -47,6 +47,30 @@ public class SPlayer {
 
   }
 
+  public void setIsland(Island island) {
+
+    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection()) {
+      PreparedStatement preparedStatement = connection.prepareStatement(Statements.PLAYER_SET_ISLAND_UUID);
+      preparedStatement.setString(1, island.getIslandUUID().toString());
+      preparedStatement.setString(2, getPlayerUUID().toString());
+      preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void setIslandRole(IslandPermissionLevel islandPermissionLevel) {
+
+    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection()) {
+      PreparedStatement preparedStatement = connection.prepareStatement(Statements.PLAYER_SET_ISLAND_ROLE);
+      preparedStatement.setString(1, islandPermissionLevel.toString());
+      preparedStatement.setString(2, getPlayerUUID().toString());
+      preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
   public Island getIsland() {
     return Island.get(island_uuid);
   }

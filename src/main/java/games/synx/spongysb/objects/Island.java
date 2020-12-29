@@ -38,7 +38,7 @@ public class Island {
 
     // STORED IN FORMAT: x,z
     double[] arr = Stream.of(center_location.split(",")).mapToDouble(Double::parseDouble).toArray();
-    this.location = new Location<World>(WorldManager.get().getIslandWorld(), arr[0], ConfigManager.get().getConf().world.island_paste_height, arr[1]);
+    this.location = new Location<World>(WorldManager.get().getWorld(), arr[0], ConfigManager.get().getConf().world.island_paste_height, arr[1]);
   }
 
   public static Island get(UUID island_uuid) {
@@ -62,6 +62,24 @@ public class Island {
       SpongySB.get().getLogger().error("Could not fetch user, did something go wrong?");
       return null;
     }
+
+  }
+
+  /**
+   * Adds the Island to the spongysb_islands database
+   * @param islandUUID The Islands' UUID
+   * @param leaderUUID The Island Leaders UUID
+   * @param islandName The name of the Island
+   * @param centerLoc Center Location serialised as (x,z)
+   * @return Island Object
+   */
+  public static Island addIsland(UUID islandUUID, UUID leaderUUID, String islandName, Location<World> centerLoc) {
+
+    String centerSerialised = centerLoc.getBlockX() + "," + centerLoc.getBlockZ();
+
+    // TODO LOGIC TO PUT INTO DATABASE
+
+    return new Island(islandUUID, leaderUUID, islandName, centerSerialised, 1, "");
 
   }
 

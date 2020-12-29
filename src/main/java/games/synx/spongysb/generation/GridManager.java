@@ -2,9 +2,12 @@ package games.synx.spongysb.generation;
 
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.ConfigManager;
-import games.synx.spongysb.config.conf.Conf;
-import games.synx.spongysb.storage.DatabaseManager;
+import games.synx.spongysb.objects.Island;
+import games.synx.spongysb.objects.SPlayer;
 import games.synx.spongysb.storage.Statements;
+import games.synx.spongysb.objects.IslandPermissionLevel;
+import games.synx.spongysb.util.UUIDUtil;
+import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
@@ -12,6 +15,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 public class GridManager {
@@ -22,8 +26,36 @@ public class GridManager {
     return instance;
   }
 
-  // TODO TEMPORARILY PUBLIC, SHOULD NOT BE EDITABLE OUTSIDE THIS CLASS
-  public Location<World> getNextIslandLocation() {
+  /**
+   * Creates a new Island, making the Player specified the Owner.
+   * This does not do any checks to see if they are already in an island, this should be done by the /is new Command.
+   * @param player the player making the island
+   * @param schematic Schematic Handler
+   * @param islandName name of the island the player has specified
+   */
+  public void newIsland(Player player, SchematicHandler schematic, String islandName) {
+
+    UUID islandUUID = UUIDUtil.generateUniqueIslandUUID();
+    UUID leaderUUID = player.getUniqueId();
+
+    SPlayer sPlayer = SPlayer.get(player);
+
+    Location<World> islandLoc = getNextIslandLocation();
+
+    schematic.pasteSchematicAsync(islandLoc, player);
+
+    Island island = Island.addIsland(islandUUID, leaderUUID, islandName, islandLoc);
+
+    sPlayer.setIsland(island);
+    sPlayer.setIslandRole(IslandPermissionLevel.LEADER);
+
+    // TODO ISLANDNEWEVENT
+
+
+  }
+
+
+  private Location<World> getNextIslandLocation() {
     Location<World> last = getLastLocation();
     return getNextGridLocation(last);
   }
@@ -39,14 +71,14 @@ public class GridManager {
       // THERE IS NO LAST ISLAND LOCATION!
       if(!rs.next()) {
         last = new Location<World>(
-            WorldManager.get().getIslandWorld(),
+            WorldManager.get().getWorld(),
             0,
             ConfigManager.get().getConf().world.island_paste_height,
             0);
       } else {
         String rawLoc = rs.getString("lastisland");
         double[] arr = Stream.of(rawLoc.split(",")).mapToDouble(Double::parseDouble).toArray();
-        last = new Location<World>(WorldManager.get().getIslandWorld(), arr[0], ConfigManager.get().getConf().world.island_paste_height, arr[1]);
+        last = new Location<World>(WorldManager.get().getWorld(), arr[0], ConfigManager.get().getConf().world.island_paste_height, arr[1]);
       }
 
       return last;
@@ -85,7 +117,7 @@ public class GridManager {
       nextZ = (z - ConfigManager.get().getConf().world.islandDistance);
     }
 
-    Location<World> next = new Location<World>(WorldManager.get().getIslandWorld(), nextX, ConfigManager.get().getConf().world.island_paste_height, nextZ);
+    Location<World> next = new Location<World>(WorldManager.get().getWorld(), nextX, ConfigManager.get().getConf().world.island_paste_height, nextZ);
 
     saveLastLocation(next);
 
@@ -106,7 +138,7 @@ public class GridManager {
   }
 
   private boolean inWorld(Location<World> location) {
-    return location.getExtent() == WorldManager.get().getIslandWorld();
+    return location.getExtent() == WorldManager.get().getWorld();
   }
 
 

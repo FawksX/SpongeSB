@@ -3,12 +3,14 @@ package games.synx.spongysb;
 import com.google.inject.Inject;
 import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.generation.GridManager;
+import games.synx.spongysb.generation.SchematicHandler;
 import games.synx.spongysb.generation.WorldManager;
 import games.synx.spongysb.listeners.ListenerManager;
 import games.synx.spongysb.storage.DatabaseManager;
 import org.slf4j.Logger;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.config.ConfigDir;
+import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.game.state.GameAboutToStartServerEvent;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.event.Listener;
@@ -37,6 +39,7 @@ public class SpongySB {
     private static SpongySB instance;
 
     private Path configDir;
+    public Path schematicsDir;
 
 
     private ConfigManager configManager;
@@ -56,9 +59,6 @@ public class SpongySB {
 
     @Inject
     private Logger logger;
-
-    @Inject @ConfigDir(sharedRoot = false)
-    private Path defaultConfigDir;
 
     // ----------------------------------------------- //
     // METHODS
@@ -80,12 +80,6 @@ public class SpongySB {
         worldManager = new WorldManager();
         listenerManager = new ListenerManager();
 
-        // TEMP
-
-        Location<World> temp = GridManager.get().getNextIslandLocation();
-        System.out.println(temp.getExtent().toString() + "X: " + String.valueOf(temp.getBlockX()) + "Z: " + String.valueOf(temp.getBlockZ()));
-
-
     }
 
     private void setupConfigDirectories() {
@@ -95,9 +89,12 @@ public class SpongySB {
             this.configDir.toFile().mkdir();
         }
 
-        if (!this.defaultConfigDir.toFile().exists()) {
-            this.defaultConfigDir.toFile().mkdir();
+        this.schematicsDir = Paths.get("SpongeSB" + File.separator + "schematics");
+
+        if(!this.schematicsDir.toFile().exists()) {
+            this.schematicsDir.toFile().mkdir();
         }
+
     }
 
     // ----------------------------------------------- //
@@ -118,10 +115,6 @@ public class SpongySB {
 
     public Game getGame() {
         return this.getGame();
-    }
-
-    public Path getDefaultConfigDir() {
-        return this.defaultConfigDir;
     }
 
     public Path getConfigDir() {

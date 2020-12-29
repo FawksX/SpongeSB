@@ -24,7 +24,7 @@ public class WorldManager {
     SpongySB.get().getLogger().info("World Manager has been Registered!");
   }
 
-  public World getIslandWorld() {
+  private World getIslandWorld() {
     SpongySB.get().getLogger().info("Getting island World");
     if(!Sponge.getServer().getWorld(ConfigManager.get().getConf().world.worldName).isPresent()) {
       SpongySB.get().getLogger().info("island World does not exist!");
@@ -39,7 +39,7 @@ public class WorldManager {
   }
 
 
-  public void createWorld() {
+  private void createWorld() {
 
     SpongySB.get().getLogger().info("Creating island World...");
     Sponge.getCommandManager().process(Sponge.getServer().getConsole(), "world create -p the_void " + ConfigManager.get().getConf().world.worldName);

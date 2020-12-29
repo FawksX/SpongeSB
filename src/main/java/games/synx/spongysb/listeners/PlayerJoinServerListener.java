@@ -1,6 +1,8 @@
 package games.synx.spongysb.listeners;
 
 import games.synx.spongysb.SpongySB;
+import games.synx.spongysb.generation.GridManager;
+import games.synx.spongysb.generation.SchematicHandler;
 import games.synx.spongysb.objects.SPlayer;
 import games.synx.spongysb.storage.Statements;
 import org.slf4j.Logger;
@@ -8,6 +10,9 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.network.ClientConnectionEvent;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -53,9 +58,12 @@ public class PlayerJoinServerListener {
 
       } else {
         logger.info("This player already exists in the database!");
-        logger.error(String.valueOf(SPlayer.get(player).getPlayerUUID().toString()));
         connection.close();
       }
+
+      Path schematic = Paths.get(SpongySB.get().schematicsDir.toString() + File.separator + "default.schematic");
+      GridManager.get().newIsland(player, new SchematicHandler(schematic.toFile()), "test"
+      );
 
 
     } catch (SQLException e) {
