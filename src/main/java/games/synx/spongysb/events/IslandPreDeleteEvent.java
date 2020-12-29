@@ -16,8 +16,8 @@ public class IslandPreDeleteEvent extends IslandEvent {
 
     private final UUID playerUUID;
 
-    public IslandPreDeleteEvent(UUID playerUUID, Island island, Cause cause) {
-        super(island, cause);
+    public IslandPreDeleteEvent(UUID playerUUID, Island island) {
+        super(island);
 
         this.playerUUID = playerUUID;
     }

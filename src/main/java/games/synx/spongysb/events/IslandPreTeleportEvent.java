@@ -20,8 +20,8 @@ public class IslandPreTeleportEvent extends CancellableIslandEvent {
 
     private final Location location;
 
-    public IslandPreTeleportEvent(Island island, Player player, Reason type, Location<World> location, Cause cause) {
-        super(island, cause);
+    public IslandPreTeleportEvent(Island island, Player player, Reason type, Location<World> location) {
+        super(island);
 
         this.player = player;
         this.type = type;

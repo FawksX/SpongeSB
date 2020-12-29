@@ -2,11 +2,13 @@ package games.synx.spongysb.generation;
 
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.ConfigManager;
+import games.synx.spongysb.events.IslandNewEvent;
 import games.synx.spongysb.objects.Island;
 import games.synx.spongysb.objects.SPlayer;
 import games.synx.spongysb.storage.Statements;
 import games.synx.spongysb.objects.IslandPermissionLevel;
 import games.synx.spongysb.util.UUIDUtil;
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
@@ -49,7 +51,8 @@ public class GridManager {
     sPlayer.setIsland(island);
     sPlayer.setIslandRole(IslandPermissionLevel.LEADER);
 
-    // TODO ISLANDNEWEVENT
+    IslandNewEvent islandNewEvent = new IslandNewEvent(player, island, islandLoc);
+    Sponge.getEventManager().post(islandNewEvent);
 
 
   }

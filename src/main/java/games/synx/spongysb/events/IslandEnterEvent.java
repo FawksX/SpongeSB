@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import games.synx.spongysb.events.base.IslandEvent;
 import games.synx.spongysb.objects.Island;
-import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
@@ -22,8 +21,8 @@ public class IslandEnterEvent extends IslandEvent {
     private final Location<World> location;
     private final UUID uuid;
 
-    public IslandEnterEvent(UUID player, Island island, Location<World> location, Cause cause) {
-        super(island, cause);
+    public IslandEnterEvent(UUID player, Island island, Location<World> location) {
+        super(island);
 
         this.uuid = player;
         this.location = location;

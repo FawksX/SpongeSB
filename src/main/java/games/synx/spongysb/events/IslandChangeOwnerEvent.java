@@ -5,7 +5,6 @@ import java.util.UUID;
 
 import games.synx.spongysb.events.base.IslandEvent;
 import games.synx.spongysb.objects.Island;
-import org.spongepowered.api.event.cause.Cause;
 
 
 /**
@@ -18,8 +17,8 @@ public class IslandChangeOwnerEvent extends IslandEvent {
 
     private final UUID oldOwner, newOwner;
 
-    public IslandChangeOwnerEvent(Island island, Cause cause, UUID oldOwner, UUID newOwner) {
-        super(island, cause);
+    public IslandChangeOwnerEvent(Island island, UUID oldOwner, UUID newOwner) {
+        super(island);
         this.oldOwner = oldOwner;
         this.newOwner = newOwner;
     }

@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import games.synx.spongysb.events.base.CancellableIslandEvent;
 import games.synx.spongysb.objects.Island;
-import org.spongepowered.api.event.cause.Cause;
 
 /**
  * Called whenever a player leaves an Island.
@@ -16,8 +15,8 @@ public class IslandLeaveEvent extends CancellableIslandEvent {
 
     private final UUID player, oldTeamLeader;
 
-    public IslandLeaveEvent(UUID player, UUID oldTeamLeader, Island island, Cause cause) {
-        super(island, cause);
+    public IslandLeaveEvent(UUID player, UUID oldTeamLeader, Island island) {
+        super(island);
 
         this.player = player;
         this.oldTeamLeader = oldTeamLeader;

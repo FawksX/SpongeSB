@@ -8,8 +8,8 @@ public abstract class CancellableIslandEvent extends IslandEvent implements Canc
 
     private boolean cancelled = false;
 
-    public CancellableIslandEvent(Island island, Cause cause) {
-        super(island, cause);
+    public CancellableIslandEvent(Island island) {
+        super(island);
     }
 
     @Override

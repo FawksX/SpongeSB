@@ -15,8 +15,8 @@ public class IslandPostLevelEvent extends CancellableIslandEvent {
 
     private final long level;
 
-    public IslandPostLevelEvent(Island island, long level, Cause cause) {
-        super(island, cause);
+    public IslandPostLevelEvent(Island island, long level) {
+        super(island);
         this.level = level;
     }
 

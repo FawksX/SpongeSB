@@ -18,8 +18,8 @@ public class IslandResetEvent extends IslandEvent {
     private final Location<World> location;
     private final Player player;
 
-    public IslandResetEvent(Player player, Location<World> oldLocation, Island island, Cause cause) {
-        super(island, cause);
+    public IslandResetEvent(Player player, Location<World> oldLocation, Island island) {
+        super(island);
 
         this.player = player;
         this.location = oldLocation;
