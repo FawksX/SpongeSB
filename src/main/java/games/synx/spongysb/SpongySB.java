@@ -3,6 +3,7 @@ package games.synx.spongysb;
 import com.google.inject.Inject;
 import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.generation.WorldManager;
+import games.synx.spongysb.listeners.ListenerManager;
 import games.synx.spongysb.storage.DatabaseManager;
 import org.slf4j.Logger;
 import org.spongepowered.api.Game;
@@ -38,6 +39,7 @@ public class SpongySB {
     private ConfigManager configManager;
     private WorldManager worldManager;
     private DatabaseManager databaseManager;
+    private ListenerManager listenerManager;
 
     // ----------------------------------------------- //
     // SPONGE DEPENDENCY INJECTIONS
@@ -73,6 +75,7 @@ public class SpongySB {
         configManager = new ConfigManager();
         databaseManager = new DatabaseManager();
         worldManager = new WorldManager();
+        listenerManager = new ListenerManager();
 
 
     }
@@ -123,6 +126,14 @@ public class SpongySB {
 
     public WorldManager getWorldManager() {
         return this.worldManager;
+    }
+
+    public DatabaseManager getDatabaseManager() {
+        return this.databaseManager;
+    }
+
+    public ListenerManager getListenerManager() {
+        return this.listenerManager;
     }
 
 }

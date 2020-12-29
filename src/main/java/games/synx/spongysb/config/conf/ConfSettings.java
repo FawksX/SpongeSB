@@ -45,6 +45,9 @@ public class ConfSettings {
     @Setting
     public int islandDistance = 600;
 
+    @Setting
+    public int island_paste_height = 100;
+
   }
 
 }
