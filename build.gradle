@@ -11,6 +11,7 @@ sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
 apply plugin: 'org.spongepowered.plugin'
+apply plugin: 'com.github.johnrengelman.shadow'
 
 dependencies {
 
@@ -30,7 +31,7 @@ dependencies {
 
     // HIKARI CP
     compileOnly 'com.zaxxer:HikariCP:3.4.5'
-    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.22'
+    compileOnly group: 'mysql', name: 'mysql-connector-java', version: '8.0.22'
 
     // LOCAL PLUGINS
     // Basically shit which is unsupported but I need
@@ -54,10 +55,15 @@ compileJava {
 }
 
 shadowJar {
+
     relocate 'co.aikar.commands', 'games.synx.acf'
     relocate 'co.aikar.locales', 'games.synx.locales'
 }
 
-build.dependsOn shadowJar
+build {
+    dependsOn shadowJar
+}
+
+
 
 sponge.plugin.id = 'spongysb'

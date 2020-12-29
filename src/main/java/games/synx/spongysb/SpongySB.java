@@ -1,6 +1,7 @@
 package games.synx.spongysb;
 
 import com.google.inject.Inject;
+import games.synx.spongysb.commands.CommandManager;
 import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.generation.GridManager;
 import games.synx.spongysb.generation.SchematicHandler;
@@ -9,6 +10,7 @@ import games.synx.spongysb.listeners.ListenerManager;
 import games.synx.spongysb.storage.DatabaseManager;
 import org.slf4j.Logger;
 import org.spongepowered.api.Game;
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.game.state.GameAboutToStartServerEvent;
@@ -17,6 +19,9 @@ import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.plugin.Dependency;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
+import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.format.TextColors;
+import org.spongepowered.api.text.format.TextStyles;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
@@ -46,6 +51,7 @@ public class SpongySB {
     private WorldManager worldManager;
     private DatabaseManager databaseManager;
     private ListenerManager listenerManager;
+    private CommandManager commandManager;
 
     // ----------------------------------------------- //
     // SPONGE DEPENDENCY INJECTIONS
@@ -75,10 +81,16 @@ public class SpongySB {
     @Listener
     public void onServerStart(GameStartedServerEvent event) {
 
+        Sponge.getServer().getConsole().getCommandSource().get().sendMessage(Text.of(TextColors.DARK_GRAY, "------------------------------"));
+        Sponge.getServer().getConsole().getCommandSource().get().sendMessage(Text.of(TextColors.YELLOW, TextStyles.BOLD, "SpongeSB by FawksX"));
+        Sponge.getServer().getConsole().getCommandSource().get().sendMessage(Text.of(TextColors.WHITE, "Licensed to ", TextColors.RED, "Blaze", TextColors.YELLOW, "Gaming"));
+        Sponge.getServer().getConsole().getCommandSource().get().sendMessage(Text.of(TextColors.DARK_GRAY, "------------------------------"));
+
         configManager = new ConfigManager();
         databaseManager = new DatabaseManager();
         worldManager = new WorldManager();
         listenerManager = new ListenerManager();
+        commandManager = new CommandManager();
 
     }
 
@@ -135,6 +147,10 @@ public class SpongySB {
 
     public ListenerManager getListenerManager() {
         return this.listenerManager;
+    }
+
+    public CommandManager getCommandManager() {
+        return this.commandManager;
     }
 
 }

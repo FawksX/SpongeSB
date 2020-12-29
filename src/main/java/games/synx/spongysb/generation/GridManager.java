@@ -130,7 +130,6 @@ public class GridManager {
       PreparedStatement preparedStatement = connection.prepareStatement(Statements.UPDATE_LAST_GRID_ISLAND);
       preparedStatement.setString(1, location.getBlockX() + "," + location.getBlockZ());
       preparedStatement.executeUpdate();
-      connection.close();
     } catch (SQLException e) {
       e.printStackTrace();
     }

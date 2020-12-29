@@ -1,18 +1,12 @@
 package games.synx.spongysb.listeners;
 
 import games.synx.spongysb.SpongySB;
-import games.synx.spongysb.generation.GridManager;
-import games.synx.spongysb.generation.SchematicHandler;
-import games.synx.spongysb.objects.SPlayer;
 import games.synx.spongysb.storage.Statements;
 import org.slf4j.Logger;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.network.ClientConnectionEvent;
 
-import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -51,7 +45,7 @@ public class PlayerJoinServerListener {
         PreparedStatement stmt = connection.prepareStatement(Statements.INSERT_PLAYER);
         stmt.setString(1, player.getUniqueId().toString());
         stmt.setString(2, String.valueOf(new UUID(0L, 0L)));
-        stmt.setString(3, null);
+        stmt.setString(3, "");
 
         stmt.executeUpdate();
         connection.close();
@@ -61,9 +55,6 @@ public class PlayerJoinServerListener {
         connection.close();
       }
 
-      Path schematic = Paths.get(SpongySB.get().schematicsDir.toString() + File.separator + "default.schematic");
-      GridManager.get().newIsland(player, new SchematicHandler(schematic.toFile()), "test"
-      );
 
 
     } catch (SQLException e) {

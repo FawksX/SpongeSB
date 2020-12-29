@@ -23,9 +23,10 @@ public class Island {
   private Location<World> location;
   private int member_amount;
   private String banned_members;
+  private Location<World> homeLocation;
 
   private Island(UUID island_uuid, UUID leader_uuid, String island_name,
-                 String center_location, int member_amount, String banned_members) {
+                 String center_location, int member_amount, String banned_members, String home_location) {
 
     this.island_uuid = island_uuid;
     this.leader_uuid = leader_uuid;
@@ -36,15 +37,21 @@ public class Island {
     this.banned_members = banned_members;
 
 
+    //TODO SIMPLIFY
+
     // STORED IN FORMAT: x,z
     double[] arr = Stream.of(center_location.split(",")).mapToDouble(Double::parseDouble).toArray();
     this.location = new Location<World>(WorldManager.get().getWorld(), arr[0], ConfigManager.get().getConf().world.island_paste_height, arr[1]);
+
+    // HOME LOCATION
+    double[] homeLoc = Stream.of(home_location.split(",")).mapToDouble(Double::parseDouble).toArray();
+    this.homeLocation = new Location<World>(WorldManager.get().getWorld(), homeLoc[0], homeLoc[1], homeLoc[2]);
   }
 
   public static Island get(UUID island_uuid) {
 
     try (Connection connection = SpongySB.get().getDatabaseManager().getConnection()) {
-      PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_PLAYER);
+      PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_ISLAND);
       preparedStatement.setString(1, island_uuid.toString());
       ResultSet rs = preparedStatement.executeQuery();
       rs.next();
@@ -55,11 +62,13 @@ public class Island {
           rs.getString("island_name"),
           rs.getString("center_location"),
           rs.getInt("member_amount"),
-          rs.getString("banned_members")
+          rs.getString("banned_members"),
+          rs.getString("home_location")
       );
 
     } catch (SQLException e) {
-      SpongySB.get().getLogger().error("Could not fetch user, did something go wrong?");
+      SpongySB.get().getLogger().error("Could not fetch island, did something go wrong?");
+      e.printStackTrace();
       return null;
     }
 
@@ -76,10 +85,26 @@ public class Island {
   public static Island addIsland(UUID islandUUID, UUID leaderUUID, String islandName, Location<World> centerLoc) {
 
     String centerSerialised = centerLoc.getBlockX() + "," + centerLoc.getBlockZ();
+    String homeLocSerialised = centerLoc.getBlockX() + "," + centerLoc.getBlockY() + "," + centerLoc.getBlockZ();
 
-    // TODO LOGIC TO PUT INTO DATABASE
+    try(Connection connection = SpongySB.get().getDatabaseManager().getConnection()) {
+      PreparedStatement preparedStatement = connection.prepareStatement(Statements.INSERT_ISLAND);
+      preparedStatement.setString(1, islandUUID.toString());
+      preparedStatement.setString(2, leaderUUID.toString());
+      preparedStatement.setString(3, islandName);
+      preparedStatement.setString(4, centerSerialised);
+      preparedStatement.setInt(5, 1);
+      preparedStatement.setString(6, "");
 
-    return new Island(islandUUID, leaderUUID, islandName, centerSerialised, 1, "");
+      // BY DEFAULT CENTER LOCATION IS THE SAME AS THE PASTE LOCATION, AS IT WILL BE A SOLID LOCATION IF SCHEM IS MADE CORRECTLY.
+      preparedStatement.setString(7, homeLocSerialised);
+      preparedStatement.executeUpdate();
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+    return new Island(islandUUID, leaderUUID, islandName, centerSerialised, 1, "", homeLocSerialised);
 
   }
 
@@ -105,6 +130,10 @@ public class Island {
 
   public SPlayer getLeader() {
     return SPlayer.get(leader_uuid);
+  }
+
+  public Location<World> getHomeLocation() {
+    return this.homeLocation;
   }
 
 

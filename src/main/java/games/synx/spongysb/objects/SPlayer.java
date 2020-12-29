@@ -42,6 +42,7 @@ public class SPlayer {
 
     } catch (SQLException e) {
       SpongySB.get().getLogger().error("Could not fetch user, did something go wrong?");
+      e.printStackTrace();
       return null;
     }
 
@@ -69,6 +70,10 @@ public class SPlayer {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+  }
+
+  public boolean isInIsland() {
+    return !island_uuid.equals(new UUID(0L, 0L));
   }
 
   public Island getIsland() {
