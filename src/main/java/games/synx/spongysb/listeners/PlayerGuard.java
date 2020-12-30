@@ -27,6 +27,7 @@ public class PlayerGuard {
     Player player = (Player) event.getSource();
     SPlayer sPlayer = SPlayer.get(player);
 
+    if(isBypassed(sPlayer)) return;
     if(isNotInWorld(player)) return;
     if(sPlayer.hasPerm(sPlayer, IslandPerm.BREAK, player.getLocation())) return;
 
@@ -41,6 +42,7 @@ public class PlayerGuard {
   public void onBlockPlace(ChangeBlockEvent.Place event, @Root Player player) {
     SPlayer sPlayer = SPlayer.get(player);
 
+    if(isBypassed(sPlayer)) return;
     if(isNotInWorld(player)) return;
     if(sPlayer.hasPerm(sPlayer, IslandPerm.PLACE, player.getLocation())) return;
 
@@ -58,6 +60,10 @@ public class PlayerGuard {
 
   private boolean isNotInWorld(Location<World> location) {
     return !GridManager.get().inWorld(location);
+  }
+
+  private boolean isBypassed(SPlayer player) {
+    return player.isBypassed();
   }
 
 }

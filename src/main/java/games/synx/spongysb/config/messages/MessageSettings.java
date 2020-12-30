@@ -31,5 +31,10 @@ public class MessageSettings {
   @Setting
   public String could_not_teleport_to_island = "&cCould not teleport to your island. Contact Staff for help!";
 
+  @Setting
+  public String enabled_admin_bypass = "&e&lISLAND &aYou have successfully &lENABLED&a Island Bypass!";
+
+  @Setting
+  public String disable_admin_bypass = "&e&lISLAND &cYou have successfully &lDISABLED&c Island Bypass!";
 
 }

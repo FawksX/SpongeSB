@@ -2,6 +2,8 @@ package games.synx.spongysb.commands;
 
 import co.aikar.commands.SpongeCommandManager;
 import games.synx.spongysb.SpongySB;
+import games.synx.spongysb.commands.admin.AdminBypassCommand;
+import games.synx.spongysb.commands.admin.SpongeSBCommand;
 import games.synx.spongysb.commands.island.IslandCommand;
 import games.synx.spongysb.commands.island.IslandCreateCommand;
 import games.synx.spongysb.commands.island.IslandGoCommand;
@@ -19,6 +21,7 @@ public class CommandManager {
     spongeCommandManager = new SpongeCommandManager(SpongySB.get().getPluginContainer());
 
     registerPlayerCommands();
+    registerAdminCommands();
 
   }
 
@@ -30,6 +33,13 @@ public class CommandManager {
     spongeCommandManager.registerCommand(new IslandCreateCommand());
     spongeCommandManager.registerCommand(new IslandGoCommand());
 
+  }
+
+  public void registerAdminCommands() {
+
+    logger.info("Initialising Admin Commands");
+    spongeCommandManager.registerCommand(new SpongeSBCommand());
+    spongeCommandManager.registerCommand(new AdminBypassCommand());
   }
 
 }

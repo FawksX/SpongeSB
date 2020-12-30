@@ -46,6 +46,7 @@ public class PlayerJoinServerListener {
         stmt.setString(1, player.getUniqueId().toString());
         stmt.setString(2, String.valueOf(new UUID(0L, 0L)));
         stmt.setString(3, "");
+        stmt.setBoolean(4, false);
 
         stmt.executeUpdate();
         connection.close();

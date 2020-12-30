@@ -17,11 +17,13 @@ public class SPlayer {
   private UUID island_uuid;
   private UUID player_uuid;
   private String island_role;
+  private boolean island_bypass;
 
-  private SPlayer(UUID island_uuid, UUID player_uuid, String island_role) {
+  private SPlayer(UUID island_uuid, UUID player_uuid, String island_role, boolean island_bypass) {
     this.island_uuid = island_uuid;
     this.player_uuid = player_uuid;
     this.island_role = island_role;
+    this.island_bypass = island_bypass;
   }
 
   public static SPlayer get(Player player) {
@@ -39,7 +41,8 @@ public class SPlayer {
       return new SPlayer(
           UUID.fromString(rs.getString("island_uuid")),
           uuid,
-          rs.getString("island_role")
+          rs.getString("island_role"),
+          rs.getBoolean("admin_bypass")
       );
 
     } catch (SQLException e) {
@@ -84,6 +87,24 @@ public class SPlayer {
 
   public boolean isInIsland() {
     return !island_uuid.equals(new UUID(0L, 0L));
+  }
+
+  public Boolean isBypassed() {
+    return island_bypass;
+  }
+
+  public void setBypassed(Boolean bypassed) {
+    this.island_bypass = bypassed;
+
+    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection()) {
+      PreparedStatement preparedStatement = connection.prepareStatement(Statements.PLAYER_SET_ADMIN_BYPASSED);
+      preparedStatement.setBoolean(1, bypassed);
+      preparedStatement.setString(2, getPlayerUUID().toString());
+      preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
   }
 
   public Island getIsland() {
