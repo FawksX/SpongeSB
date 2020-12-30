@@ -55,8 +55,6 @@ public class PlayerJoinServerListener {
         connection.close();
       }
 
-
-
     } catch (SQLException e) {
       SpongySB.get().getLogger().error("Something went wrong with your database!");
       e.printStackTrace();

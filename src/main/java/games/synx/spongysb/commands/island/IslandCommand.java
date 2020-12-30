@@ -16,7 +16,6 @@ public class IslandCommand extends AbstractIslandCommand {
   @CatchUnknown @Default @HelpCommand
   public void onDefault(Player player, CommandHelp help) {
 
-    msg(player, getMessages().helpCommand.header);
     help.showHelp();
 
   }

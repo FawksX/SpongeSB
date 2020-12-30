@@ -11,7 +11,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -48,6 +47,11 @@ public class Island {
     this.homeLocation = new Location<World>(WorldManager.get().getWorld(), homeLoc[0], homeLoc[1], homeLoc[2]);
   }
 
+  /**
+   * Gets an Island from it's UUID
+   * @param island_uuid the UUID of the island stored in the database
+   * @return Island
+   */
   public static Island get(UUID island_uuid) {
 
     try (Connection connection = SpongySB.get().getDatabaseManager().getConnection()) {
@@ -108,30 +112,104 @@ public class Island {
 
   }
 
+  /**
+   * Get an Island at a Sponge Location instance
+   * @param location - Location<World> instance
+   * @return getIslandAt(x,z)
+   */
+  public static Island getIslandAt(Location<World> location) {
+    return getIslandAt(location.getBlockX(), location.getBlockZ());
+  }
+
+  /**
+   * Get an Island from it's coordinates
+   * This takes the two integers and does some mathsy stuff with them to get the nearest island center.
+   * @param x X coordinate of the location
+   * @param z Z coordinate of the location
+   * @return Island
+   */
+  public static Island getIslandAt(int x, int z) {
+    int nearestX =
+        (int) ((Math.round((double) x / ConfigManager.get().getConf().world.islandDistance) * ConfigManager.get().getConf().world.islandDistance));
+    int nearestZ =
+        (int) ((Math.round((double) z / ConfigManager.get().getConf().world.islandDistance) * ConfigManager.get().getConf().world.islandDistance));
+
+    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection()) {
+      PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_ISLAND_FROM_LOCATION);
+      preparedStatement.setString(1, nearestX + "," + nearestZ);
+      ResultSet rs = preparedStatement.executeQuery();
+
+      return new Island(
+          UUID.fromString(rs.getString("island_uuid")),
+          UUID.fromString(rs.getString("leader_uuid")),
+          rs.getString("island_name"),
+          rs.getString("center_location"),
+          rs.getInt("member_amount"),
+          rs.getString("banned_members"),
+          rs.getString("home_location")
+      );
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return null;
+    }
+
+  }
+
+
+  /**
+   * Get an Islands UUID
+   * @return Island UUID
+   */
   public UUID getIslandUUID() {
     return this.island_uuid;
   }
 
+  /**
+   * Get an Islands' Leaders' UUID
+   * @return Leader UUID
+   */
   public UUID getLeaderUUID() {
     return this.leader_uuid;
   }
 
+  /**
+   * Get an Islands' Name
+   * @return Island Name
+   */
   public String getIslandName() {
     return this.island_name;
   }
 
+  /**
+   * Get an Islands' Center Location
+   * This is useful for a number of things as it acts as a static reference point
+   * @return Islands' Center Location
+   */
   public Location<World> getCenterLocation() {
     return this.location;
   }
 
+  /**
+   * Gets an Islands' total Member Count
+   * @return member count
+   */
   public int getMemberCount() {
     return this.member_amount;
   }
 
+  /**
+   * Returns an SPlayer object of the Leader
+   * @return Leader as SPlayer
+   */
   public SPlayer getLeader() {
     return SPlayer.get(leader_uuid);
   }
 
+  /**
+   * Gets the Home location set by the Island as a safe teleport space
+   * @return Location of Home
+   */
   public Location<World> getHomeLocation() {
     return this.homeLocation;
   }

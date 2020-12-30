@@ -2,6 +2,7 @@ package games.synx.spongysb.generation;
 
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.ConfigManager;
+import games.synx.spongysb.config.conf.Conf;
 import games.synx.spongysb.events.IslandNewEvent;
 import games.synx.spongysb.events.IslandPreDeleteEvent;
 import games.synx.spongysb.objects.Island;
@@ -10,6 +11,7 @@ import games.synx.spongysb.storage.Statements;
 import games.synx.spongysb.objects.IslandPermissionLevel;
 import games.synx.spongysb.util.UUIDUtil;
 import org.spongepowered.api.Sponge;
+import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
@@ -138,6 +140,23 @@ public class GridManager {
       e.printStackTrace();
     }
 
+  }
+
+  public boolean onGrid(Location<World> loc) {
+    int x = loc.getBlockX();
+    int z = loc.getBlockZ();
+
+    return onGrid(x, z);
+  }
+
+  public boolean onGrid(int x, int z) {
+    if ((x) % ConfigManager.get().getConf().world.islandDistance != 0) return false;
+    return (z % ConfigManager.get().getConf().world.islandDistance == 0);
+  }
+
+
+  private boolean inWorld(Entity entity) {
+    return inWorld(entity.getLocation());
   }
 
   private boolean inWorld(Location<World> location) {
