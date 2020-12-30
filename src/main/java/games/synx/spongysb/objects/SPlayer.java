@@ -76,6 +76,9 @@ public class SPlayer {
 
   // TODO WRITE LOGIC FOR ISLAND PERMISSIONS // RANKS
   public boolean hasPerm(SPlayer sPlayer, IslandPerm islandPerm, Location<World> world) {
+    if(Island.getIslandAt(world) == null) {
+      return false;
+    }
     return sPlayer.getIsland().getIslandUUID().toString().equals(Island.getIslandAt(world).getIslandUUID().toString());
   }
 

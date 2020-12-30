@@ -139,17 +139,19 @@ public class Island {
       preparedStatement.setString(1, nearestX + "," + nearestZ);
       ResultSet rs = preparedStatement.executeQuery();
 
-      rs.next();
+      if(rs.next()) {
+        return new Island(
+            UUID.fromString(rs.getString("island_uuid")),
+            UUID.fromString(rs.getString("leader_uuid")),
+            rs.getString("island_name"),
+            rs.getString("center_location"),
+            rs.getInt("member_amount"),
+            rs.getString("banned_members"),
+            rs.getString("home_location")
+        );
+      }
 
-      return new Island(
-          UUID.fromString(rs.getString("island_uuid")),
-          UUID.fromString(rs.getString("leader_uuid")),
-          rs.getString("island_name"),
-          rs.getString("center_location"),
-          rs.getInt("member_amount"),
-          rs.getString("banned_members"),
-          rs.getString("home_location")
-      );
+      return null;
 
     } catch (SQLException e) {
       e.printStackTrace();
