@@ -8,6 +8,7 @@ import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.block.ChangeBlockEvent;
+import org.spongepowered.api.event.filter.cause.Root;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
@@ -17,6 +18,10 @@ public class PlayerGuard {
     SpongySB.get().getLogger().info("Initialising PlayerGuard");
   }
 
+  /**
+   * Stops the player from breaking outside of their island
+   * @param event ChangeBlockEvent.Break (SpongeAPI)
+   */
   @Listener
   public void onBlockBreak(ChangeBlockEvent.Break event) {
     Player player = (Player) event.getSource();
@@ -24,6 +29,20 @@ public class PlayerGuard {
 
     if(isNotInWorld(player)) return;
     if(sPlayer.hasPerm(sPlayer, IslandPerm.BREAK, player.getLocation())) return;
+
+    event.setCancelled(true);
+  }
+
+  /**
+   * Stops the player from placing outside of their island
+   * @param event ChangeBlockEvent.Place (SpongeAPI)
+   */
+  @Listener
+  public void onBlockPlace(ChangeBlockEvent.Place event, @Root Player player) {
+    SPlayer sPlayer = SPlayer.get(player);
+
+    if(isNotInWorld(player)) return;
+    if(sPlayer.hasPerm(sPlayer, IslandPerm.PLACE, player.getLocation())) return;
 
     event.setCancelled(true);
   }
