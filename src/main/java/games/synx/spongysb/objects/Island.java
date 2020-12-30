@@ -54,8 +54,9 @@ public class Island {
    */
   public static Island get(UUID island_uuid) {
 
-    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection()) {
-      PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_ISLAND);
+    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_ISLAND)) {
+
       preparedStatement.setString(1, island_uuid.toString());
       ResultSet rs = preparedStatement.executeQuery();
       rs.next();
@@ -91,8 +92,9 @@ public class Island {
     String centerSerialised = centerLoc.getBlockX() + "," + centerLoc.getBlockZ();
     String homeLocSerialised = centerLoc.getBlockX() + "," + centerLoc.getBlockY() + "," + centerLoc.getBlockZ();
 
-    try(Connection connection = SpongySB.get().getDatabaseManager().getConnection()) {
-      PreparedStatement preparedStatement = connection.prepareStatement(Statements.INSERT_ISLAND);
+    try(Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(Statements.INSERT_ISLAND)) {
+
       preparedStatement.setString(1, islandUUID.toString());
       preparedStatement.setString(2, leaderUUID.toString());
       preparedStatement.setString(3, islandName);
@@ -134,8 +136,9 @@ public class Island {
     int nearestZ =
         (int) ((Math.round((double) z / ConfigManager.get().getConf().world.islandDistance) * ConfigManager.get().getConf().world.islandDistance));
 
-    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection()) {
-      PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_ISLAND_FROM_LOCATION);
+    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_ISLAND_FROM_LOCATION)) {
+
       preparedStatement.setString(1, nearestX + "," + nearestZ);
       ResultSet rs = preparedStatement.executeQuery();
 
@@ -159,7 +162,6 @@ public class Island {
     }
 
   }
-
 
   /**
    * Get an Islands UUID

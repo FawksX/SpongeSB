@@ -32,8 +32,9 @@ public class SPlayer {
 
   public static SPlayer get(UUID uuid) {
 
-    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection()) {
-      PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_PLAYER);
+    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_PLAYER)) {
+
       preparedStatement.setString(1, uuid.toString());
       ResultSet rs = preparedStatement.executeQuery();
       rs.next();
@@ -55,8 +56,9 @@ public class SPlayer {
 
   public void setIsland(Island island) {
 
-    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection()) {
-      PreparedStatement preparedStatement = connection.prepareStatement(Statements.PLAYER_SET_ISLAND_UUID);
+    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(Statements.PLAYER_SET_ISLAND_UUID);) {
+
       preparedStatement.setString(1, island.getIslandUUID().toString());
       preparedStatement.setString(2, getPlayerUUID().toString());
       preparedStatement.executeUpdate();
@@ -67,8 +69,9 @@ public class SPlayer {
 
   public void setIslandRole(IslandPermissionLevel islandPermissionLevel) {
 
-    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection()) {
-      PreparedStatement preparedStatement = connection.prepareStatement(Statements.PLAYER_SET_ISLAND_ROLE);
+    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(Statements.PLAYER_SET_ISLAND_ROLE);) {
+
       preparedStatement.setString(1, islandPermissionLevel.toString());
       preparedStatement.setString(2, getPlayerUUID().toString());
       preparedStatement.executeUpdate();
@@ -96,8 +99,9 @@ public class SPlayer {
   public void setBypassed(Boolean bypassed) {
     this.island_bypass = bypassed;
 
-    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection()) {
-      PreparedStatement preparedStatement = connection.prepareStatement(Statements.PLAYER_SET_ADMIN_BYPASSED);
+    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(Statements.PLAYER_SET_ADMIN_BYPASSED);) {
+
       preparedStatement.setBoolean(1, bypassed);
       preparedStatement.setString(2, getPlayerUUID().toString());
       preparedStatement.executeUpdate();

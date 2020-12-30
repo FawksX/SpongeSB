@@ -37,6 +37,7 @@ public class PlayerGuard {
   /**
    * Stops the player from placing outside of their island
    * @param event ChangeBlockEvent.Place (SpongeAPI)
+   * @param player The player in question of the event
    */
   @Listener
   public void onBlockPlace(ChangeBlockEvent.Place event, @Root Player player) {
@@ -48,6 +49,8 @@ public class PlayerGuard {
 
     event.setCancelled(true);
   }
+
+
 
 
   // --------------------------------------------------------- //

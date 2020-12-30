@@ -66,11 +66,10 @@ public class GridManager {
 
   private Location<World> getLastLocation() {
 
-    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection()) {
+    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+         ResultSet rs = connection.prepareStatement(Statements.GET_LAST_LOCATION).executeQuery()) {
 
       Location<World> last;
-
-      ResultSet rs = connection.prepareStatement(Statements.GET_LAST_LOCATION).executeQuery();
 
       // THERE IS NO LAST ISLAND LOCATION!
       if(!rs.next()) {
@@ -130,8 +129,9 @@ public class GridManager {
   }
 
   private void saveLastLocation(Location<World> location) {
-    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection()) {
-      PreparedStatement preparedStatement = connection.prepareStatement(Statements.UPDATE_LAST_GRID_ISLAND);
+    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(Statements.UPDATE_LAST_GRID_ISLAND)) {
+
       preparedStatement.setString(1, location.getBlockX() + "," + location.getBlockZ());
       preparedStatement.executeUpdate();
     } catch (SQLException e) {

@@ -34,15 +34,16 @@ public class PlayerJoinServerListener {
 
     Player player = (Player) event.getSource();
 
-    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection()) {
-      PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_PLAYER);
+    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_PLAYER);
+         PreparedStatement stmt = connection.prepareStatement(Statements.INSERT_PLAYER);) {
+
       preparedStatement.setString(1, player.getUniqueId().toString());
       ResultSet rs = preparedStatement.executeQuery();
 
       // Check if Player has no data
       if(!rs.next()) {
 
-        PreparedStatement stmt = connection.prepareStatement(Statements.INSERT_PLAYER);
         stmt.setString(1, player.getUniqueId().toString());
         stmt.setString(2, String.valueOf(new UUID(0L, 0L)));
         stmt.setString(3, "");

@@ -28,8 +28,9 @@ public class IslandUpgrades {
 
   public static IslandUpgrades get(Island island) {
 
-    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection()) {
-      PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_ISLAND_UPGRADES);
+    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_ISLAND_UPGRADES)) {
+
       preparedStatement.setString(1, island.getIslandUUID().toString());
       ResultSet rs = preparedStatement.executeQuery();
       rs.next();
