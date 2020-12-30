@@ -114,7 +114,7 @@ public class Island {
 
   /**
    * Get an Island at a Sponge Location instance
-   * @param location - Location<World> instance
+   * @param location - location at which you want to find the island
    * @return getIslandAt(x,z)
    */
   public static Island getIslandAt(Location<World> location) {
@@ -212,6 +212,14 @@ public class Island {
    */
   public Location<World> getHomeLocation() {
     return this.homeLocation;
+  }
+
+  /**
+   * Gets the IslandUpgrades object for the Island
+   * @return IslandUpgrades object
+   */
+  public IslandUpgrades getUpgrades() {
+    return IslandUpgrades.get(island_uuid);
   }
 
 

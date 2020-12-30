@@ -1,0 +1,15 @@
+games.synx.spongysb
+games.synx.spongysb.commands
+games.synx.spongysb.commands.island
+games.synx.spongysb.config
+games.synx.spongysb.config.conf
+games.synx.spongysb.config.messages
+games.synx.spongysb.config.upgrades
+games.synx.spongysb.events
+games.synx.spongysb.events.base
+games.synx.spongysb.generation
+games.synx.spongysb.integration
+games.synx.spongysb.listeners
+games.synx.spongysb.objects
+games.synx.spongysb.storage
+games.synx.spongysb.util
