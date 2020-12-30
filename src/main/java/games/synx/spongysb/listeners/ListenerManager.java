@@ -14,6 +14,8 @@ public class ListenerManager {
 
     Sponge.getEventManager().registerListeners(SpongySB.get().getPluginContainer(), new PlayerJoinServerListener());
 
+    Sponge.getEventManager().registerListeners(SpongySB.get().getPluginContainer(), new PlayerGuard());
+
   }
 
 }

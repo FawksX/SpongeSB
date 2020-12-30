@@ -153,11 +153,11 @@ public class GridManager {
   }
 
 
-  private boolean inWorld(Entity entity) {
+  public boolean inWorld(Entity entity) {
     return inWorld(entity.getLocation());
   }
 
-  private boolean inWorld(Location<World> location) {
+  public boolean inWorld(Location<World> location) {
     return location.getExtent() == WorldManager.get().getWorld();
   }
 

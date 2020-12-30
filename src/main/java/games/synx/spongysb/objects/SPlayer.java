@@ -3,6 +3,8 @@ package games.synx.spongysb.objects;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.storage.Statements;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.world.Location;
+import org.spongepowered.api.world.World;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -70,6 +72,11 @@ public class SPlayer {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+  }
+
+  // TODO WRITE LOGIC FOR ISLAND PERMISSIONS // RANKS
+  public boolean hasPerm(SPlayer sPlayer, IslandPerm islandPerm, Location<World> world) {
+    return sPlayer.getIsland().getIslandUUID().toString().equals(Island.getIslandAt(world).getIslandUUID().toString());
   }
 
   public boolean isInIsland() {

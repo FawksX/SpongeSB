@@ -139,6 +139,8 @@ public class Island {
       preparedStatement.setString(1, nearestX + "," + nearestZ);
       ResultSet rs = preparedStatement.executeQuery();
 
+      rs.next();
+
       return new Island(
           UUID.fromString(rs.getString("island_uuid")),
           UUID.fromString(rs.getString("leader_uuid")),
