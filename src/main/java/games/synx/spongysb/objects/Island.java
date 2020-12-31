@@ -25,17 +25,15 @@ public class Island {
   private UUID leader_uuid;
   private String island_name;
   private Location<World> location;
-  private int member_amount;
   private String banned_members;
   private Location<World> homeLocation;
 
   private Island(UUID island_uuid, UUID leader_uuid, String island_name,
-                 String center_location, int member_amount, String banned_members, String home_location) {
+                 String center_location, String banned_members, String home_location) {
 
     this.island_uuid = island_uuid;
     this.leader_uuid = leader_uuid;
     this.island_name = island_name;
-    this.member_amount = member_amount;
 
     // TODO should be changed to a List<String>
     this.banned_members = banned_members;
@@ -92,7 +90,6 @@ public class Island {
           UUID.fromString(rs.getString("leader_uuid")),
           rs.getString("island_name"),
           rs.getString("center_location"),
-          rs.getInt("member_amount"),
           rs.getString("banned_members"),
           rs.getString("home_location")
       );
@@ -125,18 +122,17 @@ public class Island {
       preparedStatement.setString(2, leaderUUID.toString());
       preparedStatement.setString(3, islandName);
       preparedStatement.setString(4, centerSerialised);
-      preparedStatement.setInt(5, 1);
-      preparedStatement.setString(6, "");
+      preparedStatement.setString(5, "");
 
       // BY DEFAULT CENTER LOCATION IS THE SAME AS THE PASTE LOCATION, AS IT WILL BE A SOLID LOCATION IF SCHEM IS MADE CORRECTLY.
-      preparedStatement.setString(7, homeLocSerialised);
+      preparedStatement.setString(6, homeLocSerialised);
       preparedStatement.executeUpdate();
 
     } catch (SQLException e) {
       e.printStackTrace();
     }
 
-    return new Island(islandUUID, leaderUUID, islandName, centerSerialised, 1, "", homeLocSerialised);
+    return new Island(islandUUID, leaderUUID, islandName, centerSerialised, "", homeLocSerialised);
 
   }
 
@@ -174,7 +170,6 @@ public class Island {
             UUID.fromString(rs.getString("leader_uuid")),
             rs.getString("island_name"),
             rs.getString("center_location"),
-            rs.getInt("member_amount"),
             rs.getString("banned_members"),
             rs.getString("home_location")
         );
@@ -280,11 +275,31 @@ public class Island {
     }
   }
 
+  /**
+   * Broadcasts messages to all members of the Island who are currently online
+   * @param message the Message to send
+   * @param replacements String replacements used in String.format()
+   */
   public void broadcastToOnlineMembers(String message, Object ... replacements) {
     for(UUID member : getIslandMembers()) {
       if(Sponge.getServer().getPlayer(member).isPresent()) {
         Sponge.getServer().getPlayer(member).get().sendMessage(TextSerializers.FORMATTING_CODE.deserialize(String.format(message, replacements)));
       }
+    }
+  }
+
+  /**
+   * Sets a new Island Name
+   * @param newName name to set the islands to
+   */
+  public void setIslandName(String newName) {
+    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(Statements.ISLAND_SET_NAME)) {
+      preparedStatement.setString(1, newName);
+      preparedStatement.setString(2, getIslandUUID().toString());
+      preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
   }
 

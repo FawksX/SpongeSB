@@ -112,4 +112,7 @@ public class MessageSettings {
   @Setting
   public String player_left_island = "&e&lISLAND &a%s &ehas left your island!";
 
+  @Setting
+  public String island_name_set_successfully = "&e&lISLAND &a%s &ehas changed your island name to &a%s!";
+
 }

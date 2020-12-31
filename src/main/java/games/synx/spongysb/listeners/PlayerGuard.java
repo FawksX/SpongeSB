@@ -93,18 +93,14 @@ public class PlayerGuard {
 
     if(Island.getIslandAt(to) == null) {
       event.setCancelled(true);
-      System.out.println("Cancelled 1");
       player.sendMessage(TextSerializers.FORMATTING_CODE.deserialize(ConfigManager.get().getMessages().only_allowed_to_teleport_to_own_island));
     }
 
-    System.out.println(Island.getIslandAt(to).getIslandUUID());
-    System.out.println(sPlayer.getIslandUUID());
 
     if(sPlayer.getIsland().getIslandUUID().toString().equals(Island.getIslandAt(to).getIslandUUID().toString())) return;
 
     if(Island.getIslandAt(to).getIslandUUID() != sPlayer.getIsland().getIslandUUID()) {
       event.setCancelled(true);
-      System.out.println("Cancelled 2");
       player.sendMessage(TextSerializers.FORMATTING_CODE.deserialize(ConfigManager.get().getMessages().only_allowed_to_teleport_to_own_island));
     }
 
