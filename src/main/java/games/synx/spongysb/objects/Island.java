@@ -1,5 +1,6 @@
 package games.synx.spongysb.objects;
 
+import com.google.common.collect.Lists;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.generation.WorldManager;
@@ -11,7 +12,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 public class Island {
@@ -45,6 +52,29 @@ public class Island {
     // HOME LOCATION
     double[] homeLoc = Stream.of(home_location.split(",")).mapToDouble(Double::parseDouble).toArray();
     this.homeLocation = new Location<World>(WorldManager.get().getWorld(), homeLoc[0], homeLoc[1], homeLoc[2]);
+  }
+
+  public static Island get(String islandName) {
+
+    try(Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+    PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_ISLAND_UUID)) {
+
+      preparedStatement.setString(1, islandName.toUpperCase());
+
+      ResultSet rs = preparedStatement.executeQuery();
+
+      if(rs.next()) {
+        System.out.println(rs.getRow());
+        System.out.println(rs.getString("island_uuid"));
+        return get(UUID.fromString(rs.getString("island_uuid")));
+      }
+
+      return null;
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return null;
+    }
   }
 
   /**
@@ -164,6 +194,70 @@ public class Island {
   }
 
   /**
+   * Removes a UUID from pending invites
+   * @param uuid UUID of the user to remove from the database
+   */
+  public boolean addInvite(String uuid) {
+    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(Statements.UPDATE_ISLAND_INVITE)) {
+
+      long invite_timeout = (System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(ConfigManager.get().getConf().invite_timeout_in_seconds));
+
+      System.out.println(invite_timeout);
+
+      preparedStatement.setString(1, getIslandUUID().toString());
+      preparedStatement.setString(2, uuid);
+      preparedStatement.setLong(3, invite_timeout);
+
+      preparedStatement.executeUpdate();
+      return true;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return false;
+    }
+  }
+
+  public boolean revokeInvite(String uuid) {
+    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(Statements.DELETE_ISLAND_INVITE)) {
+
+      preparedStatement.setString(1, getIslandUUID().toString());
+      preparedStatement.setString(2, uuid);
+      preparedStatement.executeUpdate();
+      return true;
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return false;
+    }
+  }
+
+  /**
+   * Checks if a player is invited to an island
+   * @param uuid the player who has been invited
+   * @return if they have been invited
+   */
+  public boolean isInvited(String uuid) {
+    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_ISLAND_INVITE)) {
+
+      preparedStatement.setString(1, uuid);
+      preparedStatement.setString(2, getIslandUUID().toString());
+      ResultSet rs = preparedStatement.executeQuery();
+
+      if(rs.next()) {
+        return rs.getLong("invite_time") > System.currentTimeMillis();
+      }
+
+      return false;
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return false;
+    }
+  }
+
+  /**
    * Get an Islands UUID
    * @return Island UUID
    */
@@ -209,7 +303,7 @@ public class Island {
    * @return Leader as SPlayer
    */
   public SPlayer getLeader() {
-    return SPlayer.get(leader_uuid);
+    return SPlayer.get(getLeaderUUID());
   }
 
   /**
@@ -225,7 +319,7 @@ public class Island {
    * @return IslandUpgrades object
    */
   public IslandUpgrades getUpgrades() {
-    return IslandUpgrades.get(island_uuid);
+    return IslandUpgrades.get(getIslandUUID());
   }
 
 

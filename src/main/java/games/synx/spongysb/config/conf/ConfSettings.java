@@ -12,6 +12,9 @@ public class ConfSettings {
   @Setting
   public Database database = new Database();
 
+  @Setting
+  public long invite_timeout_in_seconds = 900;
+
   /**
    * Configuration Section Dedicated to MySQL Connections
    * The only place where this is referenced is games.synx.spongysb.storage.DatabaseManager

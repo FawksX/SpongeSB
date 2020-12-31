@@ -7,6 +7,8 @@ import games.synx.spongysb.commands.admin.SpongeSBCommand;
 import games.synx.spongysb.commands.island.IslandCommand;
 import games.synx.spongysb.commands.island.IslandCreateCommand;
 import games.synx.spongysb.commands.island.IslandGoCommand;
+import games.synx.spongysb.commands.island.IslandInviteCommand;
+import games.synx.spongysb.commands.island.IslandJoinCommand;
 import org.slf4j.Logger;
 
 public class CommandManager {
@@ -32,6 +34,8 @@ public class CommandManager {
     spongeCommandManager.registerCommand(new IslandCommand());
     spongeCommandManager.registerCommand(new IslandCreateCommand());
     spongeCommandManager.registerCommand(new IslandGoCommand());
+    spongeCommandManager.registerCommand(new IslandInviteCommand());
+    spongeCommandManager.registerCommand(new IslandJoinCommand());
 
   }
 
