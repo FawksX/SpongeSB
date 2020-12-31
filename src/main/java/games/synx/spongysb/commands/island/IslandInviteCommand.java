@@ -26,17 +26,29 @@ public class IslandInviteCommand extends AbstractIslandCommand {
       return;
     }
 
+    if(!sPlayer.isInIsland()) {
+      msg(player, getMessages().must_be_in_island_to_invite);
+    }
+
     Player targetInvite = Sponge.getServer().getPlayer(name).get();
+
+    // TODO ISLAND UPGRADE TO ALLOW FOR LARGER SIZE ISLANDS
+    if(island.getMemberCount() > 2) {
+      msg(player, String.format(getMessages().island_is_full, targetInvite.getName()));
+      return;
+    }
 
     if(island.isInvited(targetInvite.getUniqueId().toString())) {
       island.revokeInvite(targetInvite.getUniqueId().toString());
       msg(player, String.format(getMessages().invite_revoked_successfully, targetInvite.getName()));
+      island.broadcastToOnlineMembers(getMessages().leader_revoked_invite, player.getName(), targetInvite.getName());
       return;
     }
 
     island.addInvite(targetInvite.getUniqueId().toString());
     msg(player, String.format(getMessages().invited_player_successfully, targetInvite.getName()));
     msg(targetInvite, String.format(getMessages().invited_to_island, player.getName(), island.getIslandName(), island.getIslandName()));
+    island.broadcastToOnlineMembers(getMessages().leader_invited_player, player.getName(), targetInvite.getName());
 
   }
 

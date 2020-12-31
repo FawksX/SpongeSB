@@ -27,8 +27,7 @@ public class PlayerGuard {
    * @param event ChangeBlockEvent.Break (SpongeAPI)
    */
   @Listener
-  public void onBlockBreak(ChangeBlockEvent.Break event) {
-    Player player = (Player) event.getSource();
+  public void onBlockBreak(ChangeBlockEvent.Break event, @Root Player player) {
     SPlayer sPlayer = SPlayer.get(player);
 
     if(isBypassed(sPlayer)) return;

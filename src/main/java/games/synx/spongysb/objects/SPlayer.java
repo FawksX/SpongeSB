@@ -67,6 +67,19 @@ public class SPlayer {
     }
   }
 
+  public void setIsland(UUID uuid) {
+
+    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(Statements.PLAYER_SET_ISLAND_UUID);) {
+
+      preparedStatement.setString(1, uuid.toString());
+      preparedStatement.setString(2, getPlayerUUID().toString());
+      preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
   public void setIslandRole(IslandPermissionLevel islandPermissionLevel) {
 
     try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
@@ -78,6 +91,7 @@ public class SPlayer {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+
   }
 
   // TODO WRITE LOGIC FOR ISLAND PERMISSIONS // RANKS
@@ -109,6 +123,11 @@ public class SPlayer {
       e.printStackTrace();
     }
 
+  }
+
+  public void removeFromIsland() {
+    setIsland(new UUID(0L, 0L));
+    setIslandRole(IslandPermissionLevel.NONE);
   }
 
   public Island getIsland() {

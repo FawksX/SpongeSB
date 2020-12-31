@@ -3,6 +3,7 @@ package games.synx.spongysb.generation;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.ConfigManager;
 import org.spongepowered.api.Sponge;
+import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
 
@@ -52,6 +53,10 @@ public class WorldManager {
 
   public World getWorld() {
     return islandWorld;
+  }
+
+  public Location<World> getServerSpawn() {
+    return new Location<World>(Sponge.getServer().getWorld("world").get(), 0, 100, 0);
   }
 
 

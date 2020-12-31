@@ -52,4 +52,6 @@ public class IslandUpgrades {
     return ConfigManager.get().getUpgrades().size_upgrades.get(islandsize_level);
   }
 
+
+
 }

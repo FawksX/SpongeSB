@@ -1,9 +1,12 @@
 package games.synx.spongysb.objects;
 
+import com.google.common.collect.Lists;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.generation.WorldManager;
 import games.synx.spongysb.storage.Statements;
+import org.spongepowered.api.Sponge;
+import org.spongepowered.api.text.serializer.TextSerializers;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
@@ -11,6 +14,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
@@ -248,6 +252,43 @@ public class Island {
   }
 
   /**
+   * Checks if the UUID of a player is the leader of the island
+   * @param uuid
+   * @return
+   */
+  public boolean isLeader(String uuid) {
+    return getLeaderUUID().toString().equals(uuid);
+  }
+
+  public List<UUID> getIslandMembers() {
+    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+    PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_PLAYERS_IN_ISLAND)) {
+      preparedStatement.setString(1, getIslandUUID().toString());
+      ResultSet rs = preparedStatement.executeQuery();
+
+      List<UUID> island_members = Lists.newArrayList();
+
+      while(rs.next()) {
+        island_members.add(UUID.fromString(rs.getString("player_uuid")));
+      }
+
+      return island_members;
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return Lists.newArrayList();
+    }
+  }
+
+  public void broadcastToOnlineMembers(String message, Object ... replacements) {
+    for(UUID member : getIslandMembers()) {
+      if(Sponge.getServer().getPlayer(member).isPresent()) {
+        Sponge.getServer().getPlayer(member).get().sendMessage(TextSerializers.FORMATTING_CODE.deserialize(String.format(message, replacements)));
+      }
+    }
+  }
+
+  /**
    * Get an Islands UUID
    * @return Island UUID
    */
@@ -285,7 +326,7 @@ public class Island {
    * @return member count
    */
   public int getMemberCount() {
-    return this.member_amount;
+    return getIslandMembers().size();
   }
 
   /**

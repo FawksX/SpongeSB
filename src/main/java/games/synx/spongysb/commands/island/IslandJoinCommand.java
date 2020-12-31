@@ -12,6 +12,8 @@ import games.synx.spongysb.objects.SPlayer;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
 
+import java.util.UUID;
+
 @CommandAlias("is|invite")
 public class IslandJoinCommand extends AbstractIslandCommand {
 
@@ -38,9 +40,13 @@ public class IslandJoinCommand extends AbstractIslandCommand {
       IslandJoinEvent islandJoinEvent = new IslandJoinEvent(player.getUniqueId(), island.getLeaderUUID(), island);
       sPlayer.setIsland(island);
       sPlayer.setIslandRole(IslandPermissionLevel.MEMBER);
+
       msg(player, String.format(getMessages().joined_island_successfully, island.getIslandName()));
       island.revokeInvite(player.getUniqueId().toString());
       Sponge.getEventManager().post(islandJoinEvent);
+
+      island.broadcastToOnlineMembers(getMessages().player_has_joined_island, player.getName());
+
       return;
     }
 

@@ -37,7 +37,7 @@ public class IslandCreateCommand extends AbstractIslandCommand {
     }
 
     Path schematic = Paths.get(SpongySB.get().schematicsDir.toString() + File.separator + "default.schematic");
-    GridManager.get().newIsland(player, new SchematicHandler(schematic.toFile()), "test");
+    GridManager.get().newIsland(player, new SchematicHandler(schematic.toFile()), name);
 
     msg(player, getMessages().island_created_successfully);
 

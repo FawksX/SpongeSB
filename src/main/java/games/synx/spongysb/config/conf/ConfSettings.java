@@ -13,6 +13,9 @@ public class ConfSettings {
   public Database database = new Database();
 
   @Setting
+  public SpawnWorld spawnWorld = new SpawnWorld();
+
+  @Setting
   public long invite_timeout_in_seconds = 900;
 
   /**
@@ -50,6 +53,23 @@ public class ConfSettings {
 
     @Setting
     public int island_paste_height = 100;
+
+  }
+
+  @ConfigSerializable
+  public static class SpawnWorld {
+
+    @Setting
+    public String world = "world";
+
+    @Setting
+    public int x = 0;
+
+    @Setting
+    public int y = 100;
+
+    @Setting
+    public int z = 0;
 
   }
 

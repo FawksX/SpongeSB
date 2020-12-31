@@ -24,7 +24,10 @@ public class Statements {
 
   public static final String GET_ISLAND_INVITE = "SELECT (invite_time) FROM spongysb_island_invites WHERE player_uuid = ? AND island_uuid = ?";
 
+  public static final String GET_PLAYERS_IN_ISLAND = "SELECT (player_uuid) FROM spongysb_players WHERE island_uuid = ?";
+
   // PLAYER - SETTING INDIVIDUAL SECTIONS
+  public static final String PLAYER_LEAVE_ISLAND = "UPDATE spongysb_players SET island_uuid = ?, island_role = ? WHERE player_uuid = ?";
   public static final String PLAYER_SET_ISLAND_UUID = "UPDATE spongysb_players SET island_uuid = ? WHERE player_uuid = ?";
   public static final String PLAYER_SET_ISLAND_ROLE = "UPDATE spongysb_players SET island_role = ? WHERE player_uuid = ?";
   public static final String PLAYER_SET_ADMIN_BYPASSED = "UPDATE spongysb_players SET admin_bypass = ? WHERE player_uuid = ?";

@@ -2,6 +2,7 @@ package games.synx.spongysb.objects;
 
 public enum IslandPermissionLevel {
 
+  NONE(""),
   MEMBER("member"),
   MOD("mod"),
   ADMIN("admin"),
