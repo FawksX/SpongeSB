@@ -9,6 +9,7 @@ import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.generation.GridManager;
 import games.synx.spongysb.generation.SchematicHandler;
 import games.synx.spongysb.objects.SPlayer;
+import games.synx.spongysb.util.IslandNameUtil;
 import org.spongepowered.api.entity.living.player.Player;
 
 import java.io.File;
@@ -27,6 +28,11 @@ public class IslandCreateCommand extends AbstractIslandCommand {
 
     if(sPlayer.isInIsland()) {
       msg(player, getMessages().is_in_island_error);
+      return;
+    }
+
+    if(IslandNameUtil.isIslandNameTaken(name)) {
+      msg(player, String.format(getMessages().island_name_taken, name));
       return;
     }
 

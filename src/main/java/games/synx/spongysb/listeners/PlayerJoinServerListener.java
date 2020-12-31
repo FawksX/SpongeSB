@@ -30,8 +30,6 @@ public class PlayerJoinServerListener {
   @Listener
   public void onPlayerJoin(ClientConnectionEvent.Join event) {
 
-    logger.info("CHECKING IF PLAYER EXISTS IN PLAYERS DB");
-
     Player player = (Player) event.getSource();
 
     try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
@@ -50,10 +48,8 @@ public class PlayerJoinServerListener {
         stmt.setBoolean(4, false);
 
         stmt.executeUpdate();
-        connection.close();
 
       } else {
-        logger.info("This player already exists in the database!");
         connection.close();
       }
 

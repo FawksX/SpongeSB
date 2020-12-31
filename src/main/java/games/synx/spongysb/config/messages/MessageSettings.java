@@ -64,4 +64,7 @@ public class MessageSettings {
   @Setting
   public String island_does_not_exist = "&e&lISLAND &eIsland &c%s &edoes not exist!";
 
+  @Setting
+  public String island_name_taken = "&e&lISLAND &eIsland name &c%s &ealready exists!";
+
 }

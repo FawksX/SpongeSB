@@ -1,6 +1,5 @@
 package games.synx.spongysb.objects;
 
-import com.google.common.collect.Lists;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.generation.WorldManager;
@@ -12,11 +11,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
@@ -64,8 +58,6 @@ public class Island {
       ResultSet rs = preparedStatement.executeQuery();
 
       if(rs.next()) {
-        System.out.println(rs.getRow());
-        System.out.println(rs.getString("island_uuid"));
         return get(UUID.fromString(rs.getString("island_uuid")));
       }
 
@@ -202,8 +194,6 @@ public class Island {
          PreparedStatement preparedStatement = connection.prepareStatement(Statements.UPDATE_ISLAND_INVITE)) {
 
       long invite_timeout = (System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(ConfigManager.get().getConf().invite_timeout_in_seconds));
-
-      System.out.println(invite_timeout);
 
       preparedStatement.setString(1, getIslandUUID().toString());
       preparedStatement.setString(2, uuid);
