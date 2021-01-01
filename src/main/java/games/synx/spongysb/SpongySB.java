@@ -6,6 +6,7 @@ import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.generation.WorldManager;
 import games.synx.spongysb.listeners.ListenerManager;
 import games.synx.spongysb.storage.DatabaseManager;
+import net.minecraftforge.fml.common.Mod;
 import org.slf4j.Logger;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.Sponge;
@@ -24,11 +25,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Plugin(
-    id = "spongysb",
-    name = "SpongySB",
-    authors = "FawksX",
-    version = "1.0.0",
-    description = "Sponge Skyblock Core",
+    id = SpongeSBInfo.ID,
+    name = SpongeSBInfo.NAME,
+    authors = SpongeSBInfo.AUTHORS,
+    version = SpongeSBInfo.VERSION,
+    description = SpongeSBInfo.DESCRIPTION,
     dependencies = {
         @Dependency(id="nucleus"),
         @Dependency(id="luckperms")

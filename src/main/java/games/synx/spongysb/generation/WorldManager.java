@@ -41,9 +41,8 @@ public class WorldManager {
 
 
   private void createWorld() {
-
     SpongySB.get().getLogger().info("Creating island World...");
-    Sponge.getCommandManager().process(Sponge.getServer().getConsole(), "world create -p the_void " + ConfigManager.get().getConf().world.worldName);
+    Sponge.getCommandManager().process(Sponge.getServer().getConsole(), "world create -m sponge:void " + ConfigManager.get().getConf().world.worldName);
   }
 
 
