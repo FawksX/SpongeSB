@@ -14,7 +14,7 @@ import org.spongepowered.api.entity.living.player.Player;
 
 import java.util.UUID;
 
-@CommandAlias("is|invite")
+@CommandAlias("is|island")
 public class IslandJoinCommand extends AbstractIslandCommand {
 
   @Subcommand("join")
@@ -46,12 +46,10 @@ public class IslandJoinCommand extends AbstractIslandCommand {
       Sponge.getEventManager().post(islandJoinEvent);
 
       island.broadcastToOnlineMembers(getMessages().player_has_joined_island, player.getName());
-
       return;
     }
 
     msg(player, String.format(getMessages().could_not_join_island, island.getIslandName()));
 
     }
-
 }

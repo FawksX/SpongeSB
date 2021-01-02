@@ -12,10 +12,6 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
-import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 @CommandAlias("is|island")
 public class IslandGoCommand extends AbstractIslandCommand {
 
@@ -32,15 +28,13 @@ public class IslandGoCommand extends AbstractIslandCommand {
     }
 
     Location<World> teleportLocation = sPlayer.getIsland().getHomeLocation();
-    System.out.println(teleportLocation);
-
-
 
     if(player.setLocationSafely(teleportLocation)) {
       IslandEnterEvent event = new IslandEnterEvent(sPlayer.getPlayerUUID(), sPlayer.getIsland(), teleportLocation);
       player.setLocationSafely(teleportLocation);
       Sponge.getEventManager().post(event);
       msg(player, getMessages().teleporting_to_your_island);
+
     } else {
       if(player.setLocationSafely(sPlayer.getIsland().getCenterLocation())) {
         IslandEnterEvent event = new IslandEnterEvent(sPlayer.getPlayerUUID(), sPlayer.getIsland(), teleportLocation);
@@ -51,8 +45,5 @@ public class IslandGoCommand extends AbstractIslandCommand {
         msg(player, getMessages().could_not_teleport_to_island);
       }
     }
-
   }
-
-
 }

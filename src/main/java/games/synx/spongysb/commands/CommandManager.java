@@ -11,6 +11,7 @@ import games.synx.spongysb.commands.island.IslandInviteCommand;
 import games.synx.spongysb.commands.island.IslandJoinCommand;
 import games.synx.spongysb.commands.island.IslandKickCommand;
 import games.synx.spongysb.commands.island.IslandLeaveCommand;
+import games.synx.spongysb.commands.island.IslandMakeleaderCommand;
 import games.synx.spongysb.commands.island.IslandRenameCommand;
 import org.slf4j.Logger;
 
@@ -42,6 +43,7 @@ public class CommandManager {
     spongeCommandManager.registerCommand(new IslandKickCommand());
     spongeCommandManager.registerCommand(new IslandLeaveCommand());
     spongeCommandManager.registerCommand(new IslandRenameCommand());
+    spongeCommandManager.registerCommand(new IslandMakeleaderCommand());
 
   }
 

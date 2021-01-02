@@ -100,6 +100,7 @@ public class Island {
       return null;
     }
 
+
   }
 
   /**
@@ -117,7 +118,7 @@ public class Island {
 
     try(Connection connection = SpongySB.get().getDatabaseManager().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(Statements.INSERT_ISLAND)) {
-
+      
       preparedStatement.setString(1, islandUUID.toString());
       preparedStatement.setString(2, leaderUUID.toString());
       preparedStatement.setString(3, islandName);
@@ -296,6 +297,17 @@ public class Island {
     try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
          PreparedStatement preparedStatement = connection.prepareStatement(Statements.ISLAND_SET_NAME)) {
       preparedStatement.setString(1, newName);
+      preparedStatement.setString(2, getIslandUUID().toString());
+      preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void setLeaderUUID(String newLeader) {
+    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(Statements.ISLAND_SET_LEADER)) {
+      preparedStatement.setString(1, newLeader);
       preparedStatement.setString(2, getIslandUUID().toString());
       preparedStatement.executeUpdate();
     } catch (SQLException e) {

@@ -115,4 +115,10 @@ public class MessageSettings {
   @Setting
   public String island_name_set_successfully = "&e&lISLAND &a%s &ehas changed your island name to &a%s!";
 
+  @Setting
+  public String must_be_in_island_to_give_leadership = "&e&lISLAND &a%s &cmust be in your island to give Leader to them!";
+
+  @Setting
+  public String leader_changed_broadcast = "&e&lISLAND &a%s &ehas given Island Ownership to &a%s!";
+
 }

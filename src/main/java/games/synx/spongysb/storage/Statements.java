@@ -35,6 +35,7 @@ public class Statements {
   public static final String UPDATE_ISLAND_INVITE = "REPLACE INTO spongysb_island_invites (island_uuid, player_uuid, invite_time) VALUES(?,?,?)";
   public static final String DELETE_ISLAND_INVITE = "DELETE FROM spongysb_island_invites WHERE island_uuid = ? AND player_uuid = ?";
   public static final String ISLAND_SET_NAME = "UPDATE spongysb_islands SET island_name = ? WHERE island_uuid = ?";
+  public static final String ISLAND_SET_LEADER = "UPDATE spongysb_islands SET leader_uuid = ? WHERE island_uuid = ?";
 
   // ISLAND - GETTING INDIVIDUAL SECTION
   public static final String GET_ISLAND_UUID = "SELECT (island_uuid) FROM spongysb_islands WHERE UPPER(island_name) = ?";
