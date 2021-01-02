@@ -2,7 +2,6 @@ package games.synx.spongysb.config.messages;
 
 import games.synx.spongysb.config.AbstractConfiguration;
 import games.synx.spongysb.config.IConfiguration;
-import games.synx.spongysb.config.conf.ConfSettings;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.gson.GsonConfigurationLoader;
 import ninja.leaping.configurate.objectmapping.ObjectMapper;

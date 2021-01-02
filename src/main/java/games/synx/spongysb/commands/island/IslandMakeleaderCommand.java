@@ -1,9 +1,11 @@
 package games.synx.spongysb.commands.island;
 
 import co.aikar.commands.annotation.CommandAlias;
+import co.aikar.commands.annotation.CommandCompletion;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
+import co.aikar.commands.annotation.Syntax;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.objects.Island;
 import games.synx.spongysb.objects.IslandPermissionLevel;
@@ -15,6 +17,8 @@ import org.spongepowered.api.entity.living.player.Player;
 public class IslandMakeleaderCommand extends AbstractIslandCommand {
 
   @Subcommand("makeleader")
+  @Syntax("<player>")
+  @CommandCompletion("@onlineplayers")
   @Description("Give your island to someone else")
   @CommandPermission("spongysb.island.makeleader")
   public void onJoinCommand(Player player, String newLeader) {
@@ -36,7 +40,7 @@ public class IslandMakeleaderCommand extends AbstractIslandCommand {
     }
 
     if(!sTargetLeader.getIslandUUID().toString().equals(sPlayer.getIslandUUID().toString())) {
-      msg(player, String.format(getMessages().must_be_in_island_to_give_leadership, targetLeader.getName()));
+      formatMsg(player, getMessages().must_be_in_island_to_give_leadership, targetLeader.getName());
       return;
     }
 

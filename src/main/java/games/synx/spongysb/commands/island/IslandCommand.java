@@ -6,6 +6,7 @@ import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.Default;
 import co.aikar.commands.annotation.HelpCommand;
 import co.aikar.commands.annotation.Subcommand;
+import co.aikar.commands.annotation.Syntax;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import org.spongepowered.api.entity.living.player.Player;
 
@@ -13,6 +14,7 @@ import org.spongepowered.api.entity.living.player.Player;
 public class IslandCommand extends AbstractIslandCommand {
 
   @Subcommand("help")
+  @Syntax("")
   @CatchUnknown @Default @HelpCommand
   public void onDefault(Player player, CommandHelp help) {
 

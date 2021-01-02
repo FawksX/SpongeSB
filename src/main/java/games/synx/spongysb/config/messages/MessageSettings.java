@@ -1,11 +1,7 @@
 package games.synx.spongysb.config.messages;
 
-import co.aikar.commands.annotation.HelpCommand;
 import ninja.leaping.configurate.objectmapping.Setting;
 import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
-
-import java.util.Arrays;
-import java.util.List;
 
 @ConfigSerializable
 public class MessageSettings {

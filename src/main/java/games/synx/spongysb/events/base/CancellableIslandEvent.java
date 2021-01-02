@@ -2,7 +2,6 @@ package games.synx.spongysb.events.base;
 
 import games.synx.spongysb.objects.Island;
 import org.spongepowered.api.event.Cancellable;
-import org.spongepowered.api.event.cause.Cause;
 
 public abstract class CancellableIslandEvent extends IslandEvent implements Cancellable {
 

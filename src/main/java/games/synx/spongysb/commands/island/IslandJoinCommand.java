@@ -4,6 +4,7 @@ import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
+import co.aikar.commands.annotation.Syntax;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.events.IslandJoinEvent;
 import games.synx.spongysb.objects.Island;
@@ -12,13 +13,12 @@ import games.synx.spongysb.objects.SPlayer;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
 
-import java.util.UUID;
-
 @CommandAlias("is|island")
 public class IslandJoinCommand extends AbstractIslandCommand {
 
   @Subcommand("join")
   @Description("Join another players' Island!")
+  @Syntax("<island name>")
   @CommandPermission("spongysb.island.invite")
   public void onJoinCommand(Player player, String islandName) {
 
@@ -32,7 +32,7 @@ public class IslandJoinCommand extends AbstractIslandCommand {
     Island island = Island.get(islandName);
 
     if(island == null) {
-      msg(player, String.format(getMessages().island_does_not_exist, islandName));
+      formatMsg(player, getMessages().island_does_not_exist, islandName);
       return;
     }
 
@@ -41,7 +41,7 @@ public class IslandJoinCommand extends AbstractIslandCommand {
       sPlayer.setIsland(island);
       sPlayer.setIslandRole(IslandPermissionLevel.MEMBER);
 
-      msg(player, String.format(getMessages().joined_island_successfully, island.getIslandName()));
+      formatMsg(player, getMessages().joined_island_successfully, island.getIslandName());
       island.revokeInvite(player.getUniqueId().toString());
       Sponge.getEventManager().post(islandJoinEvent);
 
@@ -49,7 +49,7 @@ public class IslandJoinCommand extends AbstractIslandCommand {
       return;
     }
 
-    msg(player, String.format(getMessages().could_not_join_island, island.getIslandName()));
+    formatMsg(player, getMessages().could_not_join_island, island.getIslandName());
 
     }
 }

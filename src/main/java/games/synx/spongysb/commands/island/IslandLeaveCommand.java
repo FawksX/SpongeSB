@@ -4,6 +4,7 @@ import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
+import co.aikar.commands.annotation.Syntax;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.events.IslandLeaveEvent;
 import games.synx.spongysb.generation.WorldManager;
@@ -17,6 +18,7 @@ public class IslandLeaveCommand extends AbstractIslandCommand {
 
   @Subcommand("leave")
   @Description("Leave your island")
+  @Syntax("")
   @CommandPermission("spongysb.island.leave")
   public void onLeaveCommand(Player player, String confirm) {
 
@@ -37,7 +39,7 @@ public class IslandLeaveCommand extends AbstractIslandCommand {
       return;
     }
 
-    msg(player, String.format(getMessages().left_island, sPlayer.getIsland().getIslandName()));
+    formatMsg(player, getMessages().left_island, sPlayer.getIsland().getIslandName());
     sPlayer.removeFromIsland();
     player.setLocationSafely(WorldManager.get().getServerSpawn());
     sPlayer.getIsland().broadcastToOnlineMembers(getMessages().player_left_island, player.getName());

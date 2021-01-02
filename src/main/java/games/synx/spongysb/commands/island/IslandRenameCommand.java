@@ -4,6 +4,7 @@ import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
+import co.aikar.commands.annotation.Syntax;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.objects.Island;
 import games.synx.spongysb.objects.IslandPermissionLevel;
@@ -16,6 +17,7 @@ public class IslandRenameCommand extends AbstractIslandCommand {
 
   @Subcommand("rename")
   @Description("Rename your island")
+  @Syntax("<island name>")
   @CommandPermission("spongysb.island.rename")
   public void onRenameCommand(Player player, String name) {
 
@@ -32,7 +34,7 @@ public class IslandRenameCommand extends AbstractIslandCommand {
     }
 
     if (IslandNameUtil.isIslandNameTaken(name)) {
-      msg(player, String.format(getMessages().island_name_taken, name));
+      formatMsg(player, getMessages().island_name_taken, name);
       return;
     }
 

@@ -11,10 +11,14 @@ import org.spongepowered.api.text.serializer.TextSerializers;
 
 public class AbstractIslandCommand extends BaseCommand {
 
-  private Logger logger = SpongySB.get().getLogger();
+  private final Logger logger = SpongySB.get().getLogger();
 
   public void msg(Player player, String message) {
     player.sendMessage(TextSerializers.FORMATTING_CODE.deserialize(message));
+  }
+
+  public void formatMsg(Player player, String message, Object ... replacements) {
+    msg(player, String.format(message, replacements));
   }
 
   public ConfSettings getConf() {

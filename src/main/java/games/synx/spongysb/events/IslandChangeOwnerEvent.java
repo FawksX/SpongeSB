@@ -2,7 +2,6 @@ package games.synx.spongysb.events;
 
 import java.util.UUID;
 
-
 import games.synx.spongysb.events.base.IslandEvent;
 import games.synx.spongysb.objects.Island;
 

@@ -4,6 +4,7 @@ import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
+import co.aikar.commands.annotation.Syntax;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.objects.Island;
 import games.synx.spongysb.objects.SPlayer;
@@ -15,6 +16,7 @@ public class IslandInviteCommand extends AbstractIslandCommand {
 
   @Subcommand("invite")
   @Description("Invite a player to your Island!")
+  @Syntax("<player>")
   @CommandPermission("spongysb.island.invite")
   public void onInviteCommand(Player player, String name) {
 
@@ -34,20 +36,20 @@ public class IslandInviteCommand extends AbstractIslandCommand {
 
     // TODO ISLAND UPGRADE TO ALLOW FOR LARGER SIZE ISLANDS
     if(island.getMemberCount() > 2) {
-      msg(player, String.format(getMessages().island_is_full, targetInvite.getName()));
+      formatMsg(player, getMessages().island_is_full, targetInvite.getName());
       return;
     }
 
     if(island.isInvited(targetInvite.getUniqueId().toString())) {
       island.revokeInvite(targetInvite.getUniqueId().toString());
-      msg(player, String.format(getMessages().invite_revoked_successfully, targetInvite.getName()));
+      formatMsg(player, getMessages().invite_revoked_successfully, targetInvite.getName());
       island.broadcastToOnlineMembers(getMessages().leader_revoked_invite, player.getName(), targetInvite.getName());
       return;
     }
 
     island.addInvite(targetInvite.getUniqueId().toString());
-    msg(player, String.format(getMessages().invited_player_successfully, targetInvite.getName()));
-    msg(targetInvite, String.format(getMessages().invited_to_island, player.getName(), island.getIslandName(), island.getIslandName()));
+    formatMsg(player, getMessages().invited_player_successfully, targetInvite.getName());
+    formatMsg(targetInvite, getMessages().invited_to_island, player.getName(), island.getIslandName(), island.getIslandName());
     island.broadcastToOnlineMembers(getMessages().leader_invited_player, player.getName(), targetInvite.getName());
 
   }

@@ -4,6 +4,7 @@ import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
+import co.aikar.commands.annotation.Syntax;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.generation.GridManager;
@@ -21,6 +22,7 @@ public class IslandCreateCommand extends AbstractIslandCommand {
 
   @Subcommand("new")
   @Description("Create a new Island")
+  @Syntax("<island name>")
   @CommandPermission("spongysb.island.create")
   public void onCreateCommand(Player player, String name) {
 
@@ -32,7 +34,7 @@ public class IslandCreateCommand extends AbstractIslandCommand {
     }
 
     if(IslandNameUtil.isIslandNameTaken(name)) {
-      msg(player, String.format(getMessages().island_name_taken, name));
+      formatMsg(player, getMessages().island_name_taken, name);
       return;
     }
 
