@@ -6,15 +6,7 @@ import com.google.common.collect.Lists;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.commands.admin.AdminBypassCommand;
 import games.synx.spongysb.commands.admin.SpongeSBCommand;
-import games.synx.spongysb.commands.island.IslandCommand;
-import games.synx.spongysb.commands.island.IslandCreateCommand;
-import games.synx.spongysb.commands.island.IslandGoCommand;
-import games.synx.spongysb.commands.island.IslandInviteCommand;
-import games.synx.spongysb.commands.island.IslandJoinCommand;
-import games.synx.spongysb.commands.island.IslandKickCommand;
-import games.synx.spongysb.commands.island.IslandLeaveCommand;
-import games.synx.spongysb.commands.island.IslandMakeleaderCommand;
-import games.synx.spongysb.commands.island.IslandRenameCommand;
+import games.synx.spongysb.commands.island.*;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
@@ -53,6 +45,7 @@ public class CommandManager {
     spongeCommandManager.registerCommand(new IslandLeaveCommand());
     spongeCommandManager.registerCommand(new IslandRenameCommand());
     spongeCommandManager.registerCommand(new IslandMakeleaderCommand());
+    spongeCommandManager.registerCommand(new IslandDisbandCommand());
 
   }
 

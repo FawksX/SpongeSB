@@ -14,11 +14,19 @@ import java.util.concurrent.TimeUnit;
 
 public class DatabaseManager implements IDatabase {
 
+  public static DatabaseManager get() {
+    return instance;
+  }
+
+  private static DatabaseManager instance;
+
   private final Logger logger;
 
   public HikariDataSource dataSource;
 
   public DatabaseManager() {
+    instance = this;
+
     logger = SpongySB.get().getLogger();
     logger.info("Initialising Database Manager");
 

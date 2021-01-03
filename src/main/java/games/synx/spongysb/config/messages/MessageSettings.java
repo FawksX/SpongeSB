@@ -117,4 +117,16 @@ public class MessageSettings {
   @Setting
   public String leader_changed_broadcast = "&e&lISLAND &a%s &ehas given Island Ownership to &a%s!";
 
+  @Setting
+  public String disband_confirm = "&e&lISLAND &eType &a/is disband confirm &eto leave your island.";
+
+  @Setting
+  public String disband_must_be_in_island = "&e&lISLAND &eYou must be in an island to be able to disband!";
+
+  @Setting
+  public String only_leader_can_disband = "&e&lISLAND &cOnly the Island Leader can disband your island!";
+
+  @Setting
+  public String island_disbanded = "&e&lISLAND &eYour island has been disbanded by &a%s&e!";
+
 }

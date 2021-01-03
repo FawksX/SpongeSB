@@ -18,6 +18,9 @@ public class ConfSettings {
   @Setting
   public long invite_timeout_in_seconds = 900;
 
+  @Setting
+  public long autosave_task_time_seconds = 300;
+
   /**
    * Configuration Section Dedicated to MySQL Connections
    * The only place where this is referenced is games.synx.spongysb.storage.DatabaseManager

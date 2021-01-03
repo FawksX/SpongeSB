@@ -46,7 +46,7 @@ public class IslandMakeleaderCommand extends AbstractIslandCommand {
 
     sPlayer.setIslandRole(IslandPermissionLevel.MEMBER);
     sTargetLeader.setIslandRole(IslandPermissionLevel.LEADER);
-    island.setLeaderUUID(targetLeader.getUniqueId().toString());
+    island.setLeaderUUID(targetLeader.getUniqueId());
 
     island.broadcastToOnlineMembers(getMessages().leader_changed_broadcast, player.getName(), targetLeader.getName());
 

@@ -1,6 +1,8 @@
 package games.synx.spongysb.objects;
 
 import games.synx.spongysb.SpongySB;
+import games.synx.spongysb.cache.PlayerCache;
+import games.synx.spongysb.storage.DatabaseManager;
 import games.synx.spongysb.storage.Statements;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.world.Location;
@@ -15,15 +17,14 @@ import java.util.UUID;
 public class SPlayer {
 
   private UUID island_uuid;
-  private UUID player_uuid;
+  private final UUID player_uuid;
   private String island_role;
-  private boolean island_bypass;
+  private boolean island_bypass = false;
 
-  private SPlayer(UUID island_uuid, UUID player_uuid, String island_role, boolean island_bypass) {
+  private SPlayer(UUID island_uuid, UUID player_uuid, String island_role) {
     this.island_uuid = island_uuid;
     this.player_uuid = player_uuid;
     this.island_role = island_role;
-    this.island_bypass = island_bypass;
   }
 
   public static SPlayer get(Player player) {
@@ -31,66 +32,62 @@ public class SPlayer {
   }
 
   public static SPlayer get(UUID uuid) {
+    return PlayerCache.get(uuid);
+  }
+
+  public static SPlayer fetch(UUID uuid) {
 
     try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
          PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_PLAYER)) {
 
       preparedStatement.setString(1, uuid.toString());
       ResultSet rs = preparedStatement.executeQuery();
-      rs.next();
 
-      return new SPlayer(
-          UUID.fromString(rs.getString("island_uuid")),
-          uuid,
-          rs.getString("island_role"),
-          rs.getBoolean("admin_bypass")
-      );
+      if(rs.next()) {
+
+        return new SPlayer(
+                UUID.fromString(rs.getString("island_uuid")),
+                uuid,
+                rs.getString("island_role")
+        );
+      }
+
+      return null;
 
     } catch (SQLException e) {
-      SpongySB.get().getLogger().error("Could not fetch user, did something go wrong?");
+      SpongySB.get().getLogger().error("Could not fetch user from MySQL! (SPlayer#fetch). Is this intentional?");
       e.printStackTrace();
       return null;
     }
 
   }
 
-  public void setIsland(Island island) {
+  public static void save(SPlayer sPlayer) {
 
-    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
-         PreparedStatement preparedStatement = connection.prepareStatement(Statements.PLAYER_SET_ISLAND_UUID);) {
+    try (Connection connection = DatabaseManager.get().getConnection();
+    PreparedStatement preparedStatement = connection.prepareStatement(Statements.PLAYER_QUIT_UPDATE)) {
+      preparedStatement.setString(1, sPlayer.getIslandUUID().toString());
+      preparedStatement.setString(2, sPlayer.getIslandRole());
+      preparedStatement.setString(3, sPlayer.getPlayerUUID().toString());
 
-      preparedStatement.setString(1, island.getIslandUUID().toString());
-      preparedStatement.setString(2, getPlayerUUID().toString());
       preparedStatement.executeUpdate();
+
     } catch (SQLException e) {
       e.printStackTrace();
     }
   }
 
+  public void setIsland(Island island) {
+    this.island_uuid = island.getIslandUUID();
+  }
+
   public void setIsland(UUID uuid) {
-
-    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
-         PreparedStatement preparedStatement = connection.prepareStatement(Statements.PLAYER_SET_ISLAND_UUID);) {
-
-      preparedStatement.setString(1, uuid.toString());
-      preparedStatement.setString(2, getPlayerUUID().toString());
-      preparedStatement.executeUpdate();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+    this.island_uuid = uuid;
   }
 
   public void setIslandRole(IslandPermissionLevel islandPermissionLevel) {
 
-    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
-         PreparedStatement preparedStatement = connection.prepareStatement(Statements.PLAYER_SET_ISLAND_ROLE);) {
-
-      preparedStatement.setString(1, islandPermissionLevel.toString());
-      preparedStatement.setString(2, getPlayerUUID().toString());
-      preparedStatement.executeUpdate();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+    this.island_role = islandPermissionLevel.toString();
 
   }
 
@@ -112,16 +109,6 @@ public class SPlayer {
 
   public void setBypassed(Boolean bypassed) {
     this.island_bypass = bypassed;
-
-    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
-         PreparedStatement preparedStatement = connection.prepareStatement(Statements.PLAYER_SET_ADMIN_BYPASSED);) {
-
-      preparedStatement.setBoolean(1, bypassed);
-      preparedStatement.setString(2, getPlayerUUID().toString());
-      preparedStatement.executeUpdate();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
 
   }
 

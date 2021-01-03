@@ -30,7 +30,7 @@ public class IslandLeaveCommand extends AbstractIslandCommand {
     SPlayer sPlayer = SPlayer.get(player);
 
     if(!sPlayer.isInIsland()) {
-      msg(player, getMessages().must_be_in_island_to_invite);
+      msg(player, getMessages().must_be_in_island_to_leave);
       return;
     }
 

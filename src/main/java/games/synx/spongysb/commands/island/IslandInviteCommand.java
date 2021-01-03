@@ -40,14 +40,14 @@ public class IslandInviteCommand extends AbstractIslandCommand {
       return;
     }
 
-    if(island.isInvited(targetInvite.getUniqueId().toString())) {
-      island.revokeInvite(targetInvite.getUniqueId().toString());
+    if(island.isInvited(targetInvite.getUniqueId())) {
+      island.revokeInvite(targetInvite.getUniqueId());
       formatMsg(player, getMessages().invite_revoked_successfully, targetInvite.getName());
       island.broadcastToOnlineMembers(getMessages().leader_revoked_invite, player.getName(), targetInvite.getName());
       return;
     }
 
-    island.addInvite(targetInvite.getUniqueId().toString());
+    island.addInvite(targetInvite.getUniqueId());
     formatMsg(player, getMessages().invited_player_successfully, targetInvite.getName());
     formatMsg(targetInvite, getMessages().invited_to_island, player.getName(), island.getIslandName(), island.getIslandName());
     island.broadcastToOnlineMembers(getMessages().leader_invited_player, player.getName(), targetInvite.getName());

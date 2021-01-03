@@ -2,8 +2,10 @@ package games.synx.spongysb.objects;
 
 import com.google.common.collect.Lists;
 import games.synx.spongysb.SpongySB;
+import games.synx.spongysb.cache.IslandCache;
 import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.generation.WorldManager;
+import games.synx.spongysb.storage.DatabaseManager;
 import games.synx.spongysb.storage.Statements;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.text.serializer.TextSerializers;
@@ -16,27 +18,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 public class Island {
 
-  private UUID island_uuid;
+  private final UUID island_uuid;
   private UUID leader_uuid;
   private String island_name;
-  private Location<World> location;
-  private String banned_members;
+  private final Location<World> location;
   private Location<World> homeLocation;
+  private List<String> invited_members = Lists.newArrayList();
 
   private Island(UUID island_uuid, UUID leader_uuid, String island_name,
-                 String center_location, String banned_members, String home_location) {
+                 String center_location, String home_location) {
 
     this.island_uuid = island_uuid;
     this.leader_uuid = leader_uuid;
     this.island_name = island_name;
-
-    // TODO should be changed to a List<String>
-    this.banned_members = banned_members;
 
 
     //TODO SIMPLIFY
@@ -50,9 +48,52 @@ public class Island {
     this.homeLocation = new Location<World>(WorldManager.get().getWorld(), homeLoc[0], homeLoc[1], homeLoc[2]);
   }
 
+  /**
+   * Returns an Island from the IslandCache
+   * @param islandUUID Island UUID
+   * @return Island
+   */
+  public static Island get(UUID islandUUID) {
+    return IslandCache.get(islandUUID);
+  }
+
   public static Island get(String islandName) {
 
-    try(Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+    for(Island island : IslandCache.getAll().values()) {
+      if(island.getIslandName().equals(islandName)) {
+        return island;
+      }
+    }
+    return null;
+  }
+
+  public static void save(Island island) {
+
+    System.out.println("Saving island " + island.getIslandName());
+
+    String centerSerialised = island.getCenterLocation().getBlockX() + "," + island.getCenterLocation().getBlockZ();
+    String homeLocSerialised = island.getHomeLocation().getBlockX() + "," + island.getHomeLocation().getBlockY() + "," + island.getHomeLocation().getBlockZ();
+
+    try (Connection connection = DatabaseManager.get().getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(Statements.SAVE_ALL_ISLANDS)) {
+      preparedStatement.setString(1, island.getLeaderUUID().toString());
+      preparedStatement.setString(2, island.getIslandName());
+      preparedStatement.setString(3, centerSerialised);
+      preparedStatement.setString(4, homeLocSerialised);
+      preparedStatement.setString(5, island.getIslandUUID().toString());
+
+      preparedStatement.executeUpdate();
+
+      System.out.println("Island Saved!");
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public static Island fetch(String islandName) {
+
+    try(Connection connection = DatabaseManager.get().getConnection();
     PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_ISLAND_UUID)) {
 
       preparedStatement.setString(1, islandName.toUpperCase());
@@ -60,7 +101,7 @@ public class Island {
       ResultSet rs = preparedStatement.executeQuery();
 
       if(rs.next()) {
-        return get(UUID.fromString(rs.getString("island_uuid")));
+        return fetch(UUID.fromString(rs.getString("island_uuid")));
       }
 
       return null;
@@ -71,14 +112,44 @@ public class Island {
     }
   }
 
+  public static List<Island> getAll() {
+
+    List<Island> islands = Lists.newArrayList();
+
+    try (Connection connection = DatabaseManager.get().getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_ALL_ISLANDS)) {
+
+      ResultSet rs = preparedStatement.executeQuery();
+
+      while(rs.next()) {
+
+        Island newIsland = new Island(
+                UUID.fromString(rs.getString("island_uuid")),
+                UUID.fromString(rs.getString("leader_uuid")),
+                rs.getString("island_name"),
+                rs.getString("center_location"),
+                rs.getString("home_location"));
+
+        islands.add(newIsland);
+
+      }
+
+      return islands;
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return islands;
+    }
+  }
+
   /**
    * Gets an Island from it's UUID
    * @param island_uuid the UUID of the island stored in the database
    * @return Island
    */
-  public static Island get(UUID island_uuid) {
+  public static Island fetch(UUID island_uuid) {
 
-    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+    try (Connection connection = DatabaseManager.get().getConnection();
          PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_ISLAND)) {
 
       preparedStatement.setString(1, island_uuid.toString());
@@ -90,7 +161,6 @@ public class Island {
           UUID.fromString(rs.getString("leader_uuid")),
           rs.getString("island_name"),
           rs.getString("center_location"),
-          rs.getString("banned_members"),
           rs.getString("home_location")
       );
 
@@ -116,24 +186,25 @@ public class Island {
     String centerSerialised = centerLoc.getBlockX() + "," + centerLoc.getBlockZ();
     String homeLocSerialised = centerLoc.getBlockX() + "," + centerLoc.getBlockY() + "," + centerLoc.getBlockZ();
 
-    try(Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+    try(Connection connection = DatabaseManager.get().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(Statements.INSERT_ISLAND)) {
-      
+
       preparedStatement.setString(1, islandUUID.toString());
       preparedStatement.setString(2, leaderUUID.toString());
       preparedStatement.setString(3, islandName);
       preparedStatement.setString(4, centerSerialised);
-      preparedStatement.setString(5, "");
 
       // BY DEFAULT CENTER LOCATION IS THE SAME AS THE PASTE LOCATION, AS IT WILL BE A SOLID LOCATION IF SCHEM IS MADE CORRECTLY.
-      preparedStatement.setString(6, homeLocSerialised);
+      preparedStatement.setString(5, homeLocSerialised);
       preparedStatement.executeUpdate();
 
     } catch (SQLException e) {
       e.printStackTrace();
     }
+    Island newIsland = new Island(islandUUID, leaderUUID, islandName, centerSerialised, homeLocSerialised);
+    IslandCache.add(newIsland);
 
-    return new Island(islandUUID, leaderUUID, islandName, centerSerialised, "", homeLocSerialised);
+    return newIsland;
 
   }
 
@@ -159,29 +230,13 @@ public class Island {
     int nearestZ =
         (int) ((Math.round((double) z / ConfigManager.get().getConf().world.islandDistance) * ConfigManager.get().getConf().world.islandDistance));
 
-    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
-         PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_ISLAND_FROM_LOCATION)) {
-
-      preparedStatement.setString(1, nearestX + "," + nearestZ);
-      ResultSet rs = preparedStatement.executeQuery();
-
-      if(rs.next()) {
-        return new Island(
-            UUID.fromString(rs.getString("island_uuid")),
-            UUID.fromString(rs.getString("leader_uuid")),
-            rs.getString("island_name"),
-            rs.getString("center_location"),
-            rs.getString("banned_members"),
-            rs.getString("home_location")
-        );
+      for(Island island : IslandCache.getAll().values()) {
+        if(island.getCenterLocation().getBlockX() == nearestX && island.getCenterLocation().getBlockZ() == nearestZ) {
+          return island;
+        }
       }
 
-      return null;
-
-    } catch (SQLException e) {
-      e.printStackTrace();
-      return null;
-    }
+    return null;
 
   }
 
@@ -189,37 +244,12 @@ public class Island {
    * Removes a UUID from pending invites
    * @param uuid UUID of the user to remove from the database
    */
-  public boolean addInvite(String uuid) {
-    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
-         PreparedStatement preparedStatement = connection.prepareStatement(Statements.UPDATE_ISLAND_INVITE)) {
-
-      long invite_timeout = (System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(ConfigManager.get().getConf().invite_timeout_in_seconds));
-
-      preparedStatement.setString(1, getIslandUUID().toString());
-      preparedStatement.setString(2, uuid);
-      preparedStatement.setLong(3, invite_timeout);
-
-      preparedStatement.executeUpdate();
-      return true;
-    } catch (SQLException e) {
-      e.printStackTrace();
-      return false;
-    }
+  public void addInvite(UUID uuid) {
+    invited_members.add(uuid.toString());
   }
 
-  public boolean revokeInvite(String uuid) {
-    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
-         PreparedStatement preparedStatement = connection.prepareStatement(Statements.DELETE_ISLAND_INVITE)) {
-
-      preparedStatement.setString(1, getIslandUUID().toString());
-      preparedStatement.setString(2, uuid);
-      preparedStatement.executeUpdate();
-      return true;
-
-    } catch (SQLException e) {
-      e.printStackTrace();
-      return false;
-    }
+  public void revokeInvite(UUID uuid) {
+    invited_members.remove(uuid.toString());
   }
 
   /**
@@ -227,24 +257,8 @@ public class Island {
    * @param uuid the player who has been invited
    * @return if they have been invited
    */
-  public boolean isInvited(String uuid) {
-    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
-         PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_ISLAND_INVITE)) {
-
-      preparedStatement.setString(1, uuid);
-      preparedStatement.setString(2, getIslandUUID().toString());
-      ResultSet rs = preparedStatement.executeQuery();
-
-      if(rs.next()) {
-        return rs.getLong("invite_time") > System.currentTimeMillis();
-      }
-
-      return false;
-
-    } catch (SQLException e) {
-      e.printStackTrace();
-      return false;
-    }
+  public boolean isInvited(UUID uuid) {
+    return invited_members.contains(uuid.toString());
   }
 
   /**
@@ -257,7 +271,8 @@ public class Island {
   }
 
   public List<UUID> getIslandMembers() {
-    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+
+    try (Connection connection = DatabaseManager.get().getConnection();
     PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_PLAYERS_IN_ISLAND)) {
       preparedStatement.setString(1, getIslandUUID().toString());
       ResultSet rs = preparedStatement.executeQuery();
@@ -294,25 +309,11 @@ public class Island {
    * @param newName name to set the islands to
    */
   public void setIslandName(String newName) {
-    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
-         PreparedStatement preparedStatement = connection.prepareStatement(Statements.ISLAND_SET_NAME)) {
-      preparedStatement.setString(1, newName);
-      preparedStatement.setString(2, getIslandUUID().toString());
-      preparedStatement.executeUpdate();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+    this.island_name = newName;
   }
 
-  public void setLeaderUUID(String newLeader) {
-    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
-         PreparedStatement preparedStatement = connection.prepareStatement(Statements.ISLAND_SET_LEADER)) {
-      preparedStatement.setString(1, newLeader);
-      preparedStatement.setString(2, getIslandUUID().toString());
-      preparedStatement.executeUpdate();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+  public void setLeaderUUID(UUID newLeader) {
+    this.leader_uuid = newLeader;
   }
 
   /**

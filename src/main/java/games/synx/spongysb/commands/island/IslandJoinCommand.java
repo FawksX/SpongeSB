@@ -36,13 +36,13 @@ public class IslandJoinCommand extends AbstractIslandCommand {
       return;
     }
 
-    if(island.isInvited(player.getUniqueId().toString())) {
+    if(island.isInvited(player.getUniqueId())) {
       IslandJoinEvent islandJoinEvent = new IslandJoinEvent(player.getUniqueId(), island.getLeaderUUID(), island);
       sPlayer.setIsland(island);
       sPlayer.setIslandRole(IslandPermissionLevel.MEMBER);
 
       formatMsg(player, getMessages().joined_island_successfully, island.getIslandName());
-      island.revokeInvite(player.getUniqueId().toString());
+      island.revokeInvite(player.getUniqueId());
       Sponge.getEventManager().post(islandJoinEvent);
 
       island.broadcastToOnlineMembers(getMessages().player_has_joined_island, player.getName());
