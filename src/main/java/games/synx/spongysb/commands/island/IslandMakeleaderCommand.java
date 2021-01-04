@@ -21,7 +21,7 @@ public class IslandMakeleaderCommand extends AbstractIslandCommand {
   @CommandCompletion("@onlineplayers")
   @Description("Give your island to someone else")
   @CommandPermission("spongysb.island.makeleader")
-  public void onJoinCommand(Player player, String newLeader) {
+  public void onMakeLeaderCommand(Player player, String newLeader) {
 
     SPlayer sPlayer = SPlayer.get(player);
     Island island = sPlayer.getIsland();

@@ -23,7 +23,7 @@ public class IslandDisbandCommand extends AbstractIslandCommand {
   @Subcommand("disband")
   @Description("Leave your island")
   @CommandPermission("spongysb.island.disband")
-  public void onLeaveCommand(Player player, String confirm) {
+  public void onDisbandCommand(Player player, String confirm) {
 
     if(!confirm.equals("confirm")) {
       msg(player, getMessages().disband_confirm);
