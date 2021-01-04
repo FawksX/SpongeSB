@@ -10,7 +10,6 @@ public class Statements {
   public static final String CREATE_PLAYERS_TABLE = "CREATE TABLE IF NOT EXISTS spongysb_players (player_uuid VARCHAR(36) NOT NULL PRIMARY KEY, island_uuid VARCHAR(36) NOT NULL,  island_role text NOT NULL)";
   public static final String CREATE_GRID_TABLE = "CREATE TABLE IF NOT EXISTS spongysb_grid (id VARCHAR(1) NOT NULL PRIMARY KEY, lastisland text NOT NULL)";
   public static final String CREATE_ISLAND_UPGRADES_TABLE = "CREATE TABLE IF NOT EXISTS spongysb_island_upgrades (island_uuid VARCHAR(36) NOT NULL PRIMARY KEY, island_size integer NOT NULL)";
-  public static final String CREATE_ISLAND_INVITES_TABLE = "CREATE TABLE IF NOT EXISTS spongysb_island_invites (island_uuid VARCHAR(36) NOT NULL, player_uuid VARCHAR(36) NOT NULL, invite_time bigint(19) NOT NULL)";
 
   // CREATING ISLAND/PLAYER ROWS
   public static final String INSERT_ISLAND = "REPLACE INTO spongysb_islands (island_uuid, leader_uuid, island_name, center_location, home_location) VALUES(?,?,?,?,?)";

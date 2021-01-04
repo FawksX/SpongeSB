@@ -87,27 +87,11 @@ public class Island {
     }
   }
 
-  public static Island fetch(String islandName) {
-
-    try(Connection connection = DatabaseManager.get().getConnection();
-    PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_ISLAND_UUID)) {
-
-      preparedStatement.setString(1, islandName.toUpperCase());
-
-      ResultSet rs = preparedStatement.executeQuery();
-
-      if(rs.next()) {
-        return fetch(UUID.fromString(rs.getString("island_uuid")));
-      }
-
-      return null;
-
-    } catch (SQLException e) {
-      e.printStackTrace();
-      return null;
-    }
-  }
-
+  /**
+   * Fetch a List of all Islands in the Database.
+   * This is then used in IslandCache#setup to put every island into a hashmap based on it's ID.
+   * @return List of Islands.
+   */
   public static List<Island> getAll() {
 
     List<Island> islands = Lists.newArrayList();
@@ -259,8 +243,8 @@ public class Island {
 
   /**
    * Checks if the UUID of a player is the leader of the island
-   * @param uuid
-   * @return
+   * @param uuid UUID of the user (in String form)
+   * @return boolean (isLeader)
    */
   public boolean isLeader(String uuid) {
     return getLeaderUUID().toString().equals(uuid);
@@ -367,14 +351,6 @@ public class Island {
    */
   public Location<World> getHomeLocation() {
     return this.homeLocation;
-  }
-
-  /**
-   * Gets the IslandUpgrades object for the Island
-   * @return IslandUpgrades object
-   */
-  public IslandUpgrades getUpgrades() {
-    return IslandUpgrades.get(getIslandUUID());
   }
 
 
