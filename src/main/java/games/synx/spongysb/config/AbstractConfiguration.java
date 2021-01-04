@@ -1,5 +1,7 @@
 package games.synx.spongysb.config;
 
+import games.synx.spongysb.SpongySB;
+import games.synx.spongysb.config.conf.ConfSettings;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.ConfigurationOptions;
 import ninja.leaping.configurate.gson.GsonConfigurationLoader;
@@ -14,6 +16,7 @@ import java.nio.file.Path;
 public abstract class AbstractConfiguration implements IConfiguration {
 
   private final ConfigurationNode node;
+  private final GsonConfigurationLoader loader;
   private final Path configFile;
 
   // ----------------------------------------------- //
@@ -22,7 +25,7 @@ public abstract class AbstractConfiguration implements IConfiguration {
 
   public AbstractConfiguration(Path configFile) throws IOException {
     this.configFile = configFile;
-    final GsonConfigurationLoader loader = GsonConfigurationLoader.builder()
+     loader = GsonConfigurationLoader.builder()
         .setDefaultOptions(ConfigurationOptions.defaults().setShouldCopyDefaults(true))
         .setPath(configFile).build();
 
@@ -39,12 +42,25 @@ public abstract class AbstractConfiguration implements IConfiguration {
     return objectMapper.bindToNew().populate(node);
   }
 
+
   // ----------------------------------------------- //
   // GETTERS
   // ----------------------------------------------- //
 
-  public ConfigurationNode getNode() {
+  public ConfigurationNode getRawNode() {
     return this.node;
+  }
+
+  public GsonConfigurationLoader getLoader() {
+    return this.loader;
+  }
+
+  public void saveRawNode() {
+    try {
+      this.loader.save(getRawNode());
+    } catch (IOException e) {
+      SpongySB.get().getLogger().error("Could not save configuration file!");
+    }
   }
 
   public Path getConfigFile() {

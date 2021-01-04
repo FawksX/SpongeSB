@@ -28,7 +28,6 @@ public final class Conf extends AbstractConfiguration implements IConfiguration 
     }
   }
 
-
   @Override
   public void saveConfiguration(final Object configuration, final ConfigurationNode node) throws ObjectMappingException {
     MAPPER.bind((ConfSettings) configuration).serialize(node);
@@ -37,17 +36,15 @@ public final class Conf extends AbstractConfiguration implements IConfiguration 
   @Override
   public void setup() {
     try {
-      GsonConfigurationLoader loader = GsonConfigurationLoader.builder().setPath(getConfigFile()).build();
-      ConfigurationNode raw = loader.load();
 
       // Loading
-      this.conf = (ConfSettings) loadConfiguration(MAPPER, raw);
+      this.conf = (ConfSettings) loadConfiguration(MAPPER, getRawNode());
 
       // Saving
-      saveConfiguration(this.getConf(), raw);
-      loader.save(raw);
+      saveConfiguration(this.getConf(), getRawNode());
+      saveRawNode();
 
-    } catch (IOException | ObjectMappingException e) {
+    } catch (ObjectMappingException e) {
       e.printStackTrace();
     }
 

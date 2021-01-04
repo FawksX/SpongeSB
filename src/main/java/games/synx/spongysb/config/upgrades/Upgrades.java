@@ -37,17 +37,14 @@ public class Upgrades extends AbstractConfiguration implements IConfiguration {
   @Override
   public void setup() {
     try {
-      GsonConfigurationLoader loader = GsonConfigurationLoader.builder().setPath(getConfigFile()).build();
-      ConfigurationNode raw = loader.load();
-
       // Loading
-      this.upgrades = (UpgradeSettings) loadConfiguration(MAPPER, raw);
+      this.upgrades = (UpgradeSettings) loadConfiguration(MAPPER, getRawNode());
 
       // Saving
-      saveConfiguration(this.getUpgrades(), raw);
-      loader.save(raw);
+      saveConfiguration(this.getUpgrades(), getRawNode());
+      saveRawNode();
 
-    } catch (IOException | ObjectMappingException e) {
+    } catch (ObjectMappingException e) {
       e.printStackTrace();
     }
 

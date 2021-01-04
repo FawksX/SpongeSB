@@ -37,17 +37,14 @@ public class Messages extends AbstractConfiguration implements IConfiguration {
   @Override
   public void setup() {
     try {
-      GsonConfigurationLoader loader = GsonConfigurationLoader.builder().setPath(getConfigFile()).build();
-      ConfigurationNode raw = loader.load();
-
       // Loading
-      this.message = (MessageSettings) loadConfiguration(MAPPER, raw);
+      this.message = (MessageSettings) loadConfiguration(MAPPER, getRawNode());
 
       // Saving
-      saveConfiguration(this.getMessage(), raw);
-      loader.save(raw);
+      saveConfiguration(this.getMessage(), getRawNode());
+      saveRawNode();
 
-    } catch (IOException | ObjectMappingException e) {
+    } catch (ObjectMappingException e) {
       e.printStackTrace();
     }
 
