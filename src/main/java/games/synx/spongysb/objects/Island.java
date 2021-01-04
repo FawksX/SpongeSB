@@ -69,8 +69,6 @@ public class Island {
 
   public static void save(Island island) {
 
-    System.out.println("Saving island " + island.getIslandName());
-
     String centerSerialised = island.getCenterLocation().getBlockX() + "," + island.getCenterLocation().getBlockZ();
     String homeLocSerialised = island.getHomeLocation().getBlockX() + "," + island.getHomeLocation().getBlockY() + "," + island.getHomeLocation().getBlockZ();
 
@@ -83,8 +81,6 @@ public class Island {
       preparedStatement.setString(5, island.getIslandUUID().toString());
 
       preparedStatement.executeUpdate();
-
-      System.out.println("Island Saved!");
 
     } catch (SQLException e) {
       e.printStackTrace();
