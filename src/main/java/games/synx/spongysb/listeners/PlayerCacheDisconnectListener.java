@@ -1,4 +1,4 @@
-package games.synx.spongysb.listeners.cache.player;
+package games.synx.spongysb.listeners;
 
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.cache.PlayerCache;

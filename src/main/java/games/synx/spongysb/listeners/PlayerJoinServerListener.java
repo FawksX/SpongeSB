@@ -55,6 +55,10 @@ public class PlayerJoinServerListener {
 
       PlayerCache.add(SPlayer.fetch(player.getUniqueId()));
 
+      if(!Island.getIslandAt(player.getLocation()).getIslandUUID().toString().equals(sPlayer.getIslandUUID().toString())) {
+        player.setLocationSafely(WorldManager.get().getServerSpawn());
+      }
+
     } catch (SQLException e) {
       SpongySB.get().getLogger().error("Something went wrong with your database!");
       e.printStackTrace();
@@ -62,16 +66,5 @@ public class PlayerJoinServerListener {
 
   }
 
-  @Listener
-  public void playerSafeTeleportOnJoin(ClientConnectionEvent.Join event) {
-
-    Player player = (Player) event.getSource();
-    SPlayer sPlayer = SPlayer.get(player);
-
-    if(!Island.getIslandAt(player.getLocation()).getIslandUUID().toString().equals(sPlayer.getIslandUUID().toString())) {
-      player.setLocationSafely(WorldManager.get().getServerSpawn());
-    }
-
-  }
 
 }
