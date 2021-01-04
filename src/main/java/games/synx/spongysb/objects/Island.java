@@ -29,6 +29,7 @@ public class Island {
   private Location<World> homeLocation;
   private List<String> invited_members = Lists.newArrayList();
 
+
   private Island(UUID island_uuid, UUID leader_uuid, String island_name,
                  String center_location, String home_location) {
 
@@ -67,6 +68,10 @@ public class Island {
     return null;
   }
 
+  /**
+   * Saves the island to the database
+   * @param island Island to be saved
+   */
   public static void save(Island island) {
 
     String centerSerialised = island.getCenterLocation().getBlockX() + "," + island.getCenterLocation().getBlockZ();
@@ -149,7 +154,6 @@ public class Island {
       e.printStackTrace();
       return null;
     }
-
 
   }
 
@@ -250,6 +254,10 @@ public class Island {
     return getLeaderUUID().toString().equals(uuid);
   }
 
+  /**
+   * Get a list of all members in the island.
+   * @return list of members in the island
+   */
   public List<UUID> getIslandMembers() {
 
     try (Connection connection = DatabaseManager.get().getConnection();

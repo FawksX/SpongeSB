@@ -8,7 +8,7 @@ public enum IslandPermissionLevel {
   ADMIN("admin"),
   LEADER("leader");
 
-  private String permissionLevel;
+  private final String permissionLevel;
 
   private IslandPermissionLevel(String permissionLevel) {
     this.permissionLevel = permissionLevel;
