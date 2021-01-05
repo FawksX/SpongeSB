@@ -54,15 +54,15 @@ public class ConfigManager {
   // ----------------------------------------------- //
 
   public ConfSettings getConf() {
-    return this.conf.getConf();
+    return this.conf.getSettings();
   }
 
   public MessageSettings getMessages() {
-    return this.message.getMessage();
+    return this.message.getSettings();
   }
 
   public UpgradeSettings getUpgrades() {
-    return this.upgrades.getUpgrades();
+    return this.upgrades.getSettings();
   }
 
 }
