@@ -6,21 +6,23 @@ import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.objectmapping.meta.Setting;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @ConfigSerializable
 public class GUISettings {
 
     @Setting
-    public SchematicGUI schematicGUI = new SchematicGUI();
+    public SchematicGUI schematicgui = new SchematicGUI();
 
     @ConfigSerializable
     public static class SchematicGUI {
 
         @Setting
-        public List<GUIButtonWrapper> buttons = Lists.newArrayList(
-                new GUIButtonWrapper(1, 5, "TestItem", Lists.newArrayList("Test", "SomeList")),
-                new GUIButtonWrapper(1, 7, "TestItem", Lists.newArrayList("Test", "SomeList"))
-                );
+        public List<GUIButtonWrapper> buttons = Stream.of(
+                new GUIButtonWrapper(1, 5, "minecraft:glowstone","TestItem", Lists.newArrayList("Test", "SomeList")),
+                new GUIButtonWrapper(1, 7, "minecraft:diamond_block", "TestItem", Lists.newArrayList("Test", "SomeList"))
+                ).collect(Collectors.toList());
 
     }
 

@@ -83,9 +83,11 @@ configurations {
 shadowJar {
     configurations = [project.configurations.shadow]
 
-    relocate 'co.aikar.commands', 'games.synx.acf'
-    relocate 'co.aikar.locales', 'games.synx.locales'
-    relocate 'org.spongepowered.configurate', 'games.synx.configurate'
+    relocate 'co.aikar.commands', 'games.synx.libs.acf'
+    relocate 'co.aikar.locales', 'games.synx.libs.locales'
+    relocate 'org.spongepowered.configurate', 'games.synx.libs.configurate'
+    relocate 'io.leangen.geantyref', 'games.synx.libs.geantyref'
+    relocate 'org.checkerframework', 'games.synx.libs.checkerframework'
 
 
     classifier '' // Replace the default JAR
