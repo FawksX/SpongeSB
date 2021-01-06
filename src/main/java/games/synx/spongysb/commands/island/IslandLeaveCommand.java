@@ -1,10 +1,6 @@
 package games.synx.spongysb.commands.island;
 
-import co.aikar.commands.annotation.CommandAlias;
-import co.aikar.commands.annotation.CommandPermission;
-import co.aikar.commands.annotation.Description;
-import co.aikar.commands.annotation.Subcommand;
-import co.aikar.commands.annotation.Syntax;
+import co.aikar.commands.annotation.*;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.events.IslandLeaveEvent;
 import games.synx.spongysb.generation.WorldManager;
@@ -20,7 +16,7 @@ public class IslandLeaveCommand extends AbstractIslandCommand {
   @Description("Leave your island")
   @Syntax("")
   @CommandPermission("spongysb.island.leave")
-  public void onLeaveCommand(Player player, String confirm) {
+  public void onLeaveCommand(Player player, @Optional String confirm) {
 
     if(!confirm.equals("confirm")) {
       msg(player, getMessages().leave_confirm);

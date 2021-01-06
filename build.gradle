@@ -35,6 +35,9 @@ dependencies {
     // AIKAR ANNOTATION COMMAND FRAMEWORK
     shadow "co.aikar:acf-sponge:0.5.0-SNAPSHOT"
 
+    // CONFIGURATE 4.0
+    shadow 'org.spongepowered:configurate-gson:4.0.0'
+
     // NUCLEUS API
     compileOnly 'io.github.nucleuspowered:nucleus-api:1.14.2-S7.1'
     annotationProcessor 'io.github.nucleuspowered:nucleus-api:1.14.2-S7.1'
@@ -82,6 +85,7 @@ shadowJar {
 
     relocate 'co.aikar.commands', 'games.synx.acf'
     relocate 'co.aikar.locales', 'games.synx.locales'
+    relocate 'org.spongepowered.configurate', 'games.synx.configurate'
 
 
     classifier '' // Replace the default JAR

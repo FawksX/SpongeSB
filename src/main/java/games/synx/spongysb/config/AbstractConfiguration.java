@@ -1,13 +1,15 @@
 package games.synx.spongysb.config;
 
 import games.synx.spongysb.SpongySB;
-import ninja.leaping.configurate.ConfigurationNode;
-import ninja.leaping.configurate.ConfigurationOptions;
-import ninja.leaping.configurate.gson.GsonConfigurationLoader;
-import ninja.leaping.configurate.objectmapping.ObjectMapper;
+import games.synx.spongysb.config.wrapper.GUIButtonWrapper;
+import games.synx.spongysb.config.wrapper.serializer.GUIButtonSerializer;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
-import ninja.leaping.configurate.transformation.ConfigurationTransformation;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.spongepowered.configurate.ConfigurateException;
+import org.spongepowered.configurate.ConfigurationNode;
+import org.spongepowered.configurate.gson.GsonConfigurationLoader;
+import org.spongepowered.configurate.objectmapping.ObjectMapper;
+import org.spongepowered.configurate.serialize.SerializationException;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -22,6 +24,8 @@ public abstract class AbstractConfiguration<T> implements IConfiguration {
 
   private final ObjectMapper<T> MAPPER;
 
+  private static final int CURRENT_VERSION = 2;
+
   private T settings;
 
   // ----------------------------------------------- //
@@ -30,35 +34,24 @@ public abstract class AbstractConfiguration<T> implements IConfiguration {
 
   public AbstractConfiguration(Path configFile, Class<T> clazz) throws IOException {
     this.clazz = clazz;
-
     this.configFile = configFile;
-     loader = GsonConfigurationLoader.builder()
-        .setDefaultOptions(ConfigurationOptions.defaults().setShouldCopyDefaults(true))
-        .setPath(configFile).build();
+
+     loader = GsonConfigurationLoader.builder().defaultOptions(opts -> opts.serializers(build -> build.register(GUIButtonWrapper.class, GUIButtonSerializer.INSTANCE))).path(configFile).build();
 
     this.node = loader.load();
 
-    try {
-      MAPPER = ObjectMapper.forClass(clazz);
-    } catch (ObjectMappingException e) {
-      throw new ExceptionInInitializerError(e);
-    }
+    MAPPER = ObjectMapper.factory().get(clazz);
 
     setup();
 
   }
 
-  public void saveConfiguration(final Object configuration, final ConfigurationNode node) throws ObjectMappingException {
-    MAPPER.bind((T) configuration).serialize(node);
+  public void saveConfiguration(final Object configuration, final ConfigurationNode node) throws SerializationException {
+    MAPPER.save((T) configuration, node);
   }
 
-  public @NonNull Object loadConfiguration(ObjectMapper<?> objectMapper, final ConfigurationNode node) throws ObjectMappingException {
-    if(!node.isVirtual()) {
-      final ConfigurationTransformation transformation = ConfigurationTransformation.versionedBuilder().build();
-      transformation.apply(node);
-    }
-
-    return objectMapper.bindToNew().populate(node);
+  public @NonNull Object loadConfiguration(ObjectMapper<?> objectMapper, final ConfigurationNode node) throws ObjectMappingException, ConfigurateException {
+    return objectMapper.load(node);
   }
 
   public void setup() {
@@ -71,7 +64,7 @@ public abstract class AbstractConfiguration<T> implements IConfiguration {
       saveConfiguration(this.settings, getRawNode());
       saveRawNode();
 
-    } catch (ObjectMappingException e) {
+    } catch (ObjectMappingException | ConfigurateException e) {
       e.printStackTrace();
     }
   }

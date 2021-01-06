@@ -3,6 +3,8 @@ package games.synx.spongysb.config;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.conf.Conf;
 import games.synx.spongysb.config.conf.ConfSettings;
+import games.synx.spongysb.config.gui.GUI;
+import games.synx.spongysb.config.gui.GUISettings;
 import games.synx.spongysb.config.messages.MessageSettings;
 import games.synx.spongysb.config.messages.Messages;
 import games.synx.spongysb.config.upgrades.UpgradeSettings;
@@ -24,11 +26,12 @@ public class ConfigManager {
   private Conf conf;
   private Messages message;
   private Upgrades upgrades;
+  private GUI gui;
 
   private final Path confPath = Paths.get(SpongySB.get().getConfigDir() + File.separator + "conf.json");
   private final Path messagePath = Paths.get(SpongySB.get().getConfigDir() + File.separator + "messages.json");
   private final Path upgradesPath = Paths.get(SpongySB.get().getConfigDir() + File.separator + "upgrades.json");
-
+  private final Path guiPath = Paths.get(SpongySB.get().getConfigDir() + File.separator + "guis.json");
 
   public ConfigManager() {
 
@@ -39,7 +42,8 @@ public class ConfigManager {
     try {
       conf = new Conf(confPath);
       message = new Messages(messagePath);
-      upgrades = new Upgrades(upgradesPath);
+     // upgrades = new Upgrades(upgradesPath); // disabled for now as it's not needed
+      gui = new GUI(guiPath);
 
     } catch (IOException e) {
       SpongySB.get().getLogger().error("Could not instantiate a config!");
@@ -47,7 +51,6 @@ public class ConfigManager {
 
     }
   }
-
 
   // ----------------------------------------------- //
   // GETTERS
@@ -63,6 +66,10 @@ public class ConfigManager {
 
   public UpgradeSettings getUpgrades() {
     return this.upgrades.getSettings();
+  }
+
+  public GUISettings getGUIs() {
+    return this.gui.getSettings();
   }
 
 }
