@@ -54,6 +54,9 @@ public enum IslandPerm {
   BREED,
   ENDER_PEARL,
   MUSIC,
-  ANIMALS
+  ANIMALS,
+
+  // PIXELMON
+  SEND_OUT_POKEMON
 
 }

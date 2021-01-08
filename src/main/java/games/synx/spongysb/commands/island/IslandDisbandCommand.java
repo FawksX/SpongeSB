@@ -1,10 +1,6 @@
 package games.synx.spongysb.commands.island;
 
-import co.aikar.commands.annotation.CommandAlias;
-import co.aikar.commands.annotation.CommandPermission;
-import co.aikar.commands.annotation.Description;
-import co.aikar.commands.annotation.Subcommand;
-import co.aikar.commands.annotation.Syntax;
+import co.aikar.commands.annotation.*;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.events.IslandDeleteEvent;
 import games.synx.spongysb.events.IslandPreDeleteEvent;
@@ -23,14 +19,18 @@ public class IslandDisbandCommand extends AbstractIslandCommand {
   @Subcommand("disband")
   @Description("Leave your island")
   @CommandPermission("spongysb.island.disband")
-  public void onDisbandCommand(Player player, String confirm) {
+  public void onDisbandCommand(Player player, @Optional String confirm) {
 
-    if(!confirm.equals("confirm")) {
+    if(confirm.isEmpty() || !confirm.equals("confirm")) {
       msg(player, getMessages().disband_confirm);
       return;
     }
 
+    getLogger().info("got to point 1!");
+
     SPlayer sPlayer = SPlayer.get(player);
+
+    getLogger().info("got to point 2!");
 
     if(!sPlayer.isInIsland()) {
       msg(player, getMessages().disband_must_be_in_island);

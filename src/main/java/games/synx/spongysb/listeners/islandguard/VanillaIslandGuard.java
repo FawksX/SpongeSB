@@ -1,4 +1,4 @@
-package games.synx.spongysb.listeners;
+package games.synx.spongysb.listeners.islandguard;
 
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.ConfigManager;
@@ -16,9 +16,9 @@ import org.spongepowered.api.text.serializer.TextSerializers;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
-public class PlayerGuard {
+public class VanillaIslandGuard extends AbstractIslandGuard {
 
-  public PlayerGuard() {
+  public VanillaIslandGuard() {
     SpongySB.get().getLogger().info("Initialising PlayerGuard");
   }
 
@@ -28,12 +28,7 @@ public class PlayerGuard {
    */
   @Listener
   public void onBlockBreak(ChangeBlockEvent.Break event, @Root Player player) {
-    SPlayer sPlayer = SPlayer.get(player);
-
-    if(isBypassed(sPlayer)) return;
-    if(isNotInWorld(player)) return;
-    if(sPlayer.hasPerm(sPlayer, IslandPerm.BREAK, player.getLocation())) return;
-
+    if(passesGenericIslandChecks(player, IslandPerm.BREAK)) return;
     event.setCancelled(true);
   }
 
@@ -44,12 +39,7 @@ public class PlayerGuard {
    */
   @Listener
   public void onBlockPlace(ChangeBlockEvent.Place event, @Root Player player) {
-    SPlayer sPlayer = SPlayer.get(player);
-
-    if(isBypassed(sPlayer)) return;
-    if(isNotInWorld(player)) return;
-    if(sPlayer.hasPerm(sPlayer, IslandPerm.PLACE, player.getLocation())) return;
-
+    if(passesGenericIslandChecks(player, IslandPerm.PLACE)) return;
     event.setCancelled(true);
   }
 
@@ -80,6 +70,11 @@ public class PlayerGuard {
 
   }
 
+  /**
+   * Stops the player from teleporting to another users' island if they do not have permission
+   * @param event MoveEntityEvent.Teleport
+   * @param player The player in question of the event
+   */
   @Listener
   public void onPlayerTeleport(MoveEntityEvent.Teleport event, @Root Player player) {
     SPlayer sPlayer = SPlayer.get(player);
