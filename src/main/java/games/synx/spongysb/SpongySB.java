@@ -1,6 +1,7 @@
 package games.synx.spongysb;
 
 import com.google.inject.Inject;
+import games.synx.pscore.PSCore;
 import games.synx.spongysb.cache.IslandCache;
 import games.synx.spongysb.commands.CommandManager;
 import games.synx.spongysb.config.ConfigManager;
@@ -9,7 +10,6 @@ import games.synx.spongysb.generation.WorldManager;
 import games.synx.spongysb.listeners.ListenerManager;
 import games.synx.spongysb.storage.DatabaseManager;
 import org.slf4j.Logger;
-import org.spongepowered.api.Game;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.game.state.GameAboutToStartServerEvent;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
@@ -33,7 +33,8 @@ import java.nio.file.Paths;
     version = SpongeSBInfo.VERSION,
     description = SpongeSBInfo.DESCRIPTION,
     dependencies = {
-        @Dependency(id="nucleus")
+        @Dependency(id="nucleus"),
+        @Dependency(id="pscore")
     })
 public class SpongySB {
 
@@ -41,7 +42,6 @@ public class SpongySB {
 
     private Path configDir;
     public Path schematicsDir;
-
 
     private ConfigManager configManager;
     private WorldManager worldManager;
@@ -98,7 +98,7 @@ public class SpongySB {
     }
 
     private void setupConfigDirectories() {
-        this.configDir = Paths.get("PixelmonSkyblock" + File.separator + "SpongeSB" + File.separator);
+        this.configDir = PSCore.getConfigManager().setupDirectory("SpongeSB");
 
         if (!this.configDir.toFile().exists()) {
             this.configDir.toFile().mkdir();

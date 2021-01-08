@@ -1,7 +1,7 @@
 package games.synx.spongysb.config.gui;
 
 import com.google.common.collect.Lists;
-import games.synx.spongysb.config.gui.templates.FillerButton;
+import games.synx.pscore.config.gui.templates.FillerButton;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
