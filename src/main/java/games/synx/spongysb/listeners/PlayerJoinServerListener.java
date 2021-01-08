@@ -16,12 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.UUID;
 
-/**
- *
- * TEMPORARY LISTENER
- * IS TO TEST IS DBS CAN READ/WRITE CORRECTLY
- *
- */
+
 public class PlayerJoinServerListener {
 
   private Logger logger = SpongySB.get().getLogger();
@@ -55,7 +50,8 @@ public class PlayerJoinServerListener {
 
       PlayerCache.add(SPlayer.fetch(player.getUniqueId()));
 
-      if(!Island.getIslandAt(player.getLocation()).getIslandUUID().toString().equals(sPlayer.getIslandUUID().toString())) {
+      // If they are in the island world, check to see if they're allowed to be there
+      if(player.getLocation().getExtent() == WorldManager.get().getWorld() && !Island.getIslandAt(player.getLocation()).getIslandUUID().toString().equals(sPlayer.getIslandUUID().toString())) {
         player.setLocationSafely(WorldManager.get().getServerSpawn());
       }
 
