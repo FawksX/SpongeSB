@@ -89,6 +89,7 @@ public class VanillaIslandGuard extends AbstractIslandGuard {
     if(Island.getIslandAt(to) == null || !sPlayer.isInIsland()) {
       event.setCancelled(true);
       player.sendMessage(TextSerializers.FORMATTING_CODE.deserialize(ConfigManager.get().getMessages().only_allowed_to_teleport_to_own_island));
+      return;
     }
 
 

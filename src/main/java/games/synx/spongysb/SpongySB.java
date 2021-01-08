@@ -33,8 +33,7 @@ import java.nio.file.Paths;
     version = SpongeSBInfo.VERSION,
     description = SpongeSBInfo.DESCRIPTION,
     dependencies = {
-        @Dependency(id="nucleus"),
-        @Dependency(id="luckperms")
+        @Dependency(id="nucleus")
     })
 public class SpongySB {
 

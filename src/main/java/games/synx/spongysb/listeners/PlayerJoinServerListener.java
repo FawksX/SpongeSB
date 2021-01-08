@@ -19,48 +19,45 @@ import java.util.UUID;
 
 public class PlayerJoinServerListener {
 
-  private Logger logger = SpongySB.get().getLogger();
+    private Logger logger = SpongySB.get().getLogger();
 
-  public PlayerJoinServerListener() {
-    logger.info("Registering PlayerJoinServerListener");
-  }
-
-  @Listener
-  public void clientConnectCacheSave(ClientConnectionEvent.Join event) {
-
-    Player player = (Player) event.getSource();
-
-    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
-         PreparedStatement stmt = connection.prepareStatement(Statements.INSERT_PLAYER);) {
-
-      SPlayer sPlayer = SPlayer.fetch(player.getUniqueId());
-
-      // If player has no data, make their object.
-      if(sPlayer == null) {
-
-        stmt.setString(1, player.getUniqueId().toString());
-        stmt.setString(2, String.valueOf(new UUID(0L, 0L)));
-        stmt.setBoolean(3, false);
-
-        stmt.executeUpdate();
-
-      } else {
-        connection.close();
-      }
-
-      PlayerCache.add(SPlayer.fetch(player.getUniqueId()));
-
-      // If they are in the island world, check to see if they're allowed to be there
-      if(player.getLocation().getExtent() == WorldManager.get().getWorld() && !Island.getIslandAt(player.getLocation()).getIslandUUID().toString().equals(sPlayer.getIslandUUID().toString())) {
-        player.setLocationSafely(WorldManager.get().getServerSpawn());
-      }
-
-    } catch (SQLException e) {
-      SpongySB.get().getLogger().error("Something went wrong with your database!");
-      e.printStackTrace();
+    public PlayerJoinServerListener() {
+        logger.info("Registering PlayerJoinServerListener");
     }
 
-  }
+    @Listener
+    public void clientConnectCacheSave(ClientConnectionEvent.Join event) {
+
+        Player player = (Player) event.getSource();
+
+        SPlayer sPlayer = SPlayer.fetch(player.getUniqueId());
+
+        // If player has no data, make their object.
+        if (sPlayer == null) {
+            try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+                 PreparedStatement stmt = connection.prepareStatement(Statements.INSERT_PLAYER);) {
+
+                stmt.setString(1, player.getUniqueId().toString());
+                stmt.setString(2, String.valueOf(new UUID(0L, 0L)));
+                stmt.setBoolean(3, false);
+
+                stmt.executeUpdate();
+
+            } catch (SQLException e) {
+                SpongySB.get().getLogger().error("Something went wrong with your database!");
+                e.printStackTrace();
+            }
+
+        } else {
+            PlayerCache.add(SPlayer.fetch(player.getUniqueId()));
+        }
+
+        // If they are in the island world, check to see if they're allowed to be there
+        if (player.getLocation().getExtent() == WorldManager.get().getWorld() && !Island.getIslandAt(player.getLocation()).getIslandUUID().toString().equals(sPlayer.getIslandUUID().toString())) {
+            player.setLocationSafely(WorldManager.get().getServerSpawn());
+        }
+
+    }
 
 
 }
