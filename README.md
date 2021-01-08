@@ -8,10 +8,14 @@ Right now, this is very early stages and a lot is still to be decided.
 
 As this is intended for Blaze Gaming Pixelmon, we run SF7.1 thus the dependencies match this
 
+- PSCore (Build Latest and drop in libs)
+- Pixelmon Reforged 8.1.2 (Grab latest and drop in libs)
+- GooeyLibs (Provided)
+- FAWE (Provided)
 - SpongeAPI 7.1
+- Sponge Configurate 4.0.0  
 - Aikar Commands Framework (aikar/commands)
 - NucleusAPI 1.14.2-S7.1
-- LuckPerms API 5.2
 - HikariCP
 
 ## Default Configurations
@@ -29,10 +33,3 @@ SpongySB uses Gradle to handle dependencies & building.
 ### Compiling from source
 
 Simply git clone to your machine and execute `gradlew build`
-
----
-## Completed Areas
-
-- Initial Configuration (Will need to be abstracted more to be easier to utilise, but does work)
-- Initial World Generation
-- Initial Databases Creation and connections
