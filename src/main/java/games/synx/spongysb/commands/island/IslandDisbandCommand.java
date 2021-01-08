@@ -26,11 +26,7 @@ public class IslandDisbandCommand extends AbstractIslandCommand {
       return;
     }
 
-    getLogger().info("got to point 1!");
-
     SPlayer sPlayer = SPlayer.get(player);
-
-    getLogger().info("got to point 2!");
 
     if(!sPlayer.isInIsland()) {
       msg(player, getMessages().disband_must_be_in_island);

@@ -13,7 +13,7 @@ public class MessageSettings {
   public String is_in_island_error = "&cYou are already in an island!";
 
   @Setting
-  public String island_created_successfully = "&aYour Island has been created successfully!";
+  public String island_created_successfully = "&e&lISLAND &aYour island has been created! type &e/is go&a to start!";
 
   @Setting
   public String player_not_in_island = "&cYou are not in an island! Type /is new <island name> to create an island!";

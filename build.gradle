@@ -42,9 +42,6 @@ dependencies {
     compileOnly 'io.github.nucleuspowered:nucleus-api:1.14.2-S7.1'
     annotationProcessor 'io.github.nucleuspowered:nucleus-api:1.14.2-S7.1'
 
-    // LUCKPERMS API
-    compileOnly 'net.luckperms:api:5.2'
-
     // LOCAL PLUGINS
     // Basically shit which is unsupported but I need
     apiCompile fileTree(dir: 'libs', include: '*.jar')

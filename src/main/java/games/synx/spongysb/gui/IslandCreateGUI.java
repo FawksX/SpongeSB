@@ -35,7 +35,6 @@ public class IslandCreateGUI {
                     .onClick((action) -> {
                         GridManager.get().newIsland(player, SchematicManager.get().getSchematicHandlers().get(confButton.schematic), name);
                         player.sendMessage(TextSerializers.FORMATTING_CODE.deserialize(ConfigManager.get().getMessages().island_created_successfully));
-                        player.setLocationSafely(SPlayer.get(player).getIsland().getHomeLocation());
                         action.getPlayer().closeScreen();
                     }).build();
 
