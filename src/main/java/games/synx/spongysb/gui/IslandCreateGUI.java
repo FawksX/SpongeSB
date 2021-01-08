@@ -24,7 +24,7 @@ public class IslandCreateGUI {
         Map<GUISettings.GUIButton, Button> buttons = Maps.newHashMap();
         Button fillerButton = Button.builder().item(guiSettings.fillerSlot.getItemStack()).displayName(guiSettings.fillerSlot.displayName).build();
 
-        Template.Builder template = Template.builder(3).fill(fillerButton);
+        Template.Builder template = Template.builder(guiSettings.rows).fill(fillerButton);
 
         for(GUISettings.GUIButton confButton : guiSettings.buttons) {
 

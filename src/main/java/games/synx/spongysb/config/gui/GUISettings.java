@@ -22,6 +22,9 @@ public class GUISettings {
         public String menuTitle = "§aIsland Creation";
 
         @Setting
+        public int rows = 3;
+
+        @Setting
         public FillerButton fillerSlot = new FillerButton();
 
         @Setting
