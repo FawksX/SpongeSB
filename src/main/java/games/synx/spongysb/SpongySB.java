@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import games.synx.spongysb.cache.IslandCache;
 import games.synx.spongysb.commands.CommandManager;
 import games.synx.spongysb.config.ConfigManager;
+import games.synx.spongysb.generation.SchematicManager;
 import games.synx.spongysb.generation.WorldManager;
 import games.synx.spongysb.listeners.ListenerManager;
 import games.synx.spongysb.storage.DatabaseManager;
@@ -48,6 +49,7 @@ public class SpongySB {
     private DatabaseManager databaseManager;
     private ListenerManager listenerManager;
     private CommandManager commandManager;
+    private SchematicManager schematicManager;
 
     // ----------------------------------------------- //
     // SPONGE DEPENDENCY INJECTIONS
@@ -85,6 +87,7 @@ public class SpongySB {
         IslandCache.setup();
         listenerManager = new ListenerManager();
         commandManager = new CommandManager();
+        schematicManager = new SchematicManager();
 
         IslandCache.autosave();
 
@@ -96,13 +99,13 @@ public class SpongySB {
     }
 
     private void setupConfigDirectories() {
-        this.configDir = Paths.get("SpongeSB" + File.separator);
+        this.configDir = Paths.get("PixelmonSkyblock" + File.separator + "SpongeSB" + File.separator);
 
         if (!this.configDir.toFile().exists()) {
             this.configDir.toFile().mkdir();
         }
 
-        this.schematicsDir = Paths.get("SpongeSB" + File.separator + "schematics");
+        this.schematicsDir = Paths.get(this.configDir + File.separator + "schematics");
 
         if(!this.schematicsDir.toFile().exists()) {
             this.schematicsDir.toFile().mkdir();

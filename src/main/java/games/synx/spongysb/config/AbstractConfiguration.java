@@ -1,9 +1,6 @@
 package games.synx.spongysb.config;
 
 import games.synx.spongysb.SpongySB;
-import games.synx.spongysb.config.wrapper.GUIButtonWrapper;
-import games.synx.spongysb.config.wrapper.serializer.GUIButtonSerializer;
-import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.spongepowered.configurate.ConfigurateException;
 import org.spongepowered.configurate.ConfigurationNode;
@@ -24,8 +21,6 @@ public abstract class AbstractConfiguration<T> implements IConfiguration {
 
   private final ObjectMapper<T> MAPPER;
 
-  private static final int CURRENT_VERSION = 2;
-
   private T settings;
 
   // ----------------------------------------------- //
@@ -36,7 +31,7 @@ public abstract class AbstractConfiguration<T> implements IConfiguration {
     this.clazz = clazz;
     this.configFile = configFile;
 
-     loader = GsonConfigurationLoader.builder().defaultOptions(opts -> opts.serializers(build -> build.register(GUIButtonWrapper.class, GUIButtonSerializer.INSTANCE))).path(configFile).build();
+    loader = GsonConfigurationLoader.builder()/**.defaultOptions(opts -> opts.serializers(build -> build.register(GUIButtonWrapper.class, GUIButtonSerializer.INSTANCE)))**/.path(configFile).build();
 
     this.node = loader.load();
 
@@ -50,7 +45,7 @@ public abstract class AbstractConfiguration<T> implements IConfiguration {
     MAPPER.save((T) configuration, node);
   }
 
-  public @NonNull Object loadConfiguration(ObjectMapper<?> objectMapper, final ConfigurationNode node) throws ObjectMappingException, ConfigurateException {
+  public @NonNull Object loadConfiguration(ObjectMapper<?> objectMapper, final ConfigurationNode node) throws ConfigurateException {
     return objectMapper.load(node);
   }
 
@@ -64,7 +59,7 @@ public abstract class AbstractConfiguration<T> implements IConfiguration {
       saveConfiguration(this.settings, getRawNode());
       saveRawNode();
 
-    } catch (ObjectMappingException | ConfigurateException e) {
+    } catch (ConfigurateException e) {
       e.printStackTrace();
     }
   }

@@ -9,6 +9,7 @@ import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.generation.GridManager;
 import games.synx.spongysb.generation.SchematicHandler;
+import games.synx.spongysb.gui.IslandCreateGUI;
 import games.synx.spongysb.objects.SPlayer;
 import games.synx.spongysb.util.IslandNameUtil;
 import org.spongepowered.api.entity.living.player.Player;
@@ -38,10 +39,7 @@ public class IslandCreateCommand extends AbstractIslandCommand {
       return;
     }
 
-    Path schematic = Paths.get(SpongySB.get().schematicsDir.toString() + File.separator + "default.schematic");
-    GridManager.get().newIsland(player, new SchematicHandler(schematic.toFile()), name);
-
-    msg(player, getMessages().island_created_successfully);
+    IslandCreateGUI.open(player, name);
 
   }
 
