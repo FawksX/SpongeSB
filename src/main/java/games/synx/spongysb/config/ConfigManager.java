@@ -35,7 +35,7 @@ public class ConfigManager extends AbstractConfigManager implements IConfigManag
     try {
       conf = new Conf(getFilePath("conf.json"));
       message = new Messages(getFilePath("messages.json"));
-     // upgrades = new Upgrades(upgradesPath); // disabled for now as it's not needed
+      upgrades = new Upgrades(getFilePath("upgrades.yml"));
       gui = new GUI(getFilePath("guis.json"));
 
     } catch (IOException e) {
