@@ -1,6 +1,7 @@
 package games.synx.spongysb.objects;
 
 import com.google.common.collect.Lists;
+import games.synx.pscore.util.MessageUtil;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.cache.IslandCache;
 import games.synx.spongysb.config.ConfigManager;
@@ -8,6 +9,7 @@ import games.synx.spongysb.generation.WorldManager;
 import games.synx.spongysb.storage.DatabaseManager;
 import games.synx.spongysb.storage.Statements;
 import org.spongepowered.api.Sponge;
+import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.serializer.TextSerializers;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
@@ -285,9 +287,9 @@ public class Island {
    * @param replacements String replacements used in String.format()
    */
   public void broadcastToOnlineMembers(String message, Object ... replacements) {
-    for(UUID member : getIslandMembers()) {
-      if(Sponge.getServer().getPlayer(member).isPresent()) {
-        Sponge.getServer().getPlayer(member).get().sendMessage(TextSerializers.FORMATTING_CODE.deserialize(String.format(message, replacements)));
+    for(Player player : Sponge.getServer().getOnlinePlayers()) {
+      if(SPlayer.get(player).getIslandUUID().toString().equals(getIslandUUID().toString())) {
+        MessageUtil.msg(player, message, replacements);
       }
     }
   }

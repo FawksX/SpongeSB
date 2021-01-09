@@ -4,6 +4,7 @@ package games.synx.spongysb.cache;
 import com.google.common.collect.Maps;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.ConfigManager;
+import games.synx.spongysb.objects.Island;
 import games.synx.spongysb.objects.SPlayer;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.scheduler.Task;
@@ -41,6 +42,14 @@ public class PlayerCache {
     }).async().interval(ConfigManager.get().getConf().autosave_task_time_seconds, TimeUnit.SECONDS)
             .name("PlayerCache AutoSave").submit(SpongySB.get().getPluginContainer());
 
-
+    public static void shutdown() {
+        SpongySB.get().getLogger().info("Shutting Down PlayerCache");
+        Task task = Task.builder().execute(() -> {
+            for(SPlayer player : PLAYERS.values()) {
+                SPlayer.save(player);
+            }
+        }).submit(SpongySB.get().getPluginContainer());
+        SpongySB.get().getLogger().info("PlayerCache Shutdown");
+    }
 
 }

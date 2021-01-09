@@ -3,6 +3,7 @@ package games.synx.spongysb;
 import com.google.inject.Inject;
 import games.synx.pscore.PSCore;
 import games.synx.spongysb.cache.IslandCache;
+import games.synx.spongysb.cache.PlayerCache;
 import games.synx.spongysb.commands.CommandManager;
 import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.generation.SchematicManager;
@@ -67,9 +68,9 @@ public class SpongySB {
 
     @Listener
     public void onAboutToStart(GameAboutToStartServerEvent event) {
-        logger.info("Initialising Config Directories");
         instance = this;
-        this.setupConfigDirectories();
+
+
     }
 
     @Listener
@@ -79,6 +80,8 @@ public class SpongySB {
         Sponge.getServer().getConsole().getCommandSource().get().sendMessage(Text.of(TextColors.YELLOW, TextStyles.BOLD, "SpongeSB by FawksX"));
         Sponge.getServer().getConsole().getCommandSource().get().sendMessage(Text.of(TextColors.WHITE, "Licensed to ", TextColors.RED, "Blaze", TextColors.YELLOW, "Gaming"));
         Sponge.getServer().getConsole().getCommandSource().get().sendMessage(Text.of(TextColors.DARK_GRAY, "------------------------------"));
+
+        this.setupConfigDirectories();
 
         configManager = new ConfigManager();
         databaseManager = new DatabaseManager();
@@ -95,14 +98,11 @@ public class SpongySB {
     @Listener
     public void onServerStop(GameStoppingServerEvent event) {
         IslandCache.shutdown();
+        PlayerCache.shutdown();
     }
 
     private void setupConfigDirectories() {
         this.configDir = PSCore.getConfigManager().setupDirectory("SpongeSB");
-
-        if (!this.configDir.toFile().exists()) {
-            this.configDir.toFile().mkdir();
-        }
 
         this.schematicsDir = Paths.get(this.configDir + File.separator + "schematics");
 

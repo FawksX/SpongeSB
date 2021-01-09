@@ -1,5 +1,7 @@
 package games.synx.spongysb.config;
 
+import games.synx.pscore.config.impl.AbstractConfigManager;
+import games.synx.pscore.config.impl.IConfigManager;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.conf.Conf;
 import games.synx.spongysb.config.conf.ConfSettings;
@@ -10,12 +12,9 @@ import games.synx.spongysb.config.messages.Messages;
 import games.synx.spongysb.config.upgrades.UpgradeSettings;
 import games.synx.spongysb.config.upgrades.Upgrades;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
-public class ConfigManager {
+public class ConfigManager extends AbstractConfigManager implements IConfigManager {
 
   public static ConfigManager get() {
     return instance;
@@ -28,25 +27,19 @@ public class ConfigManager {
   private Upgrades upgrades;
   private GUI gui;
 
-  private final Path confPath = Paths.get(SpongySB.get().getConfigDir() + File.separator + "conf.json");
-  private final Path messagePath = Paths.get(SpongySB.get().getConfigDir() + File.separator + "messages.json");
-  private final Path upgradesPath = Paths.get(SpongySB.get().getConfigDir() + File.separator + "upgrades.json");
-  private final Path guiPath = Paths.get(SpongySB.get().getConfigDir() + File.separator + "guis.json");
-
   public ConfigManager() {
-
-    SpongySB.get().getLogger().info("Registering Config Manager");
+    super(SpongySB.get().getLogger(), SpongySB.get().getConfigDir());
 
     instance = this;
 
     try {
-      conf = new Conf(confPath);
-      message = new Messages(messagePath);
+      conf = new Conf(getFilePath("conf.json"));
+      message = new Messages(getFilePath("messages.json"));
      // upgrades = new Upgrades(upgradesPath); // disabled for now as it's not needed
-      gui = new GUI(guiPath);
+      gui = new GUI(getFilePath("guis.json"));
 
     } catch (IOException e) {
-      SpongySB.get().getLogger().error("Could not instantiate a config!");
+      getLogger().error("Could not instantiate a config!");
       e.printStackTrace();
 
     }
