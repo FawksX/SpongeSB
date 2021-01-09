@@ -8,7 +8,7 @@ import games.synx.spongysb.objects.SPlayer;
 import games.synx.spongysb.storage.DatabaseManager;
 import games.synx.spongysb.storage.Statements;
 import games.synx.spongysb.objects.IslandPermissionLevel;
-import games.synx.spongysb.util.UUIDUtil;
+import games.synx.spongysb.util.IslandUtil;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.entity.living.player.Player;
@@ -39,7 +39,7 @@ public class GridManager {
    */
   public void newIsland(Player player, SchematicHandler schematic, String islandName) {
 
-    UUID islandUUID = UUIDUtil.generateUniqueIslandUUID();
+    UUID islandUUID = IslandUtil.generateUniqueIslandUUID();
     UUID leaderUUID = player.getUniqueId();
 
     SPlayer sPlayer = SPlayer.get(player);

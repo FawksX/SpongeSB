@@ -2,14 +2,15 @@ package games.synx.spongysb.listeners;
 
 import games.synx.pscore.util.AsyncUtil;
 import games.synx.spongysb.SpongySB;
+import games.synx.spongysb.cache.CoopCache;
 import games.synx.spongysb.cache.PlayerCache;
 import games.synx.spongysb.objects.SPlayer;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.network.ClientConnectionEvent;
 
-public class PlayerCacheDisconnectListener {
+public class CacheDisconnectListener {
 
-    public PlayerCacheDisconnectListener() {
+    public CacheDisconnectListener() {
         SpongySB.get().getLogger().info("Registering PlayerCache Disconnect Listener");
     }
 
@@ -22,9 +23,9 @@ public class PlayerCacheDisconnectListener {
             SPlayer.save(sPlayer);
         });
 
+        CoopCache.removeIfPresent(event.getTargetEntity().getUniqueId());
         PlayerCache.remove(event.getTargetEntity().getUniqueId());
 
     }
-
 
 }

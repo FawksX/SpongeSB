@@ -14,7 +14,7 @@ public class ListenerManager extends AbstractListenerManager implements IManager
 
     registerSpongeEvent(new PlayerJoinServerListener());
     registerSpongeEvent(new VanillaIslandGuard());
-    registerSpongeEvent(new PlayerCacheDisconnectListener());
+    registerSpongeEvent(new CacheDisconnectListener());
 
     registerPixelmonEvent(new ReforgedIslandGuard());
 

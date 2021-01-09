@@ -75,13 +75,11 @@ public class DatabaseManager extends AbstractManager implements IManager, IDatab
       PreparedStatement preparedStatement2 = connection.prepareStatement(Statements.CREATE_PLAYERS_TABLE);
       PreparedStatement preparedStatement3 = connection.prepareStatement(Statements.CREATE_GRID_TABLE);
       PreparedStatement preparedStatement4 = connection.prepareStatement(Statements.CREATE_ISLAND_UPGRADES_TABLE);
-      PreparedStatement preparedStatement5 = connection.prepareStatement(Statements.CREATE_COOPS_TABLE);
 
       preparedStatement.execute();
       preparedStatement2.execute();
       preparedStatement3.execute();
       preparedStatement4.execute();
-      preparedStatement5.execute();
 
     } catch (SQLException e) {
 

@@ -8,7 +8,7 @@ import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.config.gui.GUISettings;
 import games.synx.spongysb.generation.GridManager;
 import games.synx.spongysb.generation.SchematicManager;
-import net.minecraftforge.fml.server.FMLServerHandler;
+import net.minecraft.entity.player.EntityPlayerMP;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.serializer.TextSerializers;
 
@@ -38,15 +38,13 @@ public class IslandCreateGUI {
                     }).build();
 
             template.set(confButton.row, confButton.column, button);
-
         }
 
-        // Temporary Hard-code, to be made configurable.
         Page.builder()
                 .template(template.build())
                 .title(ConfigManager.get().getGUIs().schematicgui.menuTitle)
                 .build()
-                .openPage(FMLServerHandler.instance().getServer().getPlayerList().getPlayerByUUID(player.getUniqueId()));
+                .openPage((EntityPlayerMP) player);
 
     }
 

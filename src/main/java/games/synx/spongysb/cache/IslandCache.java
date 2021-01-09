@@ -16,9 +16,9 @@ public class IslandCache {
     public static void setup() {
 
         List<Island> islands = Island.getAll();
-        if(islands == null) return;
+        if (islands == null) return;
 
-        for(Island island: islands) {
+        for (Island island : islands) {
             ISLANDS.put(island.getIslandUUID(), island);
         }
 
@@ -48,21 +48,21 @@ public class IslandCache {
 
     public static void shutdown() {
         SpongySB.get().getLogger().info("Shutting Down IslandCache");
-        Task task = Task.builder().execute(() -> {
-            for(Island island : ISLANDS.values()) {
-                Island.save(island);
-            }
-        }).submit(SpongySB.get().getPluginContainer());
+        save();
         SpongySB.get().getLogger().info("Island Cache Shutdown");
     }
 
     public static void autosave() {
         Task task = Task.builder().execute(() -> {
             SpongySB.get().getLogger().info("Saving all Island Data");
-            for(Island island : ISLANDS.values()) {
-                Island.save(island);
-            }
+            save();
             SpongySB.get().getLogger().info("Islands Saved!");
         }).async().interval(ConfigManager.get().getConf().autosave_task_time_seconds, TimeUnit.SECONDS).submit(SpongySB.get().getPluginContainer());
+    }
+
+    private static void save() {
+        for (Island island : ISLANDS.values()) {
+            Island.save(island);
+        }
     }
 }

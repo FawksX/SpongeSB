@@ -76,25 +76,21 @@ public class SpongySB {
         Sponge.getServer().getConsole().getCommandSource().get().sendMessage(Text.of(TextColors.DARK_GRAY, "------------------------------"));
 
         this.setupConfigDirectories();
-
         new ConfigManager();
         new DatabaseManager();
         new WorldManager();
         IslandCache.setup();
-        CoopCache.setup();
         new ListenerManager();
         new CommandManager();
         new SchematicManager();
 
         IslandCache.autosave();
-        CoopCache.autosave();
         PlayerCache.autosave();
 
     }
 
     @Listener
     public void onServerStop(GameStoppingServerEvent event) {
-        CoopCache.shutdown();
         IslandCache.shutdown();
         PlayerCache.shutdown();
     }

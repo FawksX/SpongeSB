@@ -36,21 +36,21 @@ public class PlayerCache {
     public static void autosave() {
         Task task = Task.builder().execute(() -> {
             SpongySB.get().getLogger().info("Saving all Island Data");
-            for(SPlayer player : PLAYERS.values()) {
-                SPlayer.save(player);
-            }
+            save();
             SpongySB.get().getLogger().info("Islands Saved!");
         }).async().interval(ConfigManager.get().getConf().autosave_task_time_seconds, TimeUnit.SECONDS).submit(SpongySB.get().getPluginContainer());
     }
 
     public static void shutdown() {
         SpongySB.get().getLogger().info("Shutting Down PlayerCache");
-        Task task = Task.builder().execute(() -> {
-            for(SPlayer player : PLAYERS.values()) {
-                SPlayer.save(player);
-            }
-        }).submit(SpongySB.get().getPluginContainer());
+        save();
         SpongySB.get().getLogger().info("PlayerCache Shutdown");
+    }
+
+    private static void save() {
+        for (SPlayer player : PLAYERS.values()) {
+            SPlayer.save(player);
+        }
     }
 
 }

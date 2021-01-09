@@ -9,7 +9,7 @@ import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.objects.Island;
 import games.synx.spongysb.objects.IslandPermissionLevel;
 import games.synx.spongysb.objects.SPlayer;
-import games.synx.spongysb.util.IslandNameUtil;
+import games.synx.spongysb.util.IslandUtil;
 import org.spongepowered.api.entity.living.player.Player;
 
 @CommandAlias("is|island")
@@ -33,7 +33,7 @@ public class IslandRenameCommand extends AbstractIslandCommand {
       return;
     }
 
-    if (IslandNameUtil.isIslandNameTaken(name)) {
+    if (IslandUtil.isIslandNameTaken(name)) {
       formatMsg(player, getMessages().island_name_taken, name);
       return;
     }

@@ -9,7 +9,6 @@ public class Statements {
   public static final String CREATE_ISLANDS_TABLE = "CREATE TABLE IF NOT EXISTS spongysb_islands (island_uuid VARCHAR(36) NOT NULL PRIMARY KEY, leader_uuid VARCHAR(36) NOT NULL, island_name text NOT NULL, center_location text NOT NULL, home_location text NOT NULL)";
   public static final String CREATE_PLAYERS_TABLE = "CREATE TABLE IF NOT EXISTS spongysb_players (player_uuid VARCHAR(36) NOT NULL PRIMARY KEY, island_uuid VARCHAR(36) NOT NULL,  island_role text NOT NULL)";
   public static final String CREATE_GRID_TABLE = "CREATE TABLE IF NOT EXISTS spongysb_grid (id VARCHAR(1) NOT NULL PRIMARY KEY, lastisland text NOT NULL)";
-  public static final String CREATE_COOPS_TABLE = "CREATE TABLE IF NOT EXISTS spongysb_coops (player_uuid VARCHAR(36) NOT NULL, island_uuid VARCHAR(36) NOT NULL)";
   public static final String CREATE_ISLAND_UPGRADES_TABLE = "CREATE TABLE IF NOT EXISTS spongysb_island_upgrades (island_uuid VARCHAR(36) NOT NULL PRIMARY KEY, island_size integer NOT NULL)";
 
   // CREATING ISLAND/PLAYER ROWS
@@ -18,12 +17,7 @@ public class Statements {
 
   // GETTING FULL PLAYER/ISLAND INFORMATION
   public static final String GET_ALL_ISLANDS = "SELECT * FROM spongysb_islands";
-  public static final String GET_ALL_COOPS = "SELECT * FROM spongysb_coops";
-
   public static final String SAVE_ALL_ISLANDS = "UPDATE spongysb_islands SET leader_uuid = ?, island_name = ?, center_location = ?, home_location = ? WHERE island_uuid = ?";
-  public static final String TRUNCATE_COOPS = "TRUNCATE spongysb_coops";
-  public static final String SAVE_ALL_COOPS = "REPLACE INTO spongysb_coops (player_uuid, island_uuid) VALUES(?,?)";
-
 
   public static final String GET_PLAYER = "SELECT island_uuid, island_role FROM spongysb_players WHERE player_uuid = ?";
   public static final String GET_ISLAND = "SELECT leader_uuid, island_name, center_location, home_location FROM spongysb_islands WHERE island_uuid = ?";
