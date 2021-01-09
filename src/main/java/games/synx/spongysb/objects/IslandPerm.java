@@ -7,6 +7,7 @@ package games.synx.spongysb.objects;
 public enum IslandPerm {
   PLACE,
   BREAK,
+  ENTRY,
   SPAWNER_PLACE,
   SPAWNER_BREAK,
   DOOR,

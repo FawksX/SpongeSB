@@ -25,6 +25,7 @@ public class CommandManager extends PSCommandManager {
     getCommandManager().registerCommand(new IslandRenameCommand());
     getCommandManager().registerCommand(new IslandMakeleaderCommand());
     getCommandManager().registerCommand(new IslandDisbandCommand());
+    getCommandManager().registerCommand(new IslandCoopCommand());
 
   }
 

@@ -127,6 +127,11 @@ public class SPlayer {
     if(Island.getIslandAt(world) == null) {
       return false;
     }
+
+    if(Island.getIslandAt(world).isCoop(this.getPlayerUUID())) return true;
+
+    if(getIsland() == null) return false;
+
     return getIsland().getIslandUUID().toString().equals(Island.getIslandAt(world).getIslandUUID().toString());
   }
 

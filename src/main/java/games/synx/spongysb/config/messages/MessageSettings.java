@@ -7,6 +7,9 @@ import org.spongepowered.configurate.objectmapping.meta.Setting;
 public class MessageSettings {
 
   @Setting
+  public Coop coop = new Coop();
+
+  @Setting
   public String serverName = "Lightning";
 
   @Setting
@@ -128,5 +131,27 @@ public class MessageSettings {
 
   @Setting
   public String island_disbanded = "&e&lISLAND &eYour island has been disbanded by &a%s&e!";
+
+  @ConfigSerializable
+  public static class Coop {
+
+    @Setting
+    public String revoked_successfully = "&e&lISLAND &eYou have successfully revoked the coop for &a%s!";
+
+    @Setting
+    public String revoked_broadcast = "&e&lISLAND &a%s &ehas revoked COOP access from &a%s!";
+
+    @Setting
+    public String added_successfully = "&e&lISLAND &eYou have successfully added the coop for &a%s!";
+
+    @Setting
+    public String added_broadcast = "&e&lISLAND &a%s &ehas added COOP access for &a%s!";
+
+    @Setting
+    public String added_message = "&e&lISLAND &a%s &ehas granted you COOP access on &a%s!";
+
+
+  }
+
 
 }

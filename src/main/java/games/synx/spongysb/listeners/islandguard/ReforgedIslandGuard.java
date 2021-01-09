@@ -17,7 +17,6 @@ public class ReforgedIslandGuard extends AbstractIslandGuard {
      */
     @SubscribeEvent
     public void onPokemonOutEvent(PixelmonSendOutEvent event) {
-        System.out.println("Checking PixelmonSendOutEvent!");
         if(passesGenericIslandChecks(event.player, IslandPerm.SEND_OUT_POKEMON)) return;
         event.setCanceled(true);
 

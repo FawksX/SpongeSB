@@ -3,6 +3,7 @@ package games.synx.spongysb.objects;
 import com.google.common.collect.Lists;
 import games.synx.pscore.util.MessageUtil;
 import games.synx.spongysb.SpongySB;
+import games.synx.spongysb.cache.CoopCache;
 import games.synx.spongysb.cache.IslandCache;
 import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.generation.WorldManager;
@@ -291,6 +292,56 @@ public class Island {
       if(!SPlayer.get(player).isInIsland() || !SPlayer.get(player).getIslandUUID().toString().equals(getIslandUUID().toString())) return;
       MessageUtil.msg(player, message, replacements);
     }
+  }
+
+  /**
+   * Check is a Player is Cooped in this island
+   * @param player the player being checked
+   * @return if they are cooped or not
+   */
+  public boolean isCoop(Player player) {
+    return isCoop(player.getUniqueId());
+  }
+
+  /**
+   * Check is a Player is Cooped in this island
+   * @param uuid the player being checked
+   * @return if they are cooped or not
+   */
+  public boolean isCoop(UUID uuid) {
+    return CoopCache.isCoop(this, uuid);
+  }
+
+  /**
+   * Revoke a Players' COOP status
+   * @param player Player to remove
+   */
+  public void revokeCoop(Player player) {
+    revokeCoop(player.getUniqueId());
+  }
+
+  /**
+   * Revoke a Players' COOP status
+   * @param uuid Player to remove
+   */
+  public void revokeCoop(UUID uuid) {
+    CoopCache.remove(this, uuid);
+  }
+
+  /**
+   * Give a player COOP status
+   * @param player Player to remove
+   */
+  public void addCoop(Player player) {
+    addCoop(player.getUniqueId());
+  }
+
+  /**
+   * Give a player COOP status
+   * @param uuid Player to remove
+   */
+  public void addCoop(UUID uuid) {
+    CoopCache.add(this, uuid);
   }
 
   /**

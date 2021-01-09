@@ -2,17 +2,18 @@ package games.synx.spongysb.storage;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import games.synx.pscore.manager.AbstractManager;
+import games.synx.pscore.manager.IManager;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.config.conf.ConfSettings;
-import org.slf4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 
-public class DatabaseManager implements IDatabase {
+public class DatabaseManager extends AbstractManager implements IManager, IDatabase {
 
   public static DatabaseManager get() {
     return instance;
@@ -20,17 +21,13 @@ public class DatabaseManager implements IDatabase {
 
   private static DatabaseManager instance;
 
-  private final Logger logger;
-
   public HikariDataSource dataSource;
 
   public DatabaseManager() {
+    super(SpongySB.get().getLogger());
     instance = this;
 
-    logger = SpongySB.get().getLogger();
-    logger.info("Initialising Database Manager");
-
-    logger.info("Loading Database Details");
+    getLogger().info("Loading Database Details");
     ConfSettings.Database databaseConf = ConfigManager.get().getConf().database;
 
     HikariConfig config = new HikariConfig();
@@ -55,10 +52,8 @@ public class DatabaseManager implements IDatabase {
 
     this.dataSource = new HikariDataSource(config);
 
-    logger.info("Creating HikariDataSource");
+    getLogger().info("Creating HikariDataSource");
     this.dataSource = new HikariDataSource(config);
-
-    logger.info("Database has been loaded!");
 
     createTables();
   }
@@ -75,18 +70,18 @@ public class DatabaseManager implements IDatabase {
 
 
   private void createTables() {
-    logger.info("Attempting to create default tables (if they do not exist)");
     try (Connection connection = getConnection()) {
       PreparedStatement preparedStatement = connection.prepareStatement(Statements.CREATE_ISLANDS_TABLE);
       PreparedStatement preparedStatement2 = connection.prepareStatement(Statements.CREATE_PLAYERS_TABLE);
       PreparedStatement preparedStatement3 = connection.prepareStatement(Statements.CREATE_GRID_TABLE);
       PreparedStatement preparedStatement4 = connection.prepareStatement(Statements.CREATE_ISLAND_UPGRADES_TABLE);
+      PreparedStatement preparedStatement5 = connection.prepareStatement(Statements.CREATE_COOPS_TABLE);
 
       preparedStatement.execute();
       preparedStatement2.execute();
       preparedStatement3.execute();
       preparedStatement4.execute();
-      logger.info("Successfully created default tables (if they do not exist)");
+      preparedStatement5.execute();
 
     } catch (SQLException e) {
 

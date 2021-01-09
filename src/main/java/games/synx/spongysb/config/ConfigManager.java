@@ -2,6 +2,7 @@ package games.synx.spongysb.config;
 
 import games.synx.pscore.config.impl.AbstractConfigManager;
 import games.synx.pscore.config.impl.IConfigManager;
+import games.synx.pscore.manager.IManager;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.conf.Conf;
 import games.synx.spongysb.config.conf.ConfSettings;
@@ -14,7 +15,7 @@ import games.synx.spongysb.config.upgrades.Upgrades;
 
 import java.io.IOException;
 
-public class ConfigManager extends AbstractConfigManager implements IConfigManager {
+public class ConfigManager extends AbstractConfigManager implements IManager, IConfigManager {
 
   public static ConfigManager get() {
     return instance;
@@ -35,9 +36,8 @@ public class ConfigManager extends AbstractConfigManager implements IConfigManag
     try {
       conf = new Conf(getFilePath("conf.json"));
       message = new Messages(getFilePath("messages.json"));
-      upgrades = new Upgrades(getFilePath("upgrades.yml"));
+      // upgrades = new Upgrades(getFilePath("upgrades.yml"));
       gui = new GUI(getFilePath("guis.json"));
-
     } catch (IOException e) {
       getLogger().error("Could not instantiate a config!");
       e.printStackTrace();

@@ -1,35 +1,34 @@
 package games.synx.spongysb.generation;
 
 import com.google.common.collect.Maps;
+import games.synx.pscore.manager.AbstractManager;
+import games.synx.pscore.manager.IManager;
 import games.synx.spongysb.SpongySB;
-import org.slf4j.Logger;
 
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 
-public class SchematicManager {
+public class SchematicManager extends AbstractManager implements IManager {
 
     private static SchematicManager instance = new SchematicManager();
     public static SchematicManager get() {
         return instance;
     }
 
-    private Logger logger = SpongySB.get().getLogger();
-
     private Map<String, SchematicHandler> schematicHandlers = Maps.newHashMap();
 
     public SchematicManager() {
-        logger.info("Registering SchematicManager");
+        super(SpongySB.get().getLogger());
 
         instance = this;
 
         Path schematics = Paths.get(SpongySB.get().schematicsDir.toString());
 
         if(schematics.toFile().list() == null) {
-            logger.error("SCHEMATICS COULD NOT BE FOUND!");
-            logger.error("Island Pasting in SpongySB will not complete properly.");
+            getLogger().error("SCHEMATICS COULD NOT BE FOUND!");
+            getLogger().error("Island Pasting in SpongySB will not complete properly.");
         }
 
         for(final String file : schematics.toFile().list()) {

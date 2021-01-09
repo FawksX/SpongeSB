@@ -1,20 +1,16 @@
 package games.synx.spongysb.listeners;
 
-import com.pixelmonmod.pixelmon.Pixelmon;
+import games.synx.pscore.listener.impl.AbstractListenerManager;
+import games.synx.pscore.listener.impl.IListenerManager;
+import games.synx.pscore.manager.IManager;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.listeners.islandguard.VanillaIslandGuard;
 import games.synx.spongysb.listeners.islandguard.ReforgedIslandGuard;
-import net.minecraftforge.common.MinecraftForge;
-import org.slf4j.Logger;
-import org.spongepowered.api.Sponge;
 
-public class ListenerManager {
-
-  private Logger logger = SpongySB.get().getLogger();
+public class ListenerManager extends AbstractListenerManager implements IManager, IListenerManager {
 
   public ListenerManager() {
-
-    logger.info("Registering Listener Manager!");
+    super(SpongySB.get().getLogger(), SpongySB.get().getPluginContainer());
 
     registerSpongeEvent(new PlayerJoinServerListener());
     registerSpongeEvent(new VanillaIslandGuard());
@@ -22,19 +18,6 @@ public class ListenerManager {
 
     registerPixelmonEvent(new ReforgedIslandGuard());
 
-  }
-
-  public void registerPixelmonEvent(Object T) {
-    registerForgeEvent(T);
-    Pixelmon.EVENT_BUS.register(T);
-  }
-
-  public void registerForgeEvent(Object T) {
-    MinecraftForge.EVENT_BUS.register(T);
-  }
-
-  public void registerSpongeEvent(Object T) {
-    Sponge.getEventManager().registerListeners(SpongySB.get().getPluginContainer(), T);
   }
 
 }
