@@ -52,7 +52,7 @@ public class SPlayer {
    */
   public static SPlayer fetch(UUID uuid) {
 
-    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+    try (Connection connection = DatabaseManager.get().getConnection();
          PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_PLAYER)) {
 
       preparedStatement.setString(1, uuid.toString());

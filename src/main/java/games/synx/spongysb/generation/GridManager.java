@@ -5,6 +5,7 @@ import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.events.IslandNewEvent;
 import games.synx.spongysb.objects.Island;
 import games.synx.spongysb.objects.SPlayer;
+import games.synx.spongysb.storage.DatabaseManager;
 import games.synx.spongysb.storage.Statements;
 import games.synx.spongysb.objects.IslandPermissionLevel;
 import games.synx.spongysb.util.UUIDUtil;
@@ -66,7 +67,7 @@ public class GridManager {
 
   private Location<World> getLastLocation() {
 
-    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+    try (Connection connection = DatabaseManager.get().getConnection();
          ResultSet rs = connection.prepareStatement(Statements.GET_LAST_LOCATION).executeQuery()) {
 
       Location<World> last;
@@ -129,7 +130,7 @@ public class GridManager {
   }
 
   private void saveLastLocation(Location<World> location) {
-    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+    try (Connection connection = DatabaseManager.get().getConnection();
          PreparedStatement preparedStatement = connection.prepareStatement(Statements.UPDATE_LAST_GRID_ISLAND)) {
 
       preparedStatement.setString(1, location.getBlockX() + "," + location.getBlockZ());

@@ -1,6 +1,7 @@
 package games.synx.spongysb.util;
 
 import games.synx.spongysb.SpongySB;
+import games.synx.spongysb.storage.DatabaseManager;
 import games.synx.spongysb.storage.Statements;
 
 import java.sql.Connection;
@@ -15,7 +16,7 @@ public class UUIDUtil {
 
     UUID uuid = UUID.randomUUID();
 
-    try (Connection connection = SpongySB.get().getDatabaseManager().getConnection()) {
+    try (Connection connection = DatabaseManager.get().getConnection()) {
 
       PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_ISLAND);
       preparedStatement.setString(1, uuid.toString());

@@ -83,13 +83,13 @@ public class SpongySB {
 
         this.setupConfigDirectories();
 
-        configManager = new ConfigManager();
-        databaseManager = new DatabaseManager();
-        worldManager = new WorldManager();
+        new ConfigManager();
+        new DatabaseManager();
+        new WorldManager();
         IslandCache.setup();
-        listenerManager = new ListenerManager();
-        commandManager = new CommandManager();
-        schematicManager = new SchematicManager();
+        new ListenerManager();
+        new CommandManager();
+        new SchematicManager();
 
         IslandCache.autosave();
         PlayerCache.autosave();
@@ -133,24 +133,5 @@ public class SpongySB {
         return this.configDir;
     }
 
-    public ConfigManager getConfigManager() {
-        return this.configManager;
-    }
-
-    public WorldManager getWorldManager() {
-        return this.worldManager;
-    }
-
-    public DatabaseManager getDatabaseManager() {
-        return this.databaseManager;
-    }
-
-    public ListenerManager getListenerManager() {
-        return this.listenerManager;
-    }
-
-    public CommandManager getCommandManager() {
-        return this.commandManager;
-    }
 
 }

@@ -1,6 +1,7 @@
 package games.synx.spongysb.util;
 
 import games.synx.spongysb.SpongySB;
+import games.synx.spongysb.storage.DatabaseManager;
 import games.synx.spongysb.storage.Statements;
 
 import java.sql.Connection;
@@ -12,7 +13,7 @@ public class IslandNameUtil {
 
   public static boolean isIslandNameTaken(String name) {
 
-    try(Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+    try(Connection connection = DatabaseManager.get().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_ISLAND_UUID)) {
 
       preparedStatement.setString(1, name.toUpperCase());

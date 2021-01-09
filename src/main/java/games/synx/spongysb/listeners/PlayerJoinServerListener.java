@@ -5,6 +5,7 @@ import games.synx.spongysb.cache.PlayerCache;
 import games.synx.spongysb.generation.WorldManager;
 import games.synx.spongysb.objects.Island;
 import games.synx.spongysb.objects.SPlayer;
+import games.synx.spongysb.storage.DatabaseManager;
 import games.synx.spongysb.storage.Statements;
 import org.slf4j.Logger;
 import org.spongepowered.api.entity.living.player.Player;
@@ -33,7 +34,7 @@ public class PlayerJoinServerListener {
 
         // If player has no data, make their object.
         if (sPlayer == null) {
-            try (Connection connection = SpongySB.get().getDatabaseManager().getConnection();
+            try (Connection connection = DatabaseManager.get().getConnection();
                  PreparedStatement stmt = connection.prepareStatement(Statements.INSERT_PLAYER);) {
 
                 stmt.setString(1, player.getUniqueId().toString());
