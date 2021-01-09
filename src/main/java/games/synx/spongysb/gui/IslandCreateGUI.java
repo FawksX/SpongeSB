@@ -8,7 +8,6 @@ import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.config.gui.GUISettings;
 import games.synx.spongysb.generation.GridManager;
 import games.synx.spongysb.generation.SchematicManager;
-import games.synx.spongysb.objects.SPlayer;
 import net.minecraftforge.fml.server.FMLServerHandler;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.serializer.TextSerializers;

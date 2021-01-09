@@ -3,7 +3,6 @@ package games.synx.spongysb.generation;
 import com.boydti.fawe.FaweAPI;
 import com.boydti.fawe.object.schematic.Schematic;
 import com.sk89q.worldedit.BlockVector;
-import com.sk89q.worldedit.BlockVector2D;
 import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.WorldEdit;
 import com.sk89q.worldedit.extent.clipboard.Clipboard;
@@ -12,17 +11,10 @@ import com.sk89q.worldedit.function.operation.Operations;
 import com.sk89q.worldedit.session.ClipboardHolder;
 import com.sk89q.worldedit.sponge.SpongeWorldEdit;
 import games.synx.spongysb.SpongySB;
-import games.synx.spongysb.config.conf.Conf;
-import javafx.util.Callback;
-import org.spongepowered.api.Sponge;
-import org.spongepowered.api.block.tileentity.Sign;
-import org.spongepowered.api.block.tileentity.carrier.Chest;
 import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.item.inventory.Inventory;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
-import javax.sound.sampled.Clip;
 import java.io.File;
 import java.io.IOException;
 

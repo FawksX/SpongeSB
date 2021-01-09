@@ -5,7 +5,6 @@ import java.util.UUID;
 import games.synx.spongysb.events.base.IslandEvent;
 import games.synx.spongysb.objects.Island;
 
-
 /**
  * Called whenever a player changes the ownership of an island.
  *

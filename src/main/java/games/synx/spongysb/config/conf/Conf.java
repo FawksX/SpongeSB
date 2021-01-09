@@ -1,6 +1,5 @@
 package games.synx.spongysb.config.conf;
 
-
 import games.synx.pscore.config.impl.AbstractConfiguration;
 import games.synx.pscore.config.impl.IConfiguration;
 

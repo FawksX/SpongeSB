@@ -5,18 +5,11 @@ import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
 import co.aikar.commands.annotation.Syntax;
-import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.commands.AbstractIslandCommand;
-import games.synx.spongysb.generation.GridManager;
-import games.synx.spongysb.generation.SchematicHandler;
 import games.synx.spongysb.gui.IslandCreateGUI;
 import games.synx.spongysb.objects.SPlayer;
 import games.synx.spongysb.util.IslandNameUtil;
 import org.spongepowered.api.entity.living.player.Player;
-
-import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @CommandAlias("is|island")
 public class IslandCreateCommand extends AbstractIslandCommand {

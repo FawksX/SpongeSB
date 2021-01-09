@@ -4,7 +4,6 @@ import com.pixelmonmod.pixelmon.Pixelmon;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.listeners.islandguard.VanillaIslandGuard;
 import games.synx.spongysb.listeners.islandguard.ReforgedIslandGuard;
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;

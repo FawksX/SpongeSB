@@ -1,24 +1,15 @@
 package games.synx.spongysb.commands;
 
-import co.aikar.commands.BaseCommand;
+import games.synx.pscore.command.AbstractPSCommand;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.config.conf.ConfSettings;
 import games.synx.spongysb.config.messages.MessageSettings;
-import org.slf4j.Logger;
-import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.text.serializer.TextSerializers;
 
-public class AbstractIslandCommand extends BaseCommand {
+public class AbstractIslandCommand extends AbstractPSCommand {
 
-  private final Logger logger = SpongySB.get().getLogger();
-
-  public void msg(Player player, String message) {
-    player.sendMessage(TextSerializers.FORMATTING_CODE.deserialize(message));
-  }
-
-  public void formatMsg(Player player, String message, Object ... replacements) {
-    msg(player, String.format(message, replacements));
+  public AbstractIslandCommand() {
+    super(SpongySB.get().getLogger());
   }
 
   public ConfSettings getConf() {
@@ -29,9 +20,5 @@ public class AbstractIslandCommand extends BaseCommand {
     return ConfigManager.get().getMessages();
   }
 
-
-  public Logger getLogger() {
-    return this.logger;
-  }
 
 }

@@ -1,6 +1,5 @@
 package games.synx.spongysb.util;
 
-import com.typesafe.config.ConfigException;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.storage.Statements;
 
