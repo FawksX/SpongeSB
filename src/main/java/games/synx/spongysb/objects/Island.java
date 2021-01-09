@@ -288,9 +288,8 @@ public class Island {
    */
   public void broadcastToOnlineMembers(String message, Object ... replacements) {
     for(Player player : Sponge.getServer().getOnlinePlayers()) {
-      if(SPlayer.get(player).getIslandUUID().toString().equals(getIslandUUID().toString())) {
-        MessageUtil.msg(player, message, replacements);
-      }
+      if(!SPlayer.get(player).isInIsland() || !SPlayer.get(player).getIslandUUID().toString().equals(getIslandUUID().toString())) return;
+      MessageUtil.msg(player, message, replacements);
     }
   }
 

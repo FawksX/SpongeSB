@@ -92,6 +92,7 @@ public class SpongySB {
         schematicManager = new SchematicManager();
 
         IslandCache.autosave();
+        PlayerCache.autosave();
 
     }
 
