@@ -44,13 +44,6 @@ public class SpongySB {
     private Path configDir;
     public Path schematicsDir;
 
-    private ConfigManager configManager;
-    private WorldManager worldManager;
-    private DatabaseManager databaseManager;
-    private ListenerManager listenerManager;
-    private CommandManager commandManager;
-    private SchematicManager schematicManager;
-
     // ----------------------------------------------- //
     // SPONGE DEPENDENCY INJECTIONS
     // ----------------------------------------------- //
