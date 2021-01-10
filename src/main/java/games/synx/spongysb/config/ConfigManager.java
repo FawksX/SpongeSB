@@ -38,6 +38,7 @@ public class ConfigManager extends AbstractConfigManager implements IManager, IC
       message = new Messages(getFilePath("messages.json"));
       // upgrades = new Upgrades(getFilePath("upgrades.yml"));
       gui = new GUI(getFilePath("guis.json"));
+
     } catch (IOException e) {
       getLogger().error("Could not instantiate a config!");
       e.printStackTrace();

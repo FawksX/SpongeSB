@@ -11,7 +11,6 @@ import games.synx.spongysb.storage.DatabaseManager;
 import games.synx.spongysb.storage.Statements;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.text.serializer.TextSerializers;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
@@ -31,6 +30,7 @@ public class Island {
   private final Location<World> location;
   private Location<World> homeLocation;
   private List<String> invited_members = Lists.newArrayList();
+  private boolean active = true;
 
 
   private Island(UUID island_uuid, UUID leader_uuid, String island_name,
@@ -86,7 +86,9 @@ public class Island {
       preparedStatement.setString(2, island.getIslandName());
       preparedStatement.setString(3, centerSerialised);
       preparedStatement.setString(4, homeLocSerialised);
-      preparedStatement.setString(5, island.getIslandUUID().toString());
+      preparedStatement.setBoolean(5, island.isActive());
+      preparedStatement.setString(6, island.getIslandUUID().toString());
+
 
       preparedStatement.executeUpdate();
 
@@ -183,6 +185,7 @@ public class Island {
 
       // BY DEFAULT CENTER LOCATION IS THE SAME AS THE PASTE LOCATION, AS IT WILL BE A SOLID LOCATION IF SCHEM IS MADE CORRECTLY.
       preparedStatement.setString(5, homeLocSerialised);
+      preparedStatement.setBoolean(6, true);
       preparedStatement.executeUpdate();
 
     } catch (SQLException e) {
@@ -190,6 +193,7 @@ public class Island {
     }
     Island newIsland = new Island(islandUUID, leaderUUID, islandName, centerSerialised, homeLocSerialised);
     IslandCache.add(newIsland);
+    IslandCache.addDefaultPermissions(newIsland);
 
     return newIsland;
 
@@ -352,6 +356,10 @@ public class Island {
     this.island_name = newName;
   }
 
+  /**
+   * Sets a new Leader UUID
+   * @param newLeader new Leaders' UUID
+   */
   public void setLeaderUUID(UUID newLeader) {
     this.leader_uuid = newLeader;
   }
@@ -411,6 +419,22 @@ public class Island {
    */
   public Location<World> getHomeLocation() {
     return this.homeLocation;
+  }
+
+  /**
+   * Sets the Island to Active or inactive
+   * @param active new state
+   */
+  public void setActive(Boolean active) {
+    this.active = active;
+  }
+
+  /**
+   * Check is an Island is Active (Disbanded)
+   * @return Active or not
+   */
+  public Boolean isActive() {
+    return this.active;
   }
 
 

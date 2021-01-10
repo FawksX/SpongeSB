@@ -34,7 +34,7 @@ public class IslandMakeleaderCommand extends AbstractIslandCommand {
     Player targetLeader = Sponge.getServer().getPlayer(newLeader).get();
     SPlayer sTargetLeader = SPlayer.get(targetLeader);
 
-    if(!sPlayer.getIslandRole().equals(IslandPermissionLevel.LEADER.toString())) {
+    if(sPlayer.getIslandRole() != IslandPermissionLevel.LEADER) {
       msg(player, getMessages().player_is_not_leader);
       return;
     }

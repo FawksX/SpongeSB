@@ -48,9 +48,9 @@ public class PlayerJoinServerListener {
                 e.printStackTrace();
             }
 
-        } else {
-            PlayerCache.add(SPlayer.fetch(player.getUniqueId()));
         }
+
+        PlayerCache.add(SPlayer.fetch(player.getUniqueId()));
 
         // If they are in the island world, check to see if they're allowed to be there
         if (player.getLocation().getExtent() == WorldManager.get().getWorld() && !Island.getIslandAt(player.getLocation()).getIslandUUID().toString().equals(sPlayer.getIslandUUID().toString())) {

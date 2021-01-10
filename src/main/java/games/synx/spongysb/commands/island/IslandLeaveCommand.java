@@ -28,7 +28,7 @@ public class IslandLeaveCommand extends AbstractIslandCommand {
       return;
     }
 
-    if(sPlayer.getIslandRole().equals(IslandPermissionLevel.LEADER.toString())) {
+    if(sPlayer.getIslandRole() == IslandPermissionLevel.LEADER) {
       msg(player, getMessages().must_disband_as_a_leader);
       return;
     }

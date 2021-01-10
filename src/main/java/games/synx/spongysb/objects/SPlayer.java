@@ -86,7 +86,7 @@ public class SPlayer {
     try (Connection connection = DatabaseManager.get().getConnection();
     PreparedStatement preparedStatement = connection.prepareStatement(Statements.PLAYER_QUIT_UPDATE)) {
       preparedStatement.setString(1, sPlayer.getIslandUUID().toString());
-      preparedStatement.setString(2, sPlayer.getIslandRole());
+      preparedStatement.setString(2, sPlayer.getIslandRole().toString());
       preparedStatement.setString(3, sPlayer.getPlayerUUID().toString());
 
       preparedStatement.executeUpdate();
@@ -192,8 +192,8 @@ public class SPlayer {
   /**
    * @return The Players' Island Role
    */
-  public String getIslandRole() {
-    return this.island_role;
+  public IslandPermissionLevel getIslandRole() {
+    return IslandPermissionLevel.fromString(this.island_role);
   }
 
 }

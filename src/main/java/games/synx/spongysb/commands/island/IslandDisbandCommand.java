@@ -33,7 +33,7 @@ public class IslandDisbandCommand extends AbstractIslandCommand {
       return;
     }
 
-    if(!sPlayer.getIslandRole().equals(IslandPermissionLevel.LEADER.toString())) {
+    if(sPlayer.getIslandRole() != IslandPermissionLevel.LEADER) {
       msg(player, getMessages().only_leader_can_disband);
       return;
     }
@@ -52,6 +52,7 @@ public class IslandDisbandCommand extends AbstractIslandCommand {
       }
     }
 
+    island.setActive(false);
     IslandDeleteEvent islandDeleteEvent = new IslandDeleteEvent(player, island.getCenterLocation(), island);
     Sponge.getEventManager().post(islandDeleteEvent);
 

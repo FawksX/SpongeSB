@@ -28,7 +28,7 @@ public class IslandRenameCommand extends AbstractIslandCommand {
       return;
     }
 
-    if(!sPlayer.getIslandRole().equals(IslandPermissionLevel.LEADER.toString())) {
+    if(sPlayer.getIslandRole() != IslandPermissionLevel.LEADER) {
       msg(player, getMessages().player_is_not_leader);
       return;
     }
