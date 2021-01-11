@@ -19,6 +19,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -435,6 +436,14 @@ public class Island {
    */
   public Boolean isActive() {
     return this.active;
+  }
+
+  /**
+   * Gets this Islands specific Island Permissions
+   * @return Map of IslandPerm, IslandPermissionLevel
+   */
+  public Map<IslandPerm, IslandPermissionLevel> getIslandPermissions() {
+    return IslandCache.ISLANDS_PERMISSIONS.get(this);
   }
 
 

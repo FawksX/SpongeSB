@@ -32,7 +32,7 @@ public class SchematicManager extends AbstractManager implements IManager {
         }
 
         for(final String file : schematics.toFile().list()) {
-            schematicHandlers.put(file, new SchematicHandler(Paths.get(SpongySB.get().schematicsDir + File.separator + file).toFile()));
+            schematicHandlers.put(file, new SchematicHandler(Paths.get(schematics + File.separator + file).toFile()));
         }
 
     }
