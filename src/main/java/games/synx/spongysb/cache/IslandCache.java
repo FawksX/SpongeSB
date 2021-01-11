@@ -111,8 +111,6 @@ public class IslandCache {
 
             Map<IslandPerm, IslandPermissionLevel> perms = ISLANDS_PERMISSIONS.get(island);
 
-            System.out.println("Shutting down Island" + island.getIslandName());
-
             try(Connection connection = DatabaseManager.get().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(Statements.SAVE_ISLAND_PERMISSIONS)) {
 
