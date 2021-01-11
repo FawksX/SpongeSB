@@ -24,7 +24,7 @@ public class SchematicManager extends AbstractManager implements IManager {
 
         instance = this;
 
-        Path schematics = Paths.get(SpongySB.get().schematicsDir.toString());
+        Path schematics = SpongySB.get().schematicsDir;
 
         if(schematics.toFile().list() == null) {
             getLogger().error("SCHEMATICS COULD NOT BE FOUND!");

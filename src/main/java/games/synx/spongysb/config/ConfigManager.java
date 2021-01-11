@@ -38,7 +38,6 @@ public class ConfigManager extends AbstractConfigManager implements IManager, IC
     } catch (IOException e) {
       getLogger().error("Could not instantiate a config!");
       e.printStackTrace();
-
     }
   }
 
