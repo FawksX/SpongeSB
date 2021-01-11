@@ -5,7 +5,7 @@ import ca.landonjw.gooeylibs.inventory.api.Page;
 import ca.landonjw.gooeylibs.inventory.api.Template;
 import com.google.common.collect.Maps;
 import games.synx.spongysb.config.ConfigManager;
-import games.synx.spongysb.config.gui.GUISettings;
+import games.synx.spongysb.config.configs.GUI;
 import games.synx.spongysb.generation.GridManager;
 import games.synx.spongysb.generation.SchematicManager;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -18,14 +18,14 @@ public class IslandCreateGUI {
 
     public static void open(Player player, String name) {
 
-        GUISettings.SchematicGUI guiSettings = ConfigManager.get().getGUIs().schematicgui;
+        GUI.GUISettings.SchematicGUI guiSettings = ConfigManager.get().getGUIs().schematicgui;
 
-        Map<GUISettings.GUIButton, Button> buttons = Maps.newHashMap();
+        Map<GUI.GUISettings.GUIButton, Button> buttons = Maps.newHashMap();
         Button fillerButton = Button.builder().item(guiSettings.fillerSlot.getItemStack()).displayName(guiSettings.fillerSlot.displayName).build();
 
         Template.Builder template = Template.builder(guiSettings.rows).fill(fillerButton);
 
-        for(GUISettings.GUIButton confButton : guiSettings.buttons) {
+        for(GUI.GUISettings.GUIButton confButton : guiSettings.buttons) {
 
             Button button = Button.builder()
                     .item(confButton.getItemStack())

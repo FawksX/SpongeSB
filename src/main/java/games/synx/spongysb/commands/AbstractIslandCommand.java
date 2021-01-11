@@ -3,8 +3,8 @@ package games.synx.spongysb.commands;
 import games.synx.pscore.command.AbstractPSCommand;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.ConfigManager;
-import games.synx.spongysb.config.conf.ConfSettings;
-import games.synx.spongysb.config.messages.MessageSettings;
+import games.synx.spongysb.config.configs.Conf;
+import games.synx.spongysb.config.configs.Messages;
 
 public class AbstractIslandCommand extends AbstractPSCommand {
 
@@ -12,11 +12,11 @@ public class AbstractIslandCommand extends AbstractPSCommand {
     super(SpongySB.get().getLogger());
   }
 
-  public ConfSettings getConf() {
+  public Conf.ConfSettings getConf() {
     return ConfigManager.get().getConf();
   }
 
-  public MessageSettings getMessages() {
+  public Messages.MessageSettings getMessages() {
     return ConfigManager.get().getMessages();
   }
 

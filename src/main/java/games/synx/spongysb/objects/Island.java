@@ -45,11 +45,11 @@ public class Island {
 
     // STORED IN FORMAT: x,z
     double[] arr = Stream.of(center_location.split(",")).mapToDouble(Double::parseDouble).toArray();
-    this.location = new Location<World>(WorldManager.get().getWorld(), arr[0], ConfigManager.get().getConf().world.island_paste_height, arr[1]);
+    this.location = new Location<>(WorldManager.get().getWorld(), arr[0], ConfigManager.get().getConf().world.island_paste_height, arr[1]);
 
     // HOME LOCATION
     double[] homeLoc = Stream.of(home_location.split(",")).mapToDouble(Double::parseDouble).toArray();
-    this.homeLocation = new Location<World>(WorldManager.get().getWorld(), homeLoc[0], homeLoc[1], homeLoc[2]);
+    this.homeLocation = new Location<>(WorldManager.get().getWorld(), homeLoc[0], homeLoc[1], homeLoc[2]);
   }
 
   /**

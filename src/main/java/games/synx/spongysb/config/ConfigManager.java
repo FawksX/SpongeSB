@@ -4,14 +4,10 @@ import games.synx.pscore.config.impl.AbstractConfigManager;
 import games.synx.pscore.config.impl.IConfigManager;
 import games.synx.pscore.manager.IManager;
 import games.synx.spongysb.SpongySB;
-import games.synx.spongysb.config.conf.Conf;
-import games.synx.spongysb.config.conf.ConfSettings;
-import games.synx.spongysb.config.gui.GUI;
-import games.synx.spongysb.config.gui.GUISettings;
-import games.synx.spongysb.config.messages.MessageSettings;
-import games.synx.spongysb.config.messages.Messages;
-import games.synx.spongysb.config.upgrades.UpgradeSettings;
-import games.synx.spongysb.config.upgrades.Upgrades;
+import games.synx.spongysb.config.configs.Conf;
+import games.synx.spongysb.config.configs.GUI;
+import games.synx.spongysb.config.configs.Messages;
+import games.synx.spongysb.config.configs.Upgrades;
 
 import java.io.IOException;
 
@@ -50,19 +46,19 @@ public class ConfigManager extends AbstractConfigManager implements IManager, IC
   // GETTERS
   // ----------------------------------------------- //
 
-  public ConfSettings getConf() {
+  public Conf.ConfSettings getConf() {
     return this.conf.getSettings();
   }
 
-  public MessageSettings getMessages() {
+  public Messages.MessageSettings getMessages() {
     return this.message.getSettings();
   }
 
-  public UpgradeSettings getUpgrades() {
+  public Upgrades.UpgradeSettings getUpgrades() {
     return this.upgrades.getSettings();
   }
 
-  public GUISettings getGUIs() {
+  public GUI.GUISettings getGUIs() {
     return this.gui.getSettings();
   }
 

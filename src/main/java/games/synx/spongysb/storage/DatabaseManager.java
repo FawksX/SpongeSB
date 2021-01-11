@@ -6,7 +6,7 @@ import games.synx.pscore.storage.HikariSource;
 import games.synx.pscore.storage.IDatabase;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.ConfigManager;
-import games.synx.spongysb.config.conf.ConfSettings;
+import games.synx.spongysb.config.configs.Conf;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,7 +26,7 @@ public class DatabaseManager extends AbstractManager implements IManager, IDatab
     instance = this;
 
     getLogger().info("Loading Database Details");
-    ConfSettings.Database databaseConf = ConfigManager.get().getConf().database;
+    Conf.ConfSettings.Database databaseConf = ConfigManager.get().getConf().database;
 
     database = new HikariSource(
             databaseConf.address,
