@@ -135,11 +135,8 @@ public class SPlayer {
     int islandPermissionPosition = islandPermissionLevel.getPosition();
 
     if(islandPermissionLevel == IslandPermissionLevel.NONE) return true;
-
-    if(islandPermissionLevel == IslandPermissionLevel.COOP) {
-      if(island.isCoop(getPlayerUUID()) || getIslandUUID() == island.getIslandUUID()) return true;
-    }
-
+    if(islandPermissionLevel == IslandPermissionLevel.COOP && island.isCoop(getPlayerUUID())) return true;
+    if(getIsland() == null) return false;
     return islandPermissionPosition >= getIslandRole().getPosition() && getIslandUUID() == island.getIslandUUID();
   }
 

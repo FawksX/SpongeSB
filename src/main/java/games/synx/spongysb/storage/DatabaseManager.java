@@ -25,7 +25,6 @@ public class DatabaseManager extends AbstractManager implements IManager, IDatab
     super(SpongySB.get().getLogger());
     instance = this;
 
-    getLogger().info("Loading Database Details");
     Conf.ConfSettings.Database databaseConf = ConfigManager.get().getConf().database;
 
     database = new HikariSource(
