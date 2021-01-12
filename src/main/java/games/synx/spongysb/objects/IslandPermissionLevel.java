@@ -2,17 +2,19 @@ package games.synx.spongysb.objects;
 
 public enum IslandPermissionLevel {
 
-  NONE("visitor"),
-  COOP("coop"),
-  MEMBER("member"),
-  MOD("mod"),
-  ADMIN("admin"),
-  LEADER("leader");
+  NONE("visitor", 0),
+  COOP("coop", 1),
+  MEMBER("member", 2),
+  MOD("mod", 3),
+  ADMIN("admin", 4),
+  LEADER("leader", 5);
 
   private final String permissionLevel;
+  private final int position;
 
-  private IslandPermissionLevel(String permissionLevel) {
+  private IslandPermissionLevel(String permissionLevel, int position) {
     this.permissionLevel = permissionLevel;
+    this.position = position;
   }
 
   @Override
@@ -27,6 +29,10 @@ public enum IslandPermissionLevel {
       }
     }
     return null;
+  }
+
+  public int getPosition() {
+    return this.position;
   }
 
 }
