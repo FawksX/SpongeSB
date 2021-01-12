@@ -7,6 +7,7 @@ import co.aikar.commands.annotation.Subcommand;
 import co.aikar.commands.annotation.Syntax;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.objects.Island;
+import games.synx.spongysb.objects.IslandPerm;
 import games.synx.spongysb.objects.IslandPermissionLevel;
 import games.synx.spongysb.objects.SPlayer;
 import games.synx.spongysb.util.IslandUtil;
@@ -28,8 +29,8 @@ public class IslandRenameCommand extends AbstractIslandCommand {
       return;
     }
 
-    if(sPlayer.getIslandRole() != IslandPermissionLevel.LEADER) {
-      msg(player, getMessages().player_is_not_leader);
+    if(!sPlayer.hasPerm(IslandPerm.NAME, sPlayer.getIsland())) {
+      msg(player, getMessages().no_permission);
       return;
     }
 

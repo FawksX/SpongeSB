@@ -7,6 +7,7 @@ import co.aikar.commands.annotation.Subcommand;
 import co.aikar.commands.annotation.Syntax;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.objects.Island;
+import games.synx.spongysb.objects.IslandPerm;
 import games.synx.spongysb.objects.SPlayer;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
@@ -30,6 +31,12 @@ public class IslandInviteCommand extends AbstractIslandCommand {
 
     if(!sPlayer.isInIsland()) {
       msg(player, getMessages().must_be_in_island_to_invite);
+      return;
+    }
+
+    if(!sPlayer.hasPerm(IslandPerm.INVITE, island)) {
+      msg(player, getMessages().no_permission);
+      return;
     }
 
     Player targetInvite = Sponge.getServer().getPlayer(name).get();

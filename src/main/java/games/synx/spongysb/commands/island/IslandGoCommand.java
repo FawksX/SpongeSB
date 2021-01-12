@@ -6,6 +6,7 @@ import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.events.IslandEnterEvent;
+import games.synx.spongysb.objects.IslandPerm;
 import games.synx.spongysb.objects.SPlayer;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
@@ -24,6 +25,11 @@ public class IslandGoCommand extends AbstractIslandCommand {
 
     if(!sPlayer.isInIsland()) {
       msg(player, getMessages().player_not_in_island);
+      return;
+    }
+
+    if(!sPlayer.hasPerm(IslandPerm.HOME, sPlayer.getIsland())) {
+      msg(player, getMessages().no_permission);
       return;
     }
 

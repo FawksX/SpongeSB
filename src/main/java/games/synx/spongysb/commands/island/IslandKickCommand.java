@@ -7,6 +7,7 @@ import co.aikar.commands.annotation.Subcommand;
 import co.aikar.commands.annotation.Syntax;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.generation.WorldManager;
+import games.synx.spongysb.objects.IslandPerm;
 import games.synx.spongysb.objects.SPlayer;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
@@ -26,11 +27,10 @@ public class IslandKickCommand extends AbstractIslandCommand {
 
     SPlayer sPlayer = SPlayer.get(player);
 
-    if(!SPlayer.get(player).getIsland().isLeader(player.getUniqueId().toString())) {
-      msg(player, getMessages().player_is_not_leader);
+    if(!sPlayer.hasPerm(IslandPerm.INVITE, sPlayer.getIsland())) {
+      msg(player, getMessages().no_permission);
       return;
     }
-
 
     SPlayer sPlayerTarget;
     Optional<Player> playerTarget = Optional.empty();

@@ -131,6 +131,10 @@ public class SPlayer {
   public boolean hasPerm(IslandPerm islandPerm, Location<World> location) {
     Island island = Island.getIslandAt(location);
     if(Island.getIslandAt(location) == null) return false;
+    return hasPerm(islandPerm, island);
+  }
+
+  public boolean hasPerm(IslandPerm islandPerm, Island island) {
     IslandPermissionLevel islandPermissionLevel = island.getIslandPermissions().get(islandPerm);
     int islandPermissionPosition = islandPermissionLevel.getPosition();
 

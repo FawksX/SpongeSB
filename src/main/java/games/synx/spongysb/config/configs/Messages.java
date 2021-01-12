@@ -143,6 +143,9 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
     @Setting
     public String island_disbanded = "&e&lISLAND &eYour island has been disbanded by &a%s&e!";
 
+    @Setting
+    public String no_permission = "&e&lISLAND &eYou do not have permission to perform this command (Island Permission Level must be lower!)";
+
     @ConfigSerializable
     public static class Coop {
 

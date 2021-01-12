@@ -3,11 +3,13 @@ package games.synx.spongysb.objects;
 /**
  * IslandPerm Enum for creating a designated place for permissions.
  * THESE ARE NOT CURRENTLY IMPLEMENTED AS THERE IS NO PERMISSION SYSTEM! Just invite/deinvite
+ * Temporary comments throughout this enum to mark which ones are completed (in terms of logic)
  */
 public enum IslandPerm {
-  PLACE("place"),
-  BREAK("break"),
-  ENTRY("entry"),
+  PLACE("place"), // cmpl
+  BREAK("break"), // cmpl
+  ENTRY("entry"), // cmpl
+
   SPAWNER_PLACE("spawner_place"),
   SPAWNER_BREAK("spawner_break"),
   DOOR("door"),
@@ -18,14 +20,14 @@ public enum IslandPerm {
   ARMORSTAND("armorstand"),
   PRESSURE_PLATE("pressure_plate"),
 
-  NAME("name"),
+  NAME("name"), // cmpl
   DESCRIPTION("description"),
   VIEW_PERMS("view_perms"),
   SET_PERMS("set_perms"),
   VIEW_SETTINGS("view_settings"),
   SET_SETTINGS("set_settings"),
-  INVITE("invite"),
-  KICK("kick"),
+  INVITE("invite"), // cmpl
+  KICK("kick"), // cmpl
   DEPOSIT("deposit"),
   WITHDRAW("withdraw"),
   WARP("warp"),
@@ -34,7 +36,7 @@ public enum IslandPerm {
   PROMOTE("promote"),
   DEMOTE("demote"),
   BAN("ban"),
-  HOME("home"),
+  HOME("home"), // cmpl
   IS_LOCK("is_lock"),
   SET_HOME("set_home"),
 
