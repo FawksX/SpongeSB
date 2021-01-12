@@ -35,15 +35,15 @@ public abstract class AbstractIslandGuard {
     }
 
 
-    private boolean isNotInWorld(Entity entity) {
+    public boolean isNotInWorld(Entity entity) {
         return !GridManager.get().inWorld(entity.getLocation());
     }
 
-    private boolean isNotInWorld(Location<World> location) {
+    public boolean isNotInWorld(Location<World> location) {
         return !GridManager.get().inWorld(location);
     }
 
-    private boolean isBypassed(SPlayer player) {
+    public boolean isBypassed(SPlayer player) {
         return player.isBypassed();
     }
 

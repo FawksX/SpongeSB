@@ -3,18 +3,24 @@ package games.synx.spongysb.listeners.islandguard;
 import games.synx.pscore.util.MessageUtil;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.ConfigManager;
-import games.synx.spongysb.generation.GridManager;
 import games.synx.spongysb.objects.Island;
 import games.synx.spongysb.objects.IslandPerm;
 import games.synx.spongysb.objects.SPlayer;
-import org.spongepowered.api.entity.Entity;
+import games.synx.spongysb.util.IslandUtil;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.network.play.server.SPacketWorldBorder;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.Order;
 import org.spongepowered.api.event.block.ChangeBlockEvent;
+import org.spongepowered.api.event.cause.Cause;
+import org.spongepowered.api.event.cause.EventContext;
+import org.spongepowered.api.event.cause.EventContextKeys;
 import org.spongepowered.api.event.entity.MoveEntityEvent;
 import org.spongepowered.api.event.filter.cause.Root;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
+import org.spongepowered.api.world.WorldBorder;
 
 public class VanillaIslandGuard extends AbstractIslandGuard {
 
@@ -87,38 +93,27 @@ public class VanillaIslandGuard extends AbstractIslandGuard {
     if(isNotInWorld(to)) return;
     if(isNotInWorld(to)) return;
 
-    if(Island.getIslandAt(to) == null || !sPlayer.isInIsland()) {
+    if(Island.getIslandAt(to) == null) {
       event.setCancelled(true);
-      MessageUtil.msg(player, ConfigManager.get().getMessages().only_allowed_to_teleport_to_own_island);
+      MessageUtil.msg(player, ConfigManager.get().getMessages().not_allowed_to_teleport_here);
       return;
     }
 
-    if(sPlayer.hasPerm(IslandPerm.ENTRY, player.getLocation())) return;
+    if(sPlayer.hasPerm(IslandPerm.ENTRY, to)) return;
 
     event.setCancelled(true);
-    MessageUtil.msg(player, ConfigManager.get().getMessages().only_allowed_to_teleport_to_own_island);
+    MessageUtil.msg(player, ConfigManager.get().getMessages().not_allowed_to_teleport_here);
+
+  }
+
+  @Listener(order = Order.LAST)
+  public void onBorderChange(MoveEntityEvent.Teleport event, @Root Player player) {
+    SpongySB.get().getLogger().warn(player.getUniqueId().toString());
+
+    IslandUtil.changeBorder(player, event.getToTransform().getLocation());
 
   }
 
 
-
-
-
-
-  // --------------------------------------------------------- //
-  // REPETITIVE ISLANDGUARD METHODS
-  // --------------------------------------------------------- //
-
-  private boolean isNotInWorld(Entity entity) {
-    return !GridManager.get().inWorld(entity.getLocation());
-  }
-
-  private boolean isNotInWorld(Location<World> location) {
-    return !GridManager.get().inWorld(location);
-  }
-
-  private boolean isBypassed(SPlayer player) {
-    return player.isBypassed();
-  }
 
 }

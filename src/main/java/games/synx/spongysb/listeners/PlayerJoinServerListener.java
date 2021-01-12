@@ -8,6 +8,7 @@ import games.synx.spongysb.objects.IslandPerm;
 import games.synx.spongysb.objects.SPlayer;
 import games.synx.spongysb.storage.DatabaseManager;
 import games.synx.spongysb.storage.Statements;
+import games.synx.spongysb.util.IslandUtil;
 import org.slf4j.Logger;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
@@ -57,6 +58,8 @@ public class PlayerJoinServerListener {
         if (!SPlayer.get(player).hasPerm(IslandPerm.ENTRY, player.getLocation())) {
             player.setLocationSafely(WorldManager.get().getServerSpawn());
         }
+
+        IslandUtil.changeBorder(player, player.getLocation());
 
     }
 

@@ -446,4 +446,9 @@ public class Island {
     return IslandCache.ISLANDS_PERMISSIONS.get(this);
   }
 
+  // TODO very temporary! This is just to test IslandBorders before upgrades is
+  public double getSize() {
+    return 300;
+  }
+
 }

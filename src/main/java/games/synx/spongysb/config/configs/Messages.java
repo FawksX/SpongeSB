@@ -48,7 +48,7 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
     public String disable_admin_bypass = "&e&lISLAND &cYou have successfully &lDISABLED&c Island Bypass!";
 
     @Setting
-    public String only_allowed_to_teleport_to_own_island = "&e&lISLAND &cYou can only teleport to your own island!";
+    public String not_allowed_to_teleport_here = "&e&lISLAND &cYou are not allowed to teleport to this island!";
 
     @Setting
     public String player_not_online = "&e&lISLAND &cThe specified player is not online!";
