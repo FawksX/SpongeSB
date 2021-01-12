@@ -123,16 +123,40 @@ public class SPlayer {
   }
 
   // TODO WRITE LOGIC FOR ISLAND PERMISSIONS // RANKS
-  public boolean hasPerm(IslandPerm islandPerm, Location<World> world) {
-    if(Island.getIslandAt(world) == null) {
-      return false;
+  public boolean hasPerm(IslandPerm islandPerm, Location<World> location) {
+    Island island = Island.getIslandAt(location);
+
+    if(Island.getIslandAt(location) == null) return false;
+
+    IslandPermissionLevel islandPermissionLevel = island.getIslandPermissions().get(islandPerm);
+
+    if(islandPermissionLevel == IslandPermissionLevel.NONE) return true;
+
+    if(islandPermissionLevel == IslandPermissionLevel.COOP) {
+      if(island.isCoop(getPlayerUUID()) || getIslandUUID() == island.getIslandUUID()) return true;
     }
 
-    if(Island.getIslandAt(world).isCoop(this.getPlayerUUID())) return true;
+    if(islandPermissionLevel == IslandPermissionLevel.MEMBER && getIslandUUID() == island.getIslandUUID()) {
+      if(getIslandRole() == IslandPermissionLevel.MEMBER ||
+              getIslandRole() == IslandPermissionLevel.MOD || getIslandRole() == IslandPermissionLevel.ADMIN ||
+              getIslandRole() == IslandPermissionLevel.LEADER) return true;
+    }
 
-    if(getIsland() == null) return false;
+    if(islandPermissionLevel == IslandPermissionLevel.MOD && getIslandUUID() == island.getIslandUUID()) {
+      if(getIslandRole() == IslandPermissionLevel.MOD || getIslandRole() == IslandPermissionLevel.ADMIN ||
+              getIslandRole() == IslandPermissionLevel.LEADER) return true;
+    }
 
-    return getIsland().getIslandUUID().toString().equals(Island.getIslandAt(world).getIslandUUID().toString());
+    if(islandPermissionLevel == IslandPermissionLevel.ADMIN && getIslandUUID() == island.getIslandUUID()) {
+      if(getIslandRole() == IslandPermissionLevel.ADMIN || getIslandRole() == IslandPermissionLevel.LEADER) return true;
+    }
+
+    if(islandPermissionLevel == IslandPermissionLevel.LEADER && getIslandUUID() == island.getIslandUUID()) {
+      if(getIslandRole() == IslandPermissionLevel.LEADER) return true;
+    }
+
+
+    return getIsland().getIslandUUID().toString().equals(Island.getIslandAt(location).getIslandUUID().toString());
   }
 
   /**

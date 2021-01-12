@@ -104,8 +104,4 @@ reobf {
 
 jar.finalizedBy('reobfJar')
 
-
-
-
-
 sponge.plugin.id = 'spongysb'
