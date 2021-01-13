@@ -5,15 +5,13 @@ import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
 import co.aikar.commands.annotation.Syntax;
+import games.synx.pscore.util.PlayerUtil;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.generation.WorldManager;
 import games.synx.spongysb.objects.IslandPerm;
 import games.synx.spongysb.objects.SPlayer;
-import games.synx.spongysb.util.PlayerUtil;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.entity.living.player.User;
-import org.spongepowered.api.service.user.UserStorageService;
 
 import java.util.Optional;
 
@@ -37,7 +35,7 @@ public class IslandKickCommand extends AbstractIslandCommand {
     Optional<Player> playerTarget = Optional.empty();
 
     if(!Sponge.getServer().getPlayer(name).isPresent()) {
-      sPlayerTarget = SPlayer.get(PlayerUtil.getOfflineUserUUID(name));
+      sPlayerTarget = SPlayer.get(PlayerUtil.getOfflineSpongeUserUUID(name));
 
     } else {
       sPlayerTarget = SPlayer.get(Sponge.getServer().getPlayer(name).get());

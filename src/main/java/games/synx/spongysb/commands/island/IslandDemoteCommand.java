@@ -1,11 +1,11 @@
 package games.synx.spongysb.commands.island;
 
 import co.aikar.commands.annotation.*;
+import games.synx.pscore.util.PlayerUtil;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.objects.IslandPerm;
 import games.synx.spongysb.objects.IslandPermissionLevel;
 import games.synx.spongysb.objects.SPlayer;
-import games.synx.spongysb.util.PlayerUtil;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
 
@@ -32,7 +32,7 @@ public class IslandDemoteCommand extends AbstractIslandCommand {
         java.util.Optional<Player> playerTarget = Optional.empty();
 
         if(!Sponge.getServer().getPlayer(member).isPresent()) {
-            sPlayerTarget = SPlayer.get(PlayerUtil.getOfflineUserUUID(member));
+            sPlayerTarget = SPlayer.get(PlayerUtil.getOfflineSpongeUserUUID(member));
 
         } else {
             playerTarget = Sponge.getServer().getPlayer(member);
