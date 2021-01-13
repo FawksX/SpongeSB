@@ -2,6 +2,7 @@ package games.synx.spongysb.config.configs;
 
 import games.synx.pscore.config.impl.AbstractConfiguration;
 import games.synx.pscore.config.impl.IConfiguration;
+import games.synx.spongysb.config.configs.wrappers.IslandUpgradeWrapper;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.objectmapping.meta.Setting;
 
@@ -19,14 +20,20 @@ public class Upgrades extends AbstractConfiguration<Upgrades.UpgradeSettings> im
   @ConfigSerializable
   public static class UpgradeSettings {
 
-    @Setting
-    public Map<Integer, Integer> size_upgrades = new HashMap<Integer, Integer>() {{
-      put(1, 50);
-      put(2, 100);
-      put(3, 150);
-      put(4, 200);
-    }};
 
+    @Setting
+    public SizeUpgrades sizeUpgrades = new SizeUpgrades();
+
+
+    @ConfigSerializable
+    public static class SizeUpgrades {
+
+      Map<String, IslandUpgradeWrapper> tiers = new HashMap<String, IslandUpgradeWrapper>() {{
+        put("0", new IslandUpgradeWrapper());
+        put("1", new IslandUpgradeWrapper());
+      }};
+
+    }
 
 
   }

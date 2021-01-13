@@ -32,7 +32,7 @@ public class ConfigManager extends AbstractConfigManager implements IManager, IC
     try {
       conf = new Conf(getFilePath("conf.json"));
       message = new Messages(getFilePath("messages.json"));
-      // upgrades = new Upgrades(getFilePath("upgrades.yml"));
+      upgrades = new Upgrades(getFilePath("upgrades.json"));
       gui = new GUI(getFilePath("guis.json"));
 
     } catch (IOException e) {
