@@ -24,6 +24,9 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
     public Promote promote = new Promote();
 
     @Setting
+    public Demote demote = new Demote();
+
+    @Setting
     public String serverName = "Lightning";
 
     @Setting
@@ -153,13 +156,27 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
     public static class Promote {
 
       @Setting
-      public String cannot_promote_to_leader = "&e&lISLAND &cYou cannot promote a leader to member! Use &a/is makeleader <name>";
+      public String cannot_promote_to_leader = "&e&lISLAND &cYou cannot promote a member to leader! Use &a/is makeleader <name>";
 
       @Setting
       public String cannot_promote_non_island_member = "&e&lISLAND &cYou can only promote your own island members!";
 
       @Setting
       public String island_broadcast_promotion_success = "&e&lISLAND &a%s &ehas promoted &a%s &eto Island rank &3%s!";
+
+    }
+
+    @ConfigSerializable
+    public static class Demote {
+
+      @Setting
+      public String cannot_demote_to_visitor = "&e&lISLAND &cYou cannot demote a member to visitor! Use &a/is kick <name>";
+
+      @Setting
+      public String cannot_demote_non_island_member = "&e&lISLAND &cYou can only demote your own island members!";
+
+      @Setting
+      public String island_broadcast_promotion_success = "&e&lISLAND &a%s &ehas demoted &a%s &efrom &3%s &eto &3%s!";
 
     }
 
