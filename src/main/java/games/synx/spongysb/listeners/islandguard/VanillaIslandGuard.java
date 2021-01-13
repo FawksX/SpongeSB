@@ -18,6 +18,9 @@ import org.spongepowered.api.event.cause.EventContext;
 import org.spongepowered.api.event.cause.EventContextKeys;
 import org.spongepowered.api.event.entity.MoveEntityEvent;
 import org.spongepowered.api.event.filter.cause.Root;
+import org.spongepowered.api.event.item.inventory.ChangeInventoryEvent;
+import org.spongepowered.api.event.item.inventory.ClickInventoryEvent;
+import org.spongepowered.api.event.item.inventory.DropItemEvent;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 import org.spongepowered.api.world.WorldBorder;
@@ -106,12 +109,36 @@ public class VanillaIslandGuard extends AbstractIslandGuard {
 
   }
 
+  /**
+   * Changes the Border upon player teleport
+   * @param event MoveEntityEvent.Teleport
+   * @param player Player which has teleported
+   */
   @Listener(order = Order.LAST)
   public void onBorderChange(MoveEntityEvent.Teleport event, @Root Player player) {
-    SpongySB.get().getLogger().warn(player.getUniqueId().toString());
-
     IslandUtil.changeBorder(player, event.getToTransform().getLocation());
+  }
 
+  /**
+   * Prevents a user dropping an item if they do not have Island Permission
+   * @param event DropItemEvent [All Instances of Dropping]
+   * @param player Player which has attempted to drop
+   */
+  @Listener
+  public void onInventoryDrop(DropItemEvent event, @Root Player player) {
+    if(passesGenericIslandChecks(player, IslandPerm.ITEM_DROP)) return;
+    event.setCancelled(true);
+  }
+
+  /**
+   * Prevents a player from picking up an item if they do not have Island Permission
+   * @param event ChangeInventoryEvent.Pickup.Pre
+   * @param player Player which has attempted to pickup
+   */
+  @Listener
+  public void onInventoryPickup(ChangeInventoryEvent.Pickup.Pre event, @Root Player player) {
+    if(passesGenericIslandChecks(player, IslandPerm.ITEM_PICKUP)) return;
+    event.setCancelled(true);
   }
 
 

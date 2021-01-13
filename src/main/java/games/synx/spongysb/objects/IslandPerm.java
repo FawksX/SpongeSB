@@ -33,15 +33,15 @@ public enum IslandPerm {
   WARP("warp"),
   VIEW_UPGRADES("view_upgrades"),
   SET_UPGRADES("set_upgrades"),
-  PROMOTE("promote"),
-  DEMOTE("demote"),
+  PROMOTE("promote"), //cmpl
+  DEMOTE("demote"), //cmpl
   BAN("ban"),
   HOME("home"), // cmpl
   IS_LOCK("is_lock"),
   SET_HOME("set_home"),
 
-  ITEM_DROP("item_drop"),
-  ITEM_PICKUP("item_pickup"),
+  ITEM_DROP("item_drop"), //cmpl
+  ITEM_PICKUP("item_pickup"), //cmpl
   HURT_ANIMALS("hurt_animals"),
   HURT_MOBS("hurt_mobs"),
   SPAWN_EGGS("spawn_eggs"),
@@ -51,7 +51,7 @@ public enum IslandPerm {
   ANIMALS("animals"),
 
   // PIXELMON
-  SEND_OUT_POKEMON("send_out_pokemon");
+  SEND_OUT_POKEMON("send_out_pokemon"); //cmpl
 
   private final String permType;
 
