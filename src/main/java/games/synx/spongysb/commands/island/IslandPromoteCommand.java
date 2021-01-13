@@ -45,7 +45,7 @@ public class IslandPromoteCommand extends AbstractIslandCommand {
         }
 
         int promotion = sPlayerTarget.getIslandRole().getPosition() + 1;
-        if(promotion >= IslandPermissionLevel.ADMIN.getPosition()) {
+        if(promotion > IslandPermissionLevel.ADMIN.getPosition()) {
             msg(player, getMessages().promote.cannot_promote_to_leader);
             return;
         }
