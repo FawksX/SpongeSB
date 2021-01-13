@@ -23,7 +23,7 @@ public class IslandPromoteCommand extends AbstractIslandCommand {
 
         SPlayer sPlayer = SPlayer.get(player);
 
-        if(!sPlayer.hasPerm(IslandPerm.INVITE, sPlayer.getIsland())) {
+        if(!sPlayer.hasPerm(IslandPerm.PROMOTE, sPlayer.getIsland())) {
             msg(player, getMessages().no_permission);
             return;
         }
