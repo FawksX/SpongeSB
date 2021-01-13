@@ -9,6 +9,7 @@ import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.generation.WorldManager;
 import games.synx.spongysb.objects.IslandPerm;
 import games.synx.spongysb.objects.SPlayer;
+import games.synx.spongysb.util.PlayerUtil;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.entity.living.player.User;
@@ -36,17 +37,11 @@ public class IslandKickCommand extends AbstractIslandCommand {
     Optional<Player> playerTarget = Optional.empty();
 
     if(!Sponge.getServer().getPlayer(name).isPresent()) {
-      Optional<UserStorageService> userStorage = Sponge.getServiceManager().provide(UserStorageService.class);
-      User offlinePlayer = userStorage.get().get(name).get();
-      sPlayerTarget = SPlayer.get(offlinePlayer.getUniqueId());
+      sPlayerTarget = SPlayer.get(PlayerUtil.getOfflineUserUUID(name));
 
     } else {
-      playerTarget = Sponge.getServer().getPlayer(name);
-
-      sPlayerTarget = SPlayer.get(playerTarget.get());
+      sPlayerTarget = SPlayer.get(Sponge.getServer().getPlayer(name).get());
     }
-
-    System.out.println(sPlayerTarget.getIslandUUID().toString());
 
     if(!sPlayer.getIslandUUID().toString().equals(sPlayerTarget.getIslandUUID().toString())) {
       formatMsg(player, getMessages().player_is_not_in_island, name);

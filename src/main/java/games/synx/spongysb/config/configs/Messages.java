@@ -21,6 +21,9 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
     public Coop coop = new Coop();
 
     @Setting
+    public Promote promote = new Promote();
+
+    @Setting
     public String serverName = "Lightning";
 
     @Setting
@@ -145,6 +148,20 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
 
     @Setting
     public String no_permission = "&e&lISLAND &eYou do not have permission to perform this command (Island Permission Level must be lower!)";
+
+    @ConfigSerializable
+    public static class Promote {
+
+      @Setting
+      public String cannot_promote_to_leader = "&e&lISLAND &cYou cannot promote a leader to member! Use &a/is makeleader <name>";
+
+      @Setting
+      public String cannot_promote_non_island_member = "&e&lISLAND &cYou can only promote your own island members!";
+
+      @Setting
+      public String island_broadcast_promotion_success = "&e&lISLAND &a%s &ehas promoted &a%s &eto Island rank &3%s!";
+
+    }
 
     @ConfigSerializable
     public static class Coop {

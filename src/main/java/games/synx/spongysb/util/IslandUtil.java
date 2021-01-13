@@ -40,8 +40,6 @@ public class IslandUtil {
 
     public static void changeBorder(Player player, Location<World> location) {
 
-        SpongySB.get().getLogger().warn(player.getUniqueId().toString());
-
         Cause cause = Cause.builder().append(SpongySB.get().getPluginContainer()).build(EventContext.builder().add(EventContextKeys.PLUGIN, SpongySB.get().getPluginContainer()).build());
         if(!GridManager.get().inWorld(location)) {
             player.setWorldBorder(null, cause);

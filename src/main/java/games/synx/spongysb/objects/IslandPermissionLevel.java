@@ -35,4 +35,13 @@ public enum IslandPermissionLevel {
     return this.position;
   }
 
+  public static IslandPermissionLevel fromPosition(int position) {
+    for(IslandPermissionLevel pl : IslandPermissionLevel.values()) {
+      if(pl.getPosition() == position) {
+        return pl;
+      }
+    }
+    return null;
+  }
+
 }
