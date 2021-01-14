@@ -89,6 +89,7 @@ public class Island {
       preparedStatement.setString(2, island.getIslandName());
       preparedStatement.setString(3, centerSerialised);
       preparedStatement.setString(4, homeLocSerialised);
+      preparedStatement.setString(5, island.getIslandSizeValue());
       preparedStatement.setBoolean(5, island.isActive());
       preparedStatement.setString(6, island.getIslandUUID().toString());
 
@@ -423,10 +424,18 @@ public class Island {
   /**
    * Gets the Size of the Island Border.
    * Please note that this returns the SIZE fetched from the Config based on the island_size numerical order stored in the database.
-   * @return
+   * @return Size (actual)
    */
   public double getSize() {
     return ConfigManager.get().getUpgrades().sizeUpgrades.tiers.get(this.island_size).size;
+  }
+
+  /**
+   * Gets the Island Size
+   * @return Size (value from Configuration)
+   */
+  public String getIslandSizeValue() {
+    return island_size;
   }
 
   /**
