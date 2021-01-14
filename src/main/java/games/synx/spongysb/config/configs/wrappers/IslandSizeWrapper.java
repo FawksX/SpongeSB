@@ -7,10 +7,13 @@ import org.spongepowered.configurate.objectmapping.meta.Setting;
 import java.util.List;
 
 @ConfigSerializable
-public class IslandUpgradeWrapper {
+public class IslandSizeWrapper {
 
     @Setting
     public int cost = 0;
+
+    @Setting
+    public int size = 50;
 
     @Setting
     List<String> description = Lists.newArrayList(

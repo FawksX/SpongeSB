@@ -2,7 +2,6 @@ package games.synx.spongysb.objects;
 
 import com.google.common.collect.Lists;
 import games.synx.pscore.util.MessageUtil;
-import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.cache.CoopCache;
 import games.synx.spongysb.cache.IslandCache;
 import games.synx.spongysb.config.ConfigManager;
@@ -31,11 +30,12 @@ public class Island {
   private final Location<World> location;
   private Location<World> homeLocation;
   private List<String> invited_members = Lists.newArrayList();
+  private String island_size;
   private boolean active = true;
 
 
   private Island(UUID island_uuid, UUID leader_uuid, String island_name,
-                 String center_location, String home_location) {
+                 String center_location, String home_location, String island_size) {
 
     this.island_uuid = island_uuid;
     this.leader_uuid = leader_uuid;
@@ -51,6 +51,8 @@ public class Island {
     // HOME LOCATION
     double[] homeLoc = Stream.of(home_location.split(",")).mapToDouble(Double::parseDouble).toArray();
     this.homeLocation = new Location<>(WorldManager.get().getWorld(), homeLoc[0], homeLoc[1], homeLoc[2]);
+
+    this.island_size = island_size;
   }
 
   /**
@@ -119,7 +121,8 @@ public class Island {
                 UUID.fromString(rs.getString("leader_uuid")),
                 rs.getString("island_name"),
                 rs.getString("center_location"),
-                rs.getString("home_location"));
+                rs.getString("home_location"),
+                rs.getString("island_size"));
 
         islands.add(newIsland);
 
@@ -131,36 +134,6 @@ public class Island {
       e.printStackTrace();
       return islands;
     }
-  }
-
-  /**
-   * Gets an Island from it's UUID
-   * @param island_uuid the UUID of the island stored in the database
-   * @return Island
-   */
-  public static Island fetch(UUID island_uuid) {
-
-    try (Connection connection = DatabaseManager.get().getConnection();
-         PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_ISLAND)) {
-
-      preparedStatement.setString(1, island_uuid.toString());
-      ResultSet rs = preparedStatement.executeQuery();
-      rs.next();
-
-      return new Island(
-          island_uuid,
-          UUID.fromString(rs.getString("leader_uuid")),
-          rs.getString("island_name"),
-          rs.getString("center_location"),
-          rs.getString("home_location")
-      );
-
-    } catch (SQLException e) {
-      SpongySB.get().getLogger().error("Could not fetch island, did something go wrong?");
-      e.printStackTrace();
-      return null;
-    }
-
   }
 
   /**
@@ -186,13 +159,14 @@ public class Island {
 
       // BY DEFAULT CENTER LOCATION IS THE SAME AS THE PASTE LOCATION, AS IT WILL BE A SOLID LOCATION IF SCHEM IS MADE CORRECTLY.
       preparedStatement.setString(5, homeLocSerialised);
-      preparedStatement.setBoolean(6, true);
+      preparedStatement.setInt(6, 0);
+      preparedStatement.setBoolean(7, true);
       preparedStatement.executeUpdate();
 
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    Island newIsland = new Island(islandUUID, leaderUUID, islandName, centerSerialised, homeLocSerialised);
+    Island newIsland = new Island(islandUUID, leaderUUID, islandName, centerSerialised, homeLocSerialised, "0");
     IslandCache.add(newIsland);
     IslandCache.addDefaultPermissions(newIsland);
 
@@ -446,9 +420,21 @@ public class Island {
     return IslandCache.ISLANDS_PERMISSIONS.get(this);
   }
 
-  // TODO very temporary! This is just to test IslandBorders before upgrades is
+  /**
+   * Gets the Size of the Island Border.
+   * Please note that this returns the SIZE fetched from the Config based on the island_size numerical order stored in the database.
+   * @return
+   */
   public double getSize() {
-    return 300;
+    return ConfigManager.get().getUpgrades().sizeUpgrades.tiers.get(this.island_size).size;
+  }
+
+  /**
+   * Sets the size of the Island Border
+   * Please note that you are setting the IDENTIFIER for the island, not the actual size.
+   */
+  public void setSize(String island_size) {
+    this.island_size = island_size;
   }
 
 }
