@@ -39,7 +39,7 @@ public class IslandDemoteCommand extends AbstractIslandCommand {
             sPlayerTarget = SPlayer.get(playerTarget.get());
         }
 
-        if(sPlayerTarget.getIsland() != sPlayer.getIsland()) {
+        if(sPlayerTarget.isInIsland(sPlayer.getIsland())) {
             msg(player, getMessages().demote.cannot_demote_non_island_member);
             return;
         }

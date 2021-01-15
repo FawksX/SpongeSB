@@ -4,6 +4,7 @@ import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.cache.PlayerCache;
 import games.synx.spongysb.storage.DatabaseManager;
 import games.synx.spongysb.storage.Statements;
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
@@ -156,6 +157,15 @@ public class SPlayer {
   }
 
   /**
+   * Checks if a Player is in a specified island
+   * @param island Island in question
+   * @return If they are in the island or not
+   */
+  public boolean isInIsland(Island island) {
+    return island.getIslandUUID() == getIslandUUID();
+  }
+
+  /**
    * Check if Specified player has administrative bypass
    * @return boolean
    */
@@ -206,6 +216,22 @@ public class SPlayer {
    */
   public IslandPermissionLevel getIslandRole() {
     return IslandPermissionLevel.fromString(this.island_role);
+  }
+
+  /**
+   * Get a Sponge Player instance from SPlayer object
+   * @return Player (Sponge)
+   */
+  public Player getSpongePlayer() {
+    return Sponge.getServer().getPlayer(getPlayerUUID()).get();
+  }
+
+  /**
+   * Checks if a Player's current location is at their island
+   * @return true/false
+   */
+  public boolean atTheirIsland() {
+    return Island.getIslandAt(getSpongePlayer().getLocation()) == getIsland();
   }
 
 }

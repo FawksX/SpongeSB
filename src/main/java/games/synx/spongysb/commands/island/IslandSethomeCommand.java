@@ -27,7 +27,7 @@ public class IslandSethomeCommand extends AbstractIslandCommand {
             return;
         }
 
-        if(Island.getIslandAt(player.getLocation()) == sPlayer.getIsland()) {
+        if(sPlayer.atTheirIsland()) {
             if(player.getLocation().hasBlock()) {
                 sPlayer.getIsland().setHome(player.getLocation());
                 msg(player, getMessages().setHome.island_home_set_successfully);
