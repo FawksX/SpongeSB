@@ -39,16 +39,16 @@ public class IslandGoCommand extends AbstractIslandCommand {
       IslandEnterEvent event = new IslandEnterEvent(sPlayer.getPlayerUUID(), sPlayer.getIsland(), teleportLocation);
       player.setLocationSafely(teleportLocation);
       Sponge.getEventManager().post(event);
-      msg(player, getMessages().teleporting_to_your_island);
+      msg(player, getMessages().teleport.teleporting_to_your_island);
 
     } else {
       if(player.setLocationSafely(sPlayer.getIsland().getCenterLocation())) {
         IslandEnterEvent event = new IslandEnterEvent(sPlayer.getPlayerUUID(), sPlayer.getIsland(), teleportLocation);
         player.setLocationSafely(sPlayer.getIsland().getCenterLocation());
         Sponge.getEventManager().post(event);
-        msg(player, getMessages().teleporting_to_default_home_location);
+        msg(player, getMessages().teleport.teleporting_to_default_home_location);
       } else {
-        msg(player, getMessages().could_not_teleport_to_island);
+        msg(player, getMessages().teleport.could_not_teleport_to_island);
       }
     }
   }

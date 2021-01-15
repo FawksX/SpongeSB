@@ -20,12 +20,12 @@ public class AdminBypassCommand extends AbstractIslandCommand {
 
     if(sPlayer.isBypassed()) {
       sPlayer.setBypassed(false);
-      msg(player, getMessages().disable_admin_bypass);
+      msg(player, getMessages().bypass.disable_admin_bypass);
       return;
     }
 
     sPlayer.setBypassed(true);
-    msg(player, getMessages().enabled_admin_bypass);
+    msg(player, getMessages().bypass.enabled_admin_bypass);
 
   }
 

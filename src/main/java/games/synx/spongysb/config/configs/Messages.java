@@ -33,7 +33,17 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
     public Lock lock = new Lock();
 
     @Setting
-    public String serverName = "Lightning";
+    public Invite invite = new Invite();
+
+    @Setting
+    public Bypass bypass = new Bypass();
+
+    @Setting
+    public Teleport teleport = new Teleport();
+
+    @Setting
+    public Disband disband = new Disband();
+
 
     @Setting
     public String is_in_island_error = "&cYou are already in an island!";
@@ -45,34 +55,7 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
     public String player_not_in_island = "&cYou are not in an island! Type /is new <island name> to create an island!";
 
     @Setting
-    public String teleporting_to_your_island = "&aTeleporting to your island...";
-
-    @Setting
-    public String teleporting_to_default_home_location = "&aCould not teleport to your Island, Teleporting you to default home location!";
-
-    @Setting
-    public String could_not_teleport_to_island = "&cCould not teleport to your island. Contact Staff for help!";
-
-    @Setting
-    public String enabled_admin_bypass = "&e&lISLAND &aYou have successfully &lENABLED&a Island Bypass!";
-
-    @Setting
-    public String disable_admin_bypass = "&e&lISLAND &cYou have successfully &lDISABLED&c Island Bypass!";
-
-    @Setting
-    public String not_allowed_to_teleport_here = "&e&lISLAND &cYou are not allowed to teleport to this island!";
-
-    @Setting
     public String player_not_online = "&e&lISLAND &cThe specified player is not online!";
-
-    @Setting
-    public String invite_revoked_successfully = "&e&lISLAND  &ePlayer &a%s &ehas had their invite &crevoked successfully!";
-
-    @Setting
-    public String invited_player_successfully = "&e&lISLAND  &ePlayer &a%s &ehas been &ainvited successfully!";
-
-    @Setting
-    public String invited_to_island = "&e&lISLAND &a%s &ehas invited you to join &a%s&e. Type &a/is join %s &eto join!";
 
     @Setting
     public String must_leave_current_island = "&e&lISLAND &cYou must leave your current island to join another!";
@@ -123,12 +106,6 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
     public String leave_confirm = "&e&lISLAND &eType &a/is leave confirm &eto leave your island.";
 
     @Setting
-    public String leader_revoked_invite = "&e&lISLAND &a%s &ehas &crevoked &a%s's &einvite.";
-
-    @Setting
-    public String leader_invited_player = "&e&lISLAND &a%s &ehas invited &a%s &eto your island!";
-
-    @Setting
     public String leader_kicked_player = "&e&lISLAND &a%s &ehas kicked &a%s &efrom your island!";
 
     @Setting
@@ -144,19 +121,10 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
     public String leader_changed_broadcast = "&e&lISLAND &a%s &ehas given Island Ownership to &a%s!";
 
     @Setting
-    public String disband_confirm = "&e&lISLAND &eType &a/is disband confirm &eto leave your island.";
-
-    @Setting
-    public String disband_must_be_in_island = "&e&lISLAND &eYou must be in an island to be able to disband!";
-
-    @Setting
-    public String only_leader_can_disband = "&e&lISLAND &cOnly the Island Leader can disband your island!";
-
-    @Setting
-    public String island_disbanded = "&e&lISLAND &eYour island has been disbanded by &a%s&e!";
-
-    @Setting
     public String no_permission = "&e&lISLAND &eYou do not have permission to perform this command (Island Permission Level must be lower!)";
+
+    @Setting
+    public String creating_island = "&aCreating your Island...";
 
     @ConfigSerializable
     public static class SetHome {
@@ -238,5 +206,72 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
       public String island_is_now_unlocked_broadcast = "&e&lISLAND &c%s &ehas &a&l&nUNLOCKED&e your island to all visitors!";
 
     }
+
+    @ConfigSerializable
+    public static class Invite {
+
+      @Setting
+      public String invite_revoked_successfully = "&e&lISLAND  &ePlayer &a%s &ehas had their invite &crevoked successfully!";
+
+      @Setting
+      public String invited_player_successfully = "&e&lISLAND  &ePlayer &a%s &ehas been &ainvited successfully!";
+
+      @Setting
+      public String invited_to_island = "&e&lISLAND &a%s &ehas invited you to join &a%s&e. Type &a/is join %s &eto join!";
+
+      @Setting
+      public String leader_revoked_invite = "&e&lISLAND &a%s &ehas &crevoked &a%s's &einvite.";
+
+      @Setting
+      public String leader_invited_player = "&e&lISLAND &a%s &ehas invited &a%s &eto your island!";
+
+    }
+
+    @ConfigSerializable
+    public static class Bypass {
+
+      @Setting
+      public String enabled_admin_bypass = "&e&lISLAND &aYou have successfully &lENABLED&a Island Bypass!";
+
+      @Setting
+      public String disable_admin_bypass = "&e&lISLAND &cYou have successfully &lDISABLED&c Island Bypass!";
+
+    }
+
+    @ConfigSerializable
+    public static class Teleport {
+
+      @Setting
+      public String teleporting_to_your_island = "&aTeleporting to your island...";
+
+      @Setting
+      public String teleporting_to_default_home_location = "&aCould not teleport to your Island, Teleporting you to default home location!";
+
+      @Setting
+      public String could_not_teleport_to_island = "&cCould not teleport to your island. Contact Staff for help!";
+
+      @Setting
+      public String not_allowed_to_teleport_here = "&e&lISLAND &cYou are not allowed to teleport to this island!";
+
+    }
+
+    @ConfigSerializable
+    public static class Disband {
+
+      @Setting
+      public String disband_confirm = "&e&lISLAND &eType &a/is disband confirm &eto leave your island.";
+
+      @Setting
+      public String disband_must_be_in_island = "&e&lISLAND &eYou must be in an island to be able to disband!";
+
+      @Setting
+      public String only_leader_can_disband = "&e&lISLAND &cOnly the Island Leader can disband your island!";
+
+      @Setting
+      public String island_disbanded = "&e&lISLAND &eYour island has been disbanded by &a%s&e!";
+
+    }
+
+
   }
 }

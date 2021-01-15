@@ -22,19 +22,19 @@ public class IslandDisbandCommand extends AbstractIslandCommand {
   public void onDisbandCommand(Player player, @Optional String confirm) {
 
     if(confirm.isEmpty() || !confirm.equals("confirm")) {
-      msg(player, getMessages().disband_confirm);
+      msg(player, getMessages().disband.disband_confirm);
       return;
     }
 
     SPlayer sPlayer = SPlayer.get(player);
 
     if(!sPlayer.isInIsland()) {
-      msg(player, getMessages().disband_must_be_in_island);
+      msg(player, getMessages().disband.disband_must_be_in_island);
       return;
     }
 
     if(sPlayer.getIslandRole() != IslandPermissionLevel.LEADER) {
-      msg(player, getMessages().only_leader_can_disband);
+      msg(player, getMessages().disband.only_leader_can_disband);
       return;
     }
 
@@ -47,7 +47,7 @@ public class IslandDisbandCommand extends AbstractIslandCommand {
       SPlayer islandMember = SPlayer.get(pp);
       islandMember.removeFromIsland();
       if(Sponge.getServer().getPlayer(pp).isPresent()) {
-        formatMsg(Sponge.getServer().getPlayer(pp).get(), getMessages().island_disbanded, player.getName());
+        formatMsg(Sponge.getServer().getPlayer(pp).get(), getMessages().disband.island_disbanded, player.getName());
         player.setLocationSafely(WorldManager.get().getServerSpawn());
       }
     }

@@ -148,13 +148,13 @@ public class VanillaIslandGuard extends AbstractIslandGuard {
     if(isNotInWorld(to)) return false;
 
     if(Island.getIslandAt(to) == null) {
-      MessageUtil.msg(player, ConfigManager.get().getMessages().not_allowed_to_teleport_here);
+      MessageUtil.msg(player, ConfigManager.get().getMessages().teleport.not_allowed_to_teleport_here);
       return true;
     }
 
     if(SPlayer.get(player).hasPerm(IslandPerm.ENTRY, to)) return false;
 
-    MessageUtil.msg(player, ConfigManager.get().getMessages().not_allowed_to_teleport_here);
+    MessageUtil.msg(player, ConfigManager.get().getMessages().teleport.not_allowed_to_teleport_here);
     return true;
 
   }

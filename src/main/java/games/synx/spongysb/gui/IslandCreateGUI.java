@@ -4,6 +4,7 @@ import ca.landonjw.gooeylibs.inventory.api.Button;
 import ca.landonjw.gooeylibs.inventory.api.Page;
 import ca.landonjw.gooeylibs.inventory.api.Template;
 import com.google.common.collect.Maps;
+import games.synx.pscore.util.MessageUtil;
 import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.config.configs.GUI;
 import games.synx.spongysb.generation.GridManager;
@@ -32,9 +33,10 @@ public class IslandCreateGUI {
                     .displayName(confButton.displayName)
                     .lore(confButton.lore)
                     .onClick((action) -> {
+                        MessageUtil.msg(player, ConfigManager.get().getMessages().creating_island);
                         action.getPlayer().closeScreen();
                         GridManager.get().newIsland(player, SchematicManager.get().getSchematicHandlers().get(confButton.schematic), name);
-                        player.sendMessage(TextSerializers.FORMATTING_CODE.deserialize(ConfigManager.get().getMessages().island_created_successfully));
+                        MessageUtil.msg(player, ConfigManager.get().getMessages().island_created_successfully);
                     }).build();
 
             template.set(confButton.row, confButton.column, button);
