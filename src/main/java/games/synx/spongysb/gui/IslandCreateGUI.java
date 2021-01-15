@@ -32,9 +32,9 @@ public class IslandCreateGUI {
                     .displayName(confButton.displayName)
                     .lore(confButton.lore)
                     .onClick((action) -> {
+                        action.getPlayer().closeScreen();
                         GridManager.get().newIsland(player, SchematicManager.get().getSchematicHandlers().get(confButton.schematic), name);
                         player.sendMessage(TextSerializers.FORMATTING_CODE.deserialize(ConfigManager.get().getMessages().island_created_successfully));
-                        action.getPlayer().closeScreen();
                     }).build();
 
             template.set(confButton.row, confButton.column, button);
