@@ -30,6 +30,9 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
     public SetHome setHome = new SetHome();
 
     @Setting
+    public Lock lock = new Lock();
+
+    @Setting
     public String serverName = "Lightning";
 
     @Setting
@@ -216,6 +219,23 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
 
       @Setting
       public String added_message = "&e&lISLAND &a%s &ehas granted you COOP access on &a%s!";
+
+      @Setting
+      public String must_be_in_island = "&e&lISLAND &cYou must be in an Island in order to COOP players!";
+
+    }
+
+    @ConfigSerializable
+    public static class Lock {
+
+      @Setting
+      public String must_be_in_island = "&e&lISLAND &cYou must be in an island to be able to lock one!";
+
+      @Setting
+      public String island_is_now_locked_broadcast = "&e&lISLAND &c%s &ehas &c&l&nLOCKED&e your island to all visitors!";
+
+      @Setting
+      public String island_is_now_unlocked_broadcast = "&e&lISLAND &c%s &ehas &a&l&nUNLOCKED&e your island to all visitors!";
 
     }
   }

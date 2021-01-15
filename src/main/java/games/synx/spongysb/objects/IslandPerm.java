@@ -37,8 +37,8 @@ public enum IslandPerm {
   DEMOTE("demote"), //cmpl
   BAN("ban"),
   HOME("home"), // cmpl
-  IS_LOCK("is_lock"),
-  SET_HOME("set_home"),
+  IS_LOCK("is_lock"), //cmpl
+  SET_HOME("set_home"), //cmpl
 
   ITEM_DROP("item_drop"), //cmpl
   ITEM_PICKUP("item_pickup"), //cmpl

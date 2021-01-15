@@ -7,6 +7,7 @@ import games.synx.spongysb.objects.Island;
 import games.synx.spongysb.objects.IslandPerm;
 import games.synx.spongysb.objects.SPlayer;
 import games.synx.spongysb.util.IslandUtil;
+import io.github.nucleuspowered.nucleus.api.events.NucleusTeleportEvent;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.Order;
@@ -85,21 +86,23 @@ public class VanillaIslandGuard extends AbstractIslandGuard {
     if(isNotInWorld(player)) return;
     if(event.getFromTransform().getLocation().equals(event.getToTransform().getLocation())) return;
 
-    Location<World> to = event.getToTransform().getLocation();
+    event.setCancelled(onTeleportAbstract(player, event.getToTransform().getLocation()));
 
-    if(isNotInWorld(to)) return;
+  }
 
-    if(Island.getIslandAt(to) == null) {
-      event.setCancelled(true);
-      MessageUtil.msg(player, ConfigManager.get().getMessages().not_allowed_to_teleport_here);
-      return;
-    }
+  /**
+   * Stops a Nucleus Teleport Event from occuring if they do not have permission
+   * @param event NucleusTeleportEvent.AboutToTeleport
+   * @param player Player in question of the event
+   */
+  @Listener
+  public void onNucleusTeleport(NucleusTeleportEvent.AboutToTeleport event, @Root Player player) {
+    SPlayer sPlayer = SPlayer.get(player);
 
-    if(sPlayer.hasPerm(IslandPerm.ENTRY, to)) return;
+    if(isBypassed(sPlayer)) return;
+    if(isNotInWorld(player)) return;
 
-    event.setCancelled(true);
-    MessageUtil.msg(player, ConfigManager.get().getMessages().not_allowed_to_teleport_here);
-
+    event.setCancelled(onTeleportAbstract(player, event.getToTransform().getLocation()));
   }
 
   /**
@@ -133,6 +136,29 @@ public class VanillaIslandGuard extends AbstractIslandGuard {
     if(passesGenericIslandChecks(player, IslandPerm.ITEM_PICKUP)) return;
     event.setCancelled(true);
   }
+
+  /**
+   * Common Logic used between Teleport Event Listeners
+   * @param player Player in Question
+   * @param to The teleport destination
+   * @return If the event is cancelled or not
+   */
+  public boolean onTeleportAbstract(Player player, Location<World> to) {
+
+    if(isNotInWorld(to)) return false;
+
+    if(Island.getIslandAt(to) == null) {
+      MessageUtil.msg(player, ConfigManager.get().getMessages().not_allowed_to_teleport_here);
+      return true;
+    }
+
+    if(SPlayer.get(player).hasPerm(IslandPerm.ENTRY, to)) return false;
+
+    MessageUtil.msg(player, ConfigManager.get().getMessages().not_allowed_to_teleport_here);
+    return true;
+
+  }
+
 
 
 

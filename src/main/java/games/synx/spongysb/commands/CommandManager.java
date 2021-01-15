@@ -29,7 +29,7 @@ public class CommandManager extends PSCommandManager {
     getCommandManager().registerCommand(new IslandPromoteCommand());
     getCommandManager().registerCommand(new IslandDemoteCommand());
     getCommandManager().registerCommand(new IslandSethomeCommand());
-
+    getCommandManager().registerCommand(new IslandLockCommand());
   }
 
   public void registerAdminCommands() {
