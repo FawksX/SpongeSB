@@ -27,6 +27,9 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
     public Demote demote = new Demote();
 
     @Setting
+    public SetHome setHome = new SetHome();
+
+    @Setting
     public String serverName = "Lightning";
 
     @Setting
@@ -151,6 +154,22 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
 
     @Setting
     public String no_permission = "&e&lISLAND &eYou do not have permission to perform this command (Island Permission Level must be lower!)";
+
+    @ConfigSerializable
+    public static class SetHome {
+
+      @Setting
+      public String can_only_set_home_in_your_island = "&e&lISLAND &cYou must be at your own island to set home!";
+
+      @Setting
+      public String island_home_set_successfully = "&e&lISLAND &aYou have successfully set your Island Home Location!";
+
+      @Setting
+      public String unsafe_home_location = "&e&lISLAND &cYou must be standing on a block to set a home!";
+
+    }
+
+
 
     @ConfigSerializable
     public static class Promote {

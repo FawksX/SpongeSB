@@ -90,8 +90,8 @@ public class Island {
       preparedStatement.setString(3, centerSerialised);
       preparedStatement.setString(4, homeLocSerialised);
       preparedStatement.setString(5, island.getIslandSizeValue());
-      preparedStatement.setBoolean(5, island.isActive());
-      preparedStatement.setString(6, island.getIslandUUID().toString());
+      preparedStatement.setBoolean(6, island.isActive());
+      preparedStatement.setString(7, island.getIslandUUID().toString());
 
 
       preparedStatement.executeUpdate();
@@ -444,6 +444,14 @@ public class Island {
    */
   public void setSize(String island_size) {
     this.island_size = island_size;
+  }
+
+  /**
+   * Sets the Islands' Home location
+   * @param homeLocation new home location
+   */
+  public void setHome(Location<World> homeLocation) {
+    this.homeLocation = homeLocation;
   }
 
 }
