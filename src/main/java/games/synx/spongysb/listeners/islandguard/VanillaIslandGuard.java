@@ -7,23 +7,16 @@ import games.synx.spongysb.objects.Island;
 import games.synx.spongysb.objects.IslandPerm;
 import games.synx.spongysb.objects.SPlayer;
 import games.synx.spongysb.util.IslandUtil;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.network.play.server.SPacketWorldBorder;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.Order;
 import org.spongepowered.api.event.block.ChangeBlockEvent;
-import org.spongepowered.api.event.cause.Cause;
-import org.spongepowered.api.event.cause.EventContext;
-import org.spongepowered.api.event.cause.EventContextKeys;
 import org.spongepowered.api.event.entity.MoveEntityEvent;
 import org.spongepowered.api.event.filter.cause.Root;
 import org.spongepowered.api.event.item.inventory.ChangeInventoryEvent;
-import org.spongepowered.api.event.item.inventory.ClickInventoryEvent;
 import org.spongepowered.api.event.item.inventory.DropItemEvent;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
-import org.spongepowered.api.world.WorldBorder;
 
 public class VanillaIslandGuard extends AbstractIslandGuard {
 
@@ -93,7 +86,7 @@ public class VanillaIslandGuard extends AbstractIslandGuard {
     if(event.getFromTransform().getLocation().equals(event.getToTransform().getLocation())) return;
 
     Location<World> to = event.getToTransform().getLocation();
-    if(isNotInWorld(to)) return;
+
     if(isNotInWorld(to)) return;
 
     if(Island.getIslandAt(to) == null) {

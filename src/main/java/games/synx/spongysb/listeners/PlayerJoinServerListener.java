@@ -3,7 +3,6 @@ package games.synx.spongysb.listeners;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.cache.PlayerCache;
 import games.synx.spongysb.generation.WorldManager;
-import games.synx.spongysb.objects.Island;
 import games.synx.spongysb.objects.IslandPerm;
 import games.synx.spongysb.objects.SPlayer;
 import games.synx.spongysb.storage.DatabaseManager;
