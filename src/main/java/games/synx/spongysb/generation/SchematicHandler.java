@@ -47,30 +47,11 @@ public class SchematicHandler {
       } catch (Throwable throwable) {
         SpongySB.get().getLogger().error("COULD NOT PASTE SCHEMATIC! SchematicHandler pasteSchematicAsync");
         throwable.printStackTrace();
-        return;
       }
 
-      handleMinMaxCalculation(centerLoc, player);
     } catch (IOException e) {
       e.printStackTrace();
     }
-  }
-
-  private void handleMinMaxCalculation(
-      Location<World> centerLoc, Player player) {
-
-    // TODO ADD IN ISLAND UPGRADE CONF TO GET DEFAULT PROTECTION RANGE (WHICH IS PROTECTIONRANGE = 300)
-
-    int protectionRange = 300;
-    int half = protectionRange / 2;
-
-    Location<World> minLoc =
-        new Location<World>(
-            centerLoc.getExtent(), centerLoc.getBlockX() - half, 0, centerLoc.getBlockZ() - half);
-    Location<World> maxLoc =
-        new Location<World>(
-            centerLoc.getExtent(), centerLoc.getBlockX() + half, 254, centerLoc.getBlockZ() + half);
-
   }
 
 

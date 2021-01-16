@@ -3,7 +3,6 @@ package games.synx.spongysb.gui;
 import ca.landonjw.gooeylibs.inventory.api.Button;
 import ca.landonjw.gooeylibs.inventory.api.Page;
 import ca.landonjw.gooeylibs.inventory.api.Template;
-import com.google.common.collect.Maps;
 import games.synx.pscore.util.MessageUtil;
 import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.config.configs.guis.SchemGUI;
@@ -13,15 +12,15 @@ import games.synx.spongysb.generation.SchematicManager;
 import net.minecraft.entity.player.EntityPlayerMP;
 import org.spongepowered.api.entity.living.player.Player;
 
-import java.util.Map;
-
 public class IslandCreateGUI {
+
+
 
     public static void open(Player player, String name) {
 
         SchemGUI.SchemGUISettings guiSettings = ConfigManager.get().getSchematicGUI();
 
-        Map<SchematicGUIButton, Button> buttons = Maps.newHashMap();
+
         Button fillerButton = Button.builder().item(guiSettings.fillerSlot.getItemStack()).displayName(guiSettings.fillerSlot.displayName).build();
 
         Template.Builder template = Template.builder(guiSettings.rows).fill(fillerButton);

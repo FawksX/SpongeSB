@@ -4,12 +4,10 @@ import ca.landonjw.gooeylibs.inventory.api.Button;
 import ca.landonjw.gooeylibs.inventory.api.Page;
 import ca.landonjw.gooeylibs.inventory.api.Template;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import games.synx.pscore.util.MessageUtil;
 import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.config.configs.guis.PermGUI;
 import games.synx.spongysb.config.configs.wrappers.PermissionsGUIButton;
-import games.synx.spongysb.config.configs.wrappers.SchematicGUIButton;
 import games.synx.spongysb.objects.Island;
 import games.synx.spongysb.objects.IslandPerm;
 import games.synx.spongysb.objects.IslandPermissionLevel;
@@ -19,7 +17,6 @@ import net.minecraft.inventory.ClickType;
 import org.spongepowered.api.entity.living.player.Player;
 
 import java.util.List;
-import java.util.Map;
 
 public class IslandPermissionsGUI {
 
@@ -30,7 +27,6 @@ public class IslandPermissionsGUI {
 
         PermGUI.PermGUISettings permissionsGUI = ConfigManager.get().getPermissionsGUI();
 
-        Map<SchematicGUIButton, Button> buttons = Maps.newHashMap();
         Button fillerButton = Button.builder().item(permissionsGUI.fillerSlot.getItemStack()).displayName(permissionsGUI.fillerSlot.displayName).build();
 
         Template.Builder template = Template.builder(permissionsGUI.rows).fill(fillerButton);
