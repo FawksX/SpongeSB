@@ -6,7 +6,7 @@ import ca.landonjw.gooeylibs.inventory.api.Template;
 import com.google.common.collect.Maps;
 import games.synx.pscore.util.MessageUtil;
 import games.synx.spongysb.config.ConfigManager;
-import games.synx.spongysb.config.configs.GUI;
+import games.synx.spongysb.config.configs.guis.SchemGUI;
 import games.synx.spongysb.config.configs.wrappers.SchematicGUIButton;
 import games.synx.spongysb.generation.GridManager;
 import games.synx.spongysb.generation.SchematicManager;
@@ -19,7 +19,7 @@ public class IslandCreateGUI {
 
     public static void open(Player player, String name) {
 
-        GUI.GUISettings.SchematicGUI guiSettings = ConfigManager.get().getGUIs().schematicgui;
+        SchemGUI.SchemGUISettings guiSettings = ConfigManager.get().getSchematicGUI();
 
         Map<SchematicGUIButton, Button> buttons = Maps.newHashMap();
         Button fillerButton = Button.builder().item(guiSettings.fillerSlot.getItemStack()).displayName(guiSettings.fillerSlot.displayName).build();
@@ -44,7 +44,7 @@ public class IslandCreateGUI {
 
         Page.builder()
                 .template(template.build())
-                .title(ConfigManager.get().getGUIs().schematicgui.menuTitle)
+                .title(guiSettings.menuTitle)
                 .build()
                 .openPage((EntityPlayerMP) player);
 

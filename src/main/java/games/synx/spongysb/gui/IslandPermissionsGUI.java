@@ -7,7 +7,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import games.synx.pscore.util.MessageUtil;
 import games.synx.spongysb.config.ConfigManager;
-import games.synx.spongysb.config.configs.GUI;
+import games.synx.spongysb.config.configs.guis.PermGUI;
 import games.synx.spongysb.config.configs.wrappers.PermissionsGUIButton;
 import games.synx.spongysb.config.configs.wrappers.SchematicGUIButton;
 import games.synx.spongysb.objects.Island;
@@ -28,7 +28,7 @@ public class IslandPermissionsGUI {
         SPlayer sPlayer = SPlayer.get(player);
         Island island = sPlayer.getIsland();
 
-        GUI.GUISettings.PermissionsGUI permissionsGUI = ConfigManager.get().getGUIs().permissionsgui;
+        PermGUI.PermGUISettings permissionsGUI = ConfigManager.get().getPermissionsGUI();
 
         Map<SchematicGUIButton, Button> buttons = Maps.newHashMap();
         Button fillerButton = Button.builder().item(permissionsGUI.fillerSlot.getItemStack()).displayName(permissionsGUI.fillerSlot.displayName).build();
@@ -65,7 +65,7 @@ public class IslandPermissionsGUI {
 
         Page.builder()
                 .template(template.build())
-                .title(ConfigManager.get().getGUIs().schematicgui.menuTitle)
+                .title(permissionsGUI.menuTitle)
                 .build()
                 .openPage((EntityPlayerMP) player);
 
@@ -77,7 +77,7 @@ public class IslandPermissionsGUI {
             MessageUtil.msg(player, ConfigManager.get().getMessages().permission.cannot_put_less_than_visitor);
             return;
         }
-        if(newPosition > IslandPermissionLevel.NONE.getPosition()) {
+        if(newPosition > IslandPermissionLevel.LEADER.getPosition()) {
             MessageUtil.msg(player, ConfigManager.get().getMessages().permission.cannot_put_more_than_leader);
             return;
         }
