@@ -7,11 +7,11 @@ import com.google.common.collect.Maps;
 import games.synx.pscore.util.MessageUtil;
 import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.config.configs.GUI;
+import games.synx.spongysb.config.configs.wrappers.SchematicGUIButton;
 import games.synx.spongysb.generation.GridManager;
 import games.synx.spongysb.generation.SchematicManager;
 import net.minecraft.entity.player.EntityPlayerMP;
 import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.text.serializer.TextSerializers;
 
 import java.util.Map;
 
@@ -21,12 +21,12 @@ public class IslandCreateGUI {
 
         GUI.GUISettings.SchematicGUI guiSettings = ConfigManager.get().getGUIs().schematicgui;
 
-        Map<GUI.GUISettings.GUIButton, Button> buttons = Maps.newHashMap();
+        Map<SchematicGUIButton, Button> buttons = Maps.newHashMap();
         Button fillerButton = Button.builder().item(guiSettings.fillerSlot.getItemStack()).displayName(guiSettings.fillerSlot.displayName).build();
 
         Template.Builder template = Template.builder(guiSettings.rows).fill(fillerButton);
 
-        for(GUI.GUISettings.GUIButton confButton : guiSettings.buttons) {
+        for(SchematicGUIButton confButton : guiSettings.buttons) {
 
             Button button = Button.builder()
                     .item(confButton.getItemStack())

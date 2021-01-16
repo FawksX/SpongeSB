@@ -8,7 +8,7 @@ package games.synx.spongysb.objects;
 public enum IslandPerm {
   PLACE("place"), // cmpl
   BREAK("break"), // cmpl
-  ENTRY("entry"), // cmpl
+  ENTRY("entry"), // cmpl, /is lock
 
   SPAWNER_PLACE("spawner_place"),
   SPAWNER_BREAK("spawner_break"),
