@@ -281,10 +281,10 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
     public static class Permission {
 
       @Setting
-      public String cannot_demote_to_visitor = "&e&lISLAND &cYou cannot demote your island member to visitor! use /is kick";
+      public String cannot_put_less_than_visitor = "&e&lISLAND &cYou cannot put a permission lower than member!";
 
       @Setting
-      public String cannot_promote_to_leader = "&e&lISLAND &cYou cannot promote your island member to leader! use /is makeleader";
+      public String cannot_put_more_than_leader = "&e&lISLAND &cYou cannot put a permission higher than leader!";
 
       @Setting
       public String can_only_view_permissions = "&e&lISLAND &cYou may only view Island Permissions!";

@@ -72,15 +72,16 @@ public class IslandPermissionsGUI {
     }
 
     public static void changePermission(Player player, Island island, int newPosition, IslandPerm islandPerm) {
+
+        if(newPosition < IslandPermissionLevel.NONE.getPosition()) {
+            MessageUtil.msg(player, ConfigManager.get().getMessages().permission.cannot_put_less_than_visitor);
+            return;
+        }
+        if(newPosition > IslandPermissionLevel.NONE.getPosition()) {
+            MessageUtil.msg(player, ConfigManager.get().getMessages().permission.cannot_put_more_than_leader);
+            return;
+        }
         IslandPermissionLevel permLvL = IslandPermissionLevel.fromPosition(newPosition);
-        if(permLvL == IslandPermissionLevel.NONE) {
-            MessageUtil.msg(player, ConfigManager.get().getMessages().permission.cannot_demote_to_visitor);
-            return;
-        }
-        if(permLvL == IslandPermissionLevel.LEADER) {
-            MessageUtil.msg(player, ConfigManager.get().getMessages().permission.cannot_promote_to_leader);
-            return;
-        }
         island.getIslandPermissions().replace(islandPerm, permLvL);
     }
 
