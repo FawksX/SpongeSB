@@ -44,6 +44,9 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
     @Setting
     public Disband disband = new Disband();
 
+    @Setting
+    public Permission permission = new Permission();
+
 
     @Setting
     public String is_in_island_error = "&cYou are already in an island!";
@@ -125,6 +128,8 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
 
     @Setting
     public String creating_island = "&aCreating your Island...";
+
+
 
     @ConfigSerializable
     public static class SetHome {
@@ -269,6 +274,20 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
 
       @Setting
       public String island_disbanded = "&e&lISLAND &eYour island has been disbanded by &a%s&e!";
+
+    }
+
+    @ConfigSerializable
+    public static class Permission {
+
+      @Setting
+      public String cannot_demote_to_visitor = "&e&lISLAND &cYou cannot demote your island member to visitor! use /is kick";
+
+      @Setting
+      public String cannot_promote_to_leader = "&e&lISLAND &cYou cannot promote your island member to leader! use /is makeleader";
+
+      @Setting
+      public String can_only_view_permissions = "&e&lISLAND &cYou may only view Island Permissions!";
 
     }
 
