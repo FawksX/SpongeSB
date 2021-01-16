@@ -12,92 +12,35 @@ import java.util.List;
 @ConfigSerializable
 public class PermissionsGUIButton {
 
-    protected PermissionsGUIButton(int column, int row, IslandPerm islandPerm, String item, String displayName, List<String> lore) {
-        this.column = column;
-        this.row = row;
-        this.islandPerm = islandPerm;
-        this.item = item;
-        this.displayName = displayName;
-        this.lore = lore;
-    }
+    public PermissionsGUIButton() {
 
-    public static Builder builder() {
-        return new Builder();
     }
 
     @Setting
-    public int column = 4;
+    public int column = 1;
 
     @Setting
     public int row = 1;
 
     @Setting
-    public IslandPerm islandPerm = IslandPerm.NAME;
+    public IslandPerm islandPerm = IslandPerm.PLACE;
 
     @Setting
     public String item = "pixelmon:tm12";
 
     @Setting
-    public String displayName = "ItemName";
+    public String displayName = "§c§lPLACE";
 
     @Setting
-    public List<String> lore = Lists.newArrayList();
+    public List<String> lore = Lists.newArrayList(
+            "§eCurrent Permission Level: §a§l{level}",
+            "§d§lLeft Click to increase needed level",
+            "§e§lShift Click to decrease needed level"
+    );
 
     public ItemStack getItemStack() {
         return new ItemStack(Item.getByNameOrId(item));
     }
 
-
-    public static class Builder {
-
-        private int column;
-        private int row;
-        private IslandPerm islandPerm;
-        private String item;
-        private String displayName;
-        private List<String> lore;
-
-        public Builder column(int column) {
-            this.column = column;
-            return this;
-        }
-
-        public Builder row(int row) {
-            this.row = row;
-            return this;
-        }
-
-        public Builder islandPerm(IslandPerm islandPerm) {
-            this.islandPerm = islandPerm;
-            return this;
-        }
-
-        public Builder item(String item) {
-            this.item = item;
-            return this;
-        }
-
-        public Builder name(String displayName) {
-            this.displayName = displayName;
-            return this;
-        }
-
-        public Builder lore(List<String> lore) {
-            this.lore = lore;
-            return this;
-        }
-
-        public PermissionsGUIButton build() {
-            return new PermissionsGUIButton(
-                    this.column,
-                    this.row,
-                    this.islandPerm,
-                    this.item,
-                    this.displayName,
-                    this.lore
-            );
-        }
-
-    }
 
 }

@@ -3,6 +3,7 @@ package games.synx.spongysb.gui;
 import ca.landonjw.gooeylibs.inventory.api.Button;
 import ca.landonjw.gooeylibs.inventory.api.Page;
 import ca.landonjw.gooeylibs.inventory.api.Template;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import games.synx.pscore.util.MessageUtil;
 import games.synx.spongysb.config.ConfigManager;
@@ -46,16 +47,17 @@ public class IslandPermissionsGUI {
                             return;
                         }
 
-                        if(action.getClickType() == ClickType.PICKUP) {
+                        if(action.getClickType() == ClickType.QUICK_MOVE) {
                             int newPosition = (island.getIslandPermissions().get(confButton.islandPerm).getPosition() - 1);
                             changePermission(player, island, newPosition, confButton.islandPerm);
                         }
-                        if(action.getClickType() == ClickType.SWAP) {
+                        if(action.getClickType() == ClickType.PICKUP) {
                             int newPosition = (island.getIslandPermissions().get(confButton.islandPerm).getPosition() + 1);
                             changePermission(player, island, newPosition, confButton.islandPerm);
                         }
-                        action.getPlayer().closeScreen();
-                        open(player);
+
+                        action.getButton().toBuilder().lore(replaceLevel(confButton.lore, island, confButton.islandPerm)).build();
+
                     }).build();
 
             template.set(confButton.row, confButton.column, button);
@@ -84,10 +86,11 @@ public class IslandPermissionsGUI {
 
     public static List<String> replaceLevel(List<String> lore, Island island, IslandPerm islandPerm) {
 
+        List<String> newLore = Lists.newArrayList();
         for(String s : lore) {
-            s.replace("{level}", island.getIslandPermissions().get(islandPerm).toString());
+            newLore.add(s.replace("{level}", island.getIslandPermissions().get(islandPerm).toString()));
         }
-        return lore;
+        return newLore;
     }
 
 }
