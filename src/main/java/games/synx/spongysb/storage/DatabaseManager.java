@@ -9,7 +9,6 @@ import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.config.configs.Conf;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 public class DatabaseManager extends AbstractManager implements IManager, IDatabase {
 
@@ -50,22 +49,15 @@ public class DatabaseManager extends AbstractManager implements IManager, IDatab
 
   private void createTables() {
     try (Connection connection = getConnection()) {
-      PreparedStatement preparedStatement = connection.prepareStatement(Statements.CREATE_ISLANDS_TABLE);
-      PreparedStatement preparedStatement2 = connection.prepareStatement(Statements.CREATE_PLAYERS_TABLE);
-      PreparedStatement preparedStatement3 = connection.prepareStatement(Statements.CREATE_GRID_TABLE);
-      PreparedStatement preparedStatement4 = connection.prepareStatement(Statements.CREATE_ISLAND_UPGRADES_TABLE);
-      PreparedStatement preparedStatement5 = connection.prepareStatement(Statements.CREATE_ISLAND_PERMISSIONS_TABLE);
+      connection.prepareStatement(Statements.CREATE_ISLANDS_TABLE).executeUpdate();
+      connection.prepareStatement(Statements.CREATE_PLAYERS_TABLE).executeUpdate();
+      connection.prepareStatement(Statements.CREATE_GRID_TABLE).executeUpdate();
+      connection.prepareStatement(Statements.CREATE_ISLAND_UPGRADES_TABLE).executeUpdate();
+      connection.prepareStatement(Statements.CREATE_ISLAND_PERMISSIONS_TABLE).executeUpdate();
 
-      preparedStatement.execute();
-      preparedStatement2.execute();
-      preparedStatement3.execute();
-      preparedStatement4.execute();
-      preparedStatement5.execute();
     } catch (SQLException e) {
-
       e.printStackTrace();
     }
   }
-
 
 }
