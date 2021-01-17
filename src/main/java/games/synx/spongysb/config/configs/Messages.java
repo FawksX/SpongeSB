@@ -258,6 +258,9 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
       @Setting
       public String not_allowed_to_teleport_here = "&e&lISLAND &cYou are not allowed to teleport to this island!";
 
+      @Setting
+      public String void_to_spawn = "&e&lISLAND &bYou have been teleported to spawn!";
+
     }
 
     @ConfigSerializable

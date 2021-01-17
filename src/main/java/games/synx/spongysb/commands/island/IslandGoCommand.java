@@ -6,6 +6,7 @@ import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.events.IslandEnterEvent;
+import games.synx.spongysb.events.IslandPreTeleportEvent;
 import games.synx.spongysb.objects.IslandPerm;
 import games.synx.spongysb.objects.SPlayer;
 import org.spongepowered.api.Sponge;
@@ -32,6 +33,8 @@ public class IslandGoCommand extends AbstractIslandCommand {
       msg(player, getMessages().no_permission);
       return;
     }
+
+    postEvent(new IslandPreTeleportEvent(sPlayer.getIsland(), player, IslandPreTeleportEvent.Reason.HOME, sPlayer.getIsland().getHomeLocation()));
 
     Location<World> teleportLocation = sPlayer.getIsland().getHomeLocation();
 

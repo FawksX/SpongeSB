@@ -1,5 +1,7 @@
 package games.synx.spongysb.listeners.islandguard;
 
+import games.synx.spongysb.SpongySB;
+import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.generation.GridManager;
 import games.synx.spongysb.objects.IslandPerm;
 import games.synx.spongysb.objects.SPlayer;
@@ -12,13 +14,15 @@ import org.spongepowered.api.world.World;
 
 public abstract class AbstractIslandGuard {
 
+    private final ConfigManager configManager = ConfigManager.get();
+
     /**
      * Check if a Forge Minecraft Player Instance has access to said location
      * @param forgePlayer EntityPlayerMP
      * @param islandPerm Island Permission being checked
      * @return boolean (hasPerm)
      */
-    public boolean passesGenericIslandChecks(EntityPlayerMP forgePlayer, IslandPerm islandPerm) {
+    protected boolean passesGenericIslandChecks(EntityPlayerMP forgePlayer, IslandPerm islandPerm) {
         return passesGenericIslandChecks(Sponge.getServer().getPlayer(forgePlayer.getUniqueID()).get(), islandPerm);
     }
 
@@ -28,23 +32,27 @@ public abstract class AbstractIslandGuard {
      * @param islandPerm Island Permission being checked
      * @return boolean (hasPerm)
      */
-    public boolean passesGenericIslandChecks(Player spongePlayer, IslandPerm islandPerm) {
+    protected boolean passesGenericIslandChecks(Player spongePlayer, IslandPerm islandPerm) {
         if(isBypassed(SPlayer.get(spongePlayer.getUniqueId()))) return true;
         if(isNotInWorld(spongePlayer)) return true;
         return SPlayer.get(spongePlayer).hasPerm(islandPerm, spongePlayer.getLocation());
     }
 
 
-    public boolean isNotInWorld(Entity entity) {
+    protected boolean isNotInWorld(Entity entity) {
         return !GridManager.get().inWorld(entity.getLocation());
     }
 
-    public boolean isNotInWorld(Location<World> location) {
+    protected boolean isNotInWorld(Location<World> location) {
         return !GridManager.get().inWorld(location);
     }
 
-    public boolean isBypassed(SPlayer player) {
+    protected boolean isBypassed(SPlayer player) {
         return player.isBypassed();
+    }
+
+    protected ConfigManager getConfigManager() {
+        return this.configManager;
     }
 
 }

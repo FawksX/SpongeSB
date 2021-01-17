@@ -7,6 +7,7 @@ import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
 import co.aikar.commands.annotation.Syntax;
 import games.synx.spongysb.commands.AbstractIslandCommand;
+import games.synx.spongysb.events.IslandChangeOwnerEvent;
 import games.synx.spongysb.objects.Island;
 import games.synx.spongysb.objects.IslandPermissionLevel;
 import games.synx.spongysb.objects.SPlayer;
@@ -49,6 +50,8 @@ public class IslandMakeleaderCommand extends AbstractIslandCommand {
     island.setLeaderUUID(targetLeader.getUniqueId());
 
     island.broadcastToOnlineMembers(getMessages().leader_changed_broadcast, player.getName(), targetLeader.getName());
+
+    postEvent(new IslandChangeOwnerEvent(island, sPlayer.getPlayerUUID(), sTargetLeader.getPlayerUUID()));
 
 
 

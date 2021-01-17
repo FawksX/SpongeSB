@@ -3,6 +3,7 @@ package games.synx.spongysb.listeners.islandguard;
 import games.synx.pscore.util.MessageUtil;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.ConfigManager;
+import games.synx.spongysb.generation.WorldManager;
 import games.synx.spongysb.objects.Island;
 import games.synx.spongysb.objects.IslandPerm;
 import games.synx.spongysb.objects.SPlayer;
@@ -156,6 +157,23 @@ public class VanillaIslandGuard extends AbstractIslandGuard {
 
     MessageUtil.msg(player, ConfigManager.get().getMessages().teleport.not_allowed_to_teleport_here);
     return true;
+
+  }
+
+  @Listener
+  public void onVoidDying(MoveEntityEvent.Position event, @Root Player player) {
+
+    if(isNotInWorld(player)) return;
+    SPlayer sPlayer = SPlayer.get(player);
+
+    if(!player.getLocation().hasBlock()) {
+      if(sPlayer.isInIsland(Island.getIslandAt(player.getLocation()))) {
+        player.setLocationSafely(sPlayer.getIsland().getHomeLocation());
+      } else {
+        player.setLocationSafely(WorldManager.get().getServerSpawn());
+        MessageUtil.msg(player, getConfigManager().getMessages().teleport.void_to_spawn);
+      }
+    }
 
   }
 
