@@ -17,7 +17,7 @@ public class SchematicManager extends AbstractManager implements IManager {
         return instance;
     }
 
-    private Map<String, SchematicHandler> schematicHandlers = Maps.newHashMap();
+    private final Map<String, SchematicHandler> schematicHandlers = Maps.newHashMap();
 
     public SchematicManager() {
         super(SpongySB.get().getLogger());

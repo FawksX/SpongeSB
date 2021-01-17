@@ -135,6 +135,12 @@ public class SPlayer {
     return hasPerm(islandPerm, island);
   }
 
+  /**
+   * Checks if a user has permission for a certain Island
+   * @param islandPerm IslandPerm based on the action of the user
+   * @param island Island in question
+   * @return Boolean, if they have permission or not.
+   */
   public boolean hasPerm(IslandPerm islandPerm, Island island) {
     IslandPermissionLevel islandPermissionLevel = island.getIslandPermissions().get(islandPerm);
     int islandPermissionPosition = islandPermissionLevel.getPosition();

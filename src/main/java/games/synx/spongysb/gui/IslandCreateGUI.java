@@ -14,8 +14,6 @@ import org.spongepowered.api.entity.living.player.Player;
 
 public class IslandCreateGUI {
 
-
-
     public static void open(Player player, String name) {
 
         SchemGUI.SchemGUISettings guiSettings = ConfigManager.get().getSchematicGUI();

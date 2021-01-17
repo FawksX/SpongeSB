@@ -31,7 +31,6 @@ public class Statements {
   public static final String GET_ISLAND_PERMISSIONS_TABLE = "SELECT * FROM spongysb_island_permissions WHERE island_uuid = ?";
 
   public static final String GET_PLAYER = "SELECT island_uuid, island_role FROM spongysb_players WHERE player_uuid = ?";
-  public static final String GET_ISLAND_UPGRADES = "SELECT (island_size) FROM spongysb_island_upgrades WHERE island_uuid = ?";
 
   public static final String GET_PLAYERS_IN_ISLAND = "SELECT (player_uuid) FROM spongysb_players WHERE island_uuid = ?";
 
