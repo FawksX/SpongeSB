@@ -31,6 +31,7 @@ public class CommandManager extends PSCommandManager {
     getCommandManager().registerCommand(new IslandSethomeCommand());
     getCommandManager().registerCommand(new IslandLockCommand());
     getCommandManager().registerCommand(new IslandPermissionsCommand());
+    getCommandManager().registerCommand(new IslandUpgradesCommand());
   }
 
   public void registerAdminCommands() {

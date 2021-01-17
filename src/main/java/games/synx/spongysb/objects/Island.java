@@ -5,6 +5,7 @@ import games.synx.pscore.util.MessageUtil;
 import games.synx.spongysb.cache.CoopCache;
 import games.synx.spongysb.cache.IslandCache;
 import games.synx.spongysb.config.ConfigManager;
+import games.synx.spongysb.config.configs.Upgrades;
 import games.synx.spongysb.generation.WorldManager;
 import games.synx.spongysb.storage.DatabaseManager;
 import games.synx.spongysb.storage.Statements;
@@ -427,7 +428,13 @@ public class Island {
    * @return Size (actual)
    */
   public double getSize() {
-    return ConfigManager.get().getUpgrades().sizeUpgrades.tiers.get(this.island_size).size;
+    for(Upgrades.UpgradeSettings.UpgradeButton upgradeButton : ConfigManager.get().getUpgrades().buttons) {
+      if(upgradeButton.upgradeType == UpgradeType.SIZE) {
+        return upgradeButton.tiers.get(this.island_size).setting;
+      }
+    }
+    // this will never be null so who cares
+    return 50;
   }
 
   /**

@@ -47,6 +47,9 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
     @Setting
     public Permission permission = new Permission();
 
+    @Setting
+    public Upgrades upgrades = new Upgrades();
+
 
     @Setting
     public String is_in_island_error = "&cYou are already in an island!";
@@ -292,6 +295,22 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
       @Setting
       public String can_only_view_permissions = "&e&lISLAND &cYou may only view Island Permissions!";
 
+    }
+
+    @ConfigSerializable
+    public static class Upgrades {
+
+      @Setting
+      public String cannot_upgrade = "&e&lISLAND &cYou do not have permission to upgrade your island!";
+
+      @Setting
+      public String max_upgrade = "&e&lISLAND &cYou have maxxed out this upgrade!";
+
+      @Setting
+      public String upgraded = "&e&lISLAND &aYour Island has been upgraded by &d%s&e!";
+
+      @Setting
+      public String no_funds = "&e&lISLAND &cYou do not have enough funds for this upgrade!";
     }
 
 
