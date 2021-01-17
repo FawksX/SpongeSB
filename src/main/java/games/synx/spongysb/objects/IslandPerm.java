@@ -21,9 +21,8 @@ public enum IslandPerm {
   PRESSURE_PLATE("pressure_plate"),
 
   NAME("name"), // cmpl
-  DESCRIPTION("description"),
-  VIEW_PERMS("view_perms"),
-  SET_PERMS("set_perms"),
+  VIEW_PERMS("view_perms"), //cmpl
+  SET_PERMS("set_perms"), //cmpl
   VIEW_SETTINGS("view_settings"),
   SET_SETTINGS("set_settings"),
   INVITE("invite"), // cmpl
@@ -31,8 +30,6 @@ public enum IslandPerm {
   DEPOSIT("deposit"),
   WITHDRAW("withdraw"),
   WARP("warp"),
-  VIEW_UPGRADES("view_upgrades"),
-  SET_UPGRADES("set_upgrades"),
   PROMOTE("promote"), //cmpl
   DEMOTE("demote"), //cmpl
   BAN("ban"),
