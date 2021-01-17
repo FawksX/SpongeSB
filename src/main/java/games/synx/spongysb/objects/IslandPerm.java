@@ -23,13 +23,13 @@ public enum IslandPerm {
   NAME("name"), // cmpl
   VIEW_PERMS("view_perms"), //cmpl
   SET_PERMS("set_perms"), //cmpl
-  VIEW_SETTINGS("view_settings"),
-  SET_SETTINGS("set_settings"),
   INVITE("invite"), // cmpl
   KICK("kick"), // cmpl
   DEPOSIT("deposit"),
   WITHDRAW("withdraw"),
   WARP("warp"),
+  VIEW_UPGRADES("view_upgrades"),
+  SET_UPGRADES("set_upgrades"),
   PROMOTE("promote"), //cmpl
   DEMOTE("demote"), //cmpl
   BAN("ban"),
