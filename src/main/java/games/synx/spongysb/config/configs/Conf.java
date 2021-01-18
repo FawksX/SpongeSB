@@ -116,8 +116,6 @@ public final class Conf extends AbstractConfiguration<Conf.ConfSettings> impleme
                 put(IslandPerm.SET_PERMS, IslandPermissionLevel.LEADER);
                 put(IslandPerm.INVITE, IslandPermissionLevel.ADMIN);
                 put(IslandPerm.KICK, IslandPermissionLevel.LEADER);
-                put(IslandPerm.DEPOSIT, IslandPermissionLevel.MOD);
-                put(IslandPerm.WITHDRAW, IslandPermissionLevel.MOD);
                 put(IslandPerm.WARP, IslandPermissionLevel.NONE);
                 put(IslandPerm.VIEW_UPGRADES, IslandPermissionLevel.MEMBER);
                 put(IslandPerm.SET_UPGRADES, IslandPermissionLevel.LEADER);

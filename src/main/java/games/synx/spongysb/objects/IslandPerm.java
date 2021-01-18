@@ -25,11 +25,9 @@ public enum IslandPerm {
   SET_PERMS("set_perms"), //cmpl
   INVITE("invite"), // cmpl
   KICK("kick"), // cmpl
-  DEPOSIT("deposit"),
-  WITHDRAW("withdraw"),
   WARP("warp"),
-  VIEW_UPGRADES("view_upgrades"),
-  SET_UPGRADES("set_upgrades"),
+  VIEW_UPGRADES("view_upgrades"), //cmpl
+  SET_UPGRADES("set_upgrades"), //cmpl
   PROMOTE("promote"), //cmpl
   DEMOTE("demote"), //cmpl
   BAN("ban"),

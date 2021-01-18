@@ -1,6 +1,5 @@
 package games.synx.spongysb.listeners.islandguard;
 
-import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.generation.GridManager;
 import games.synx.spongysb.objects.IslandPerm;
