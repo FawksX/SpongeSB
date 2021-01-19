@@ -5,7 +5,7 @@ import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.generation.WorldManager;
 import games.synx.spongysb.objects.Island;
-import games.synx.spongysb.objects.IslandPerm;
+import games.synx.spongysb.objects.enums.IslandPerm;
 import games.synx.spongysb.objects.SPlayer;
 import games.synx.spongysb.util.IslandUtil;
 import io.github.nucleuspowered.nucleus.api.events.NucleusTeleportEvent;

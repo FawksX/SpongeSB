@@ -5,9 +5,8 @@ import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
 import games.synx.spongysb.commands.AbstractIslandCommand;
-import games.synx.spongysb.gui.IslandPermissionsGUI;
 import games.synx.spongysb.gui.IslandUpgradesGUI;
-import games.synx.spongysb.objects.IslandPerm;
+import games.synx.spongysb.objects.enums.IslandPerm;
 import games.synx.spongysb.objects.SPlayer;
 import org.spongepowered.api.entity.living.player.Player;
 

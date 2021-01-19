@@ -12,6 +12,8 @@ import games.synx.spongysb.config.configs.Messages;
 import games.synx.spongysb.config.configs.Upgrades;
 import games.synx.spongysb.config.configs.wrappers.IslandUpgradeWrapper;
 import games.synx.spongysb.objects.*;
+import games.synx.spongysb.objects.enums.IslandPerm;
+import games.synx.spongysb.objects.enums.UpgradeType;
 import games.synx.spongysb.util.IslandUtil;
 import games.synx.spongysb.util.PlayerUtil;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -33,9 +35,7 @@ public class IslandUpgradesGUI {
 
         Upgrades.UpgradeSettings upgradesGUI = ConfigManager.get().getUpgrades();
 
-        Button fillerButton = Button.builder().item(upgradesGUI.fillerSlot.getItemStack()).displayName(upgradesGUI.fillerSlot.displayName).build();
-
-        Template.Builder template = Template.builder(upgradesGUI.rows).fill(fillerButton);
+        Template.Builder template = Template.builder(upgradesGUI.rows).fill(upgradesGUI.fillerSlot.getFillerButton());
 
         for(Upgrades.UpgradeSettings.UpgradeButton confButton : upgradesGUI.buttons) {
 

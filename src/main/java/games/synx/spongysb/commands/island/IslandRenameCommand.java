@@ -7,7 +7,7 @@ import co.aikar.commands.annotation.Subcommand;
 import co.aikar.commands.annotation.Syntax;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.objects.Island;
-import games.synx.spongysb.objects.IslandPerm;
+import games.synx.spongysb.objects.enums.IslandPerm;
 import games.synx.spongysb.objects.SPlayer;
 import games.synx.spongysb.util.IslandUtil;
 import org.spongepowered.api.entity.living.player.Player;

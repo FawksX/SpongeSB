@@ -6,17 +6,66 @@ public class Statements {
    * CREATING TABLES
    * USED IN games.synx.spongysb.storage.DatabaseManager
    */
-  public static final String CREATE_ISLANDS_TABLE = "CREATE TABLE IF NOT EXISTS spongysb_islands (island_uuid VARCHAR(36) NOT NULL PRIMARY KEY, leader_uuid VARCHAR(36) NOT NULL, island_name text NOT NULL, center_location text NOT NULL, home_location text NOT NULL, island_size text NOT NULL, active boolean NOT NULL)";
-  public static final String CREATE_PLAYERS_TABLE = "CREATE TABLE IF NOT EXISTS spongysb_players (player_uuid VARCHAR(36) NOT NULL PRIMARY KEY, island_uuid VARCHAR(36) NOT NULL,  island_role text NOT NULL)";
-  public static final String CREATE_GRID_TABLE = "CREATE TABLE IF NOT EXISTS spongysb_grid (id VARCHAR(1) NOT NULL PRIMARY KEY, lastisland text NOT NULL)";
-  public static final String CREATE_ISLAND_UPGRADES_TABLE = "CREATE TABLE IF NOT EXISTS spongysb_island_upgrades (island_uuid VARCHAR(36) NOT NULL PRIMARY KEY, island_size integer NOT NULL)";
+  public static final String CREATE_ISLANDS_TABLE = "CREATE TABLE IF NOT EXISTS spongysb_islands (" +
+          "island_uuid     VARCHAR(36) NOT NULL PRIMARY KEY, " +
+          "leader_uuid     VARCHAR(36) NOT NULL, " +
+          "island_name     text        NOT NULL, " +
+          "center_location text        NOT NULL, " +
+          "home_location   text        NOT NULL, " +
+          "island_size     text        NOT NULL, " +
+          "active          boolean     NOT NULL)";
 
-  public static final String CREATE_ISLAND_PERMISSIONS_TABLE = "CREATE TABLE IF NOT EXISTS spongysb_island_permissions (island_uuid VARCHAR(36) NOT NULL PRIMARY KEY, " +
-          "place text NOT NULL, break text NOT NULL, entry text NOT NULL, spawner_place text NOT NULL, spawner_break text NOT NULL, door text NOT NULL, button text NOT NULL, lever text NOT NULL, gate text NOT NULL, " +
-          "container text NOT NULL, armorstand text NOT NULL, pressure_plate text NOT NULL, name text NOT NULL, view_perms text NOT NULL, set_perms text NOT NULL," +
-          "invite text NOT NULL, kick text NOT NULL, warp text NOT NULL, view_upgrades text NOT NULL, set_upgrades text NOT NULL, promote text NOT NULL," +
-          "demote text NOT NULL, ban text NOT NULL, home text NOT NULL, is_lock text NOT NULL, set_home text NOT NULL, item_drop text NOT NULL, item_pickup text NOT NULL, hurt_animals text NOT NULL, hurt_mobs text NOT NULL," +
-          "spawn_eggs text NOT NULL, breed text NOT NULL, ender_pearl text NOT NULL, music text NOT NULL, animals text NOT NULL, send_out_pokemon text NOT NULL)";
+  public static final String CREATE_PLAYERS_TABLE = "CREATE TABLE IF NOT EXISTS spongysb_players (" +
+          "player_uuid VARCHAR(36) NOT NULL PRIMARY KEY, " +
+          "island_uuid VARCHAR(36) NOT NULL,  " +
+          "island_role text        NOT NULL)";
+
+  public static final String CREATE_GRID_TABLE = "CREATE TABLE IF NOT EXISTS spongysb_grid (" +
+          "id         VARCHAR(1) NOT NULL PRIMARY KEY, " +
+          "lastisland text       NOT NULL)";
+
+  public static final String CREATE_ISLAND_UPGRADES_TABLE = "CREATE TABLE IF NOT EXISTS spongysb_island_upgrades (" +
+          "island_uuid VARCHAR(36) NOT NULL PRIMARY KEY, " +
+          "island_size integer     NOT NULL)";
+
+  public static final String CREATE_ISLAND_PERMISSIONS_TABLE = "CREATE TABLE IF NOT EXISTS spongysb_island_permissions (" +
+          "island_uuid      VARCHAR(36) NOT NULL PRIMARY KEY, " +
+          "place            text NOT NULL, " +
+          "break            text NOT NULL, " +
+          "entry            text NOT NULL, " +
+          "spawner_place    text NOT NULL, " +
+          "spawner_break    text NOT NULL, " +
+          "door             text NOT NULL, " +
+          "button           text NOT NULL, " +
+          "lever            text NOT NULL, " +
+          "gate             text NOT NULL, " +
+          "container        text NOT NULL, " +
+          "armorstand       text NOT NULL, " +
+          "pressure_plate   text NOT NULL, " +
+          "name             text NOT NULL, " +
+          "view_perms       text NOT NULL, " +
+          "set_perms        text NOT NULL, " +
+          "invite           text NOT NULL, " +
+          "kick             text NOT NULL, " +
+          "warp             text NOT NULL, " +
+          "view_upgrades    text NOT NULL, " +
+          "set_upgrades     text NOT NULL, " +
+          "promote          text NOT NULL, " +
+          "demote           text NOT NULL, " +
+          "ban              text NOT NULL, " +
+          "home             text NOT NULL, " +
+          "is_lock          text NOT NULL, " +
+          "set_home         text NOT NULL, " +
+          "item_drop        text NOT NULL, " +
+          "item_pickup      text NOT NULL, " +
+          "hurt_animals     text NOT NULL, " +
+          "hurt_mobs        text NOT NULL, " +
+          "spawn_eggs       text NOT NULL, " +
+          "breed            text NOT NULL, " +
+          "ender_pearl      text NOT NULL, " +
+          "music            text NOT NULL, " +
+          "animals          text NOT NULL, " +
+          "send_out_pokemon text NOT NULL)";
 
   // CREATING ISLAND/PLAYER ROWS
   public static final String INSERT_ISLAND = "REPLACE INTO spongysb_islands (island_uuid, leader_uuid, island_name, center_location, home_location, island_size, active) VALUES(?,?,?,?,?,?,?)";

@@ -2,8 +2,8 @@ package games.synx.spongysb.config.configs;
 
 import games.synx.pscore.config.impl.AbstractConfiguration;
 import games.synx.pscore.config.impl.IConfiguration;
-import games.synx.spongysb.objects.IslandPerm;
-import games.synx.spongysb.objects.IslandPermissionLevel;
+import games.synx.spongysb.objects.enums.IslandPerm;
+import games.synx.spongysb.objects.enums.IslandPermissionLevel;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.objectmapping.meta.Setting;
 

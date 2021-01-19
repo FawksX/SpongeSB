@@ -3,7 +3,7 @@ package games.synx.spongysb.commands.island;
 import co.aikar.commands.annotation.*;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.gui.IslandPermissionsGUI;
-import games.synx.spongysb.objects.IslandPerm;
+import games.synx.spongysb.objects.enums.IslandPerm;
 import games.synx.spongysb.objects.SPlayer;
 import org.spongepowered.api.entity.living.player.Player;
 

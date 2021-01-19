@@ -10,8 +10,8 @@ import games.synx.spongysb.config.configs.Messages;
 import games.synx.spongysb.config.configs.guis.PermGUI;
 import games.synx.spongysb.config.configs.wrappers.PermissionsGUIButton;
 import games.synx.spongysb.objects.Island;
-import games.synx.spongysb.objects.IslandPerm;
-import games.synx.spongysb.objects.IslandPermissionLevel;
+import games.synx.spongysb.objects.enums.IslandPerm;
+import games.synx.spongysb.objects.enums.IslandPermissionLevel;
 import games.synx.spongysb.objects.SPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.ClickType;
@@ -30,10 +30,7 @@ public class IslandPermissionsGUI {
 
         PermGUI.PermGUISettings permissionsGUI = ConfigManager.get().getPermissionsGUI();
 
-
-        Button fillerButton = Button.builder().item(permissionsGUI.fillerSlot.getItemStack()).displayName(permissionsGUI.fillerSlot.displayName).build();
-
-        Template.Builder template = Template.builder(permissionsGUI.rows).fill(fillerButton);
+        Template.Builder template = Template.builder(permissionsGUI.rows).fill(permissionsGUI.fillerSlot.getFillerButton());
 
         for(PermissionsGUIButton confButton : permissionsGUI.buttons) {
 

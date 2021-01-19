@@ -5,6 +5,8 @@ games.synx.spongysb.commands.admin
 games.synx.spongysb.commands.island
 games.synx.spongysb.config
 games.synx.spongysb.config.configs
+games.synx.spongysb.config.configs.guis
+games.synx.spongysb.config.configs.wrappers
 games.synx.spongysb.events
 games.synx.spongysb.events.base
 games.synx.spongysb.generation
@@ -12,5 +14,6 @@ games.synx.spongysb.gui
 games.synx.spongysb.listeners
 games.synx.spongysb.listeners.islandguard
 games.synx.spongysb.objects
+games.synx.spongysb.objects.enums
 games.synx.spongysb.storage
 games.synx.spongysb.util

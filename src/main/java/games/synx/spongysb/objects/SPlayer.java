@@ -2,6 +2,8 @@ package games.synx.spongysb.objects;
 
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.cache.PlayerCache;
+import games.synx.spongysb.objects.enums.IslandPerm;
+import games.synx.spongysb.objects.enums.IslandPermissionLevel;
 import games.synx.spongysb.storage.DatabaseManager;
 import games.synx.spongysb.storage.Statements;
 import org.spongepowered.api.Sponge;

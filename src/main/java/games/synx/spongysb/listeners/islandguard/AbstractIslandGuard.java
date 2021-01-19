@@ -2,7 +2,7 @@ package games.synx.spongysb.listeners.islandguard;
 
 import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.generation.GridManager;
-import games.synx.spongysb.objects.IslandPerm;
+import games.synx.spongysb.objects.enums.IslandPerm;
 import games.synx.spongysb.objects.SPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import org.spongepowered.api.Sponge;

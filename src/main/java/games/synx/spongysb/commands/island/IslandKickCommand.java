@@ -8,7 +8,7 @@ import co.aikar.commands.annotation.Syntax;
 import games.synx.pscore.util.PlayerUtil;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.generation.WorldManager;
-import games.synx.spongysb.objects.IslandPerm;
+import games.synx.spongysb.objects.enums.IslandPerm;
 import games.synx.spongysb.objects.SPlayer;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;

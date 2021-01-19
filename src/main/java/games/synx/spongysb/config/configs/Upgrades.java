@@ -1,12 +1,11 @@
 package games.synx.spongysb.config.configs;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import games.synx.pscore.config.gui.templates.FillerButton;
 import games.synx.pscore.config.impl.AbstractConfiguration;
 import games.synx.pscore.config.impl.IConfiguration;
 import games.synx.spongysb.config.configs.wrappers.IslandUpgradeWrapper;
-import games.synx.spongysb.objects.UpgradeType;
+import games.synx.spongysb.objects.enums.UpgradeType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;

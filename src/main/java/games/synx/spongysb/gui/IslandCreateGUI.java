@@ -18,10 +18,7 @@ public class IslandCreateGUI {
 
         SchemGUI.SchemGUISettings guiSettings = ConfigManager.get().getSchematicGUI();
 
-
-        Button fillerButton = Button.builder().item(guiSettings.fillerSlot.getItemStack()).displayName(guiSettings.fillerSlot.displayName).build();
-
-        Template.Builder template = Template.builder(guiSettings.rows).fill(fillerButton);
+        Template.Builder template = Template.builder(guiSettings.rows).fill(guiSettings.fillerSlot.getFillerButton());
 
         for(SchematicGUIButton confButton : guiSettings.buttons) {
 

@@ -7,7 +7,7 @@ import games.synx.spongysb.objects.Island;
 import games.synx.spongysb.objects.SPlayer;
 import games.synx.spongysb.storage.DatabaseManager;
 import games.synx.spongysb.storage.Statements;
-import games.synx.spongysb.objects.IslandPermissionLevel;
+import games.synx.spongysb.objects.enums.IslandPermissionLevel;
 import games.synx.spongysb.util.IslandUtil;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.Entity;

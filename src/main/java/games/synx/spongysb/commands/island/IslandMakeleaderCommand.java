@@ -9,7 +9,7 @@ import co.aikar.commands.annotation.Syntax;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.events.IslandChangeOwnerEvent;
 import games.synx.spongysb.objects.Island;
-import games.synx.spongysb.objects.IslandPermissionLevel;
+import games.synx.spongysb.objects.enums.IslandPermissionLevel;
 import games.synx.spongysb.objects.SPlayer;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;

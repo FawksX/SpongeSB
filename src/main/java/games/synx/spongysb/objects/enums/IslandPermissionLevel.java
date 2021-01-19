@@ -1,4 +1,4 @@
-package games.synx.spongysb.objects;
+package games.synx.spongysb.objects.enums;
 
 public enum IslandPermissionLevel {
 

@@ -1,7 +1,7 @@
 package games.synx.spongysb.config.configs.wrappers;
 
 import com.google.common.collect.Lists;
-import games.synx.spongysb.objects.IslandPerm;
+import games.synx.spongysb.objects.enums.IslandPerm;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;

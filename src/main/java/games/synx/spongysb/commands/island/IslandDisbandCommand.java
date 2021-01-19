@@ -6,7 +6,7 @@ import games.synx.spongysb.events.IslandDeleteEvent;
 import games.synx.spongysb.events.IslandPreDeleteEvent;
 import games.synx.spongysb.generation.WorldManager;
 import games.synx.spongysb.objects.Island;
-import games.synx.spongysb.objects.IslandPermissionLevel;
+import games.synx.spongysb.objects.enums.IslandPermissionLevel;
 import games.synx.spongysb.objects.SPlayer;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
