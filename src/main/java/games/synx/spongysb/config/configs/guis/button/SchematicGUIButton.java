@@ -1,5 +1,6 @@
-package games.synx.spongysb.config.configs.wrappers;
+package games.synx.spongysb.config.configs.guis.button;
 
+import ca.landonjw.gooeylibs.inventory.api.Button;
 import com.google.common.collect.Lists;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -31,6 +32,10 @@ public class SchematicGUIButton {
 
     public ItemStack getItemStack() {
         return new ItemStack(Item.getByNameOrId(item));
+    }
+
+    public Button.Builder getButtonBuilder() {
+        return Button.builder().item(getItemStack()).displayName(displayName).lore(lore);
     }
 
 }

@@ -6,7 +6,7 @@ import ca.landonjw.gooeylibs.inventory.api.Template;
 import games.synx.pscore.util.MessageUtil;
 import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.config.configs.guis.SchemGUI;
-import games.synx.spongysb.config.configs.wrappers.SchematicGUIButton;
+import games.synx.spongysb.config.configs.guis.button.SchematicGUIButton;
 import games.synx.spongysb.generation.GridManager;
 import games.synx.spongysb.generation.SchematicManager;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -22,10 +22,7 @@ public class IslandCreateGUI {
 
         for(SchematicGUIButton confButton : guiSettings.buttons) {
 
-            Button button = Button.builder()
-                    .item(confButton.getItemStack())
-                    .displayName(confButton.displayName)
-                    .lore(confButton.lore)
+            Button button = confButton.getButtonBuilder()
                     .onClick((action) -> {
                         MessageUtil.msg(player, ConfigManager.get().getMessages().creating_island);
                         action.getPlayer().closeScreen();

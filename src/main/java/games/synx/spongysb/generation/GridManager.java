@@ -1,5 +1,6 @@
 package games.synx.spongysb.generation;
 
+import games.synx.pscore.util.AsyncUtil;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.events.IslandNewEvent;
@@ -48,14 +49,18 @@ public class GridManager {
 
     schematic.pasteSchematicAsync(islandLoc, player);
 
-    Island island = Island.addIsland(islandUUID, leaderUUID, islandName, islandLoc);
+    AsyncUtil.async(() -> {
 
-    sPlayer.setIsland(island);
-    sPlayer.setIslandRole(IslandPermissionLevel.LEADER);
+      Island island = Island.addIsland(islandUUID, leaderUUID, islandName, islandLoc);
+
+      sPlayer.setIsland(island);
+      sPlayer.setIslandRole(IslandPermissionLevel.LEADER);
 
 
-    IslandNewEvent islandNewEvent = new IslandNewEvent(player, island, islandLoc);
-    Sponge.getEventManager().post(islandNewEvent);
+      IslandNewEvent islandNewEvent = new IslandNewEvent(player, island, islandLoc);
+      Sponge.getEventManager().post(islandNewEvent);
+
+    });
 
   }
 

@@ -1,6 +1,7 @@
 package games.synx.spongysb.cache;
 
 import com.google.common.collect.Maps;
+import games.synx.pscore.util.AsyncUtil;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.objects.Island;
@@ -23,13 +24,16 @@ public class IslandCache {
 
     public static void setup() {
 
-        List<Island> islands = Island.getAll();
-        if (islands == null) return;
+        AsyncUtil.async(() -> {
+            List<Island> islands = Island.getAll();
+            if (islands == null) return;
 
-        for (Island island : islands) {
-            ISLANDS.put(island.getIslandUUID(), island);
-        }
-        cacheIslandPermissions();
+            for (Island island : islands) {
+                ISLANDS.put(island.getIslandUUID(), island);
+            }
+            cacheIslandPermissions();
+        });
+
     }
 
     private static final Map<UUID, Island> ISLANDS = Maps.newHashMap();

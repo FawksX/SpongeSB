@@ -21,7 +21,7 @@ public class IslandDisbandCommand extends AbstractIslandCommand {
   @CommandPermission("spongysb.island.disband")
   public void onDisbandCommand(Player player, @Optional String confirm) {
 
-    if(confirm.isEmpty() || !confirm.equals("confirm")) {
+    if(confirm == null || !confirm.equals("confirm")) {
       msg(player, getMessages().disband.disband_confirm);
       return;
     }

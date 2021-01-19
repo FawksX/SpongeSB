@@ -33,7 +33,7 @@ public class Island {
   private String island_name;
   private final Location<World> location;
   private Location<World> homeLocation;
-  private List<String> invited_members = Lists.newArrayList();
+  private final List<String> invited_members = Lists.newArrayList();
   private String island_size;
   private boolean active = true;
 

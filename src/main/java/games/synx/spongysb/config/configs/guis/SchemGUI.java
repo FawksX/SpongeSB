@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import games.synx.pscore.config.gui.templates.FillerButton;
 import games.synx.pscore.config.impl.AbstractConfiguration;
 import games.synx.pscore.config.impl.IConfiguration;
-import games.synx.spongysb.config.configs.wrappers.SchematicGUIButton;
+import games.synx.spongysb.config.configs.guis.button.SchematicGUIButton;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.objectmapping.meta.Setting;
 

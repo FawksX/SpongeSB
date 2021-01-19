@@ -8,7 +8,7 @@ import games.synx.pscore.util.MessageUtil;
 import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.config.configs.Messages;
 import games.synx.spongysb.config.configs.guis.PermGUI;
-import games.synx.spongysb.config.configs.wrappers.PermissionsGUIButton;
+import games.synx.spongysb.config.configs.guis.button.PermissionsGUIButton;
 import games.synx.spongysb.objects.Island;
 import games.synx.spongysb.objects.enums.IslandPerm;
 import games.synx.spongysb.objects.enums.IslandPermissionLevel;
@@ -34,9 +34,7 @@ public class IslandPermissionsGUI {
 
         for(PermissionsGUIButton confButton : permissionsGUI.buttons) {
 
-            Button button = Button.builder()
-                    .item(confButton.getItemStack())
-                    .displayName(confButton.displayName)
+            Button button = confButton.getButtonBuilder()
                     .lore(replaceLevel(confButton.lore, island, confButton.islandPerm))
                     .onClick((action) -> {
                         if(!sPlayer.hasPerm(IslandPerm.SET_PERMS, sPlayer.getIsland())) {

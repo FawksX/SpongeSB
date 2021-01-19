@@ -4,6 +4,7 @@ import games.synx.pscore.manager.AbstractManager;
 import games.synx.pscore.manager.IManager;
 import games.synx.pscore.storage.HikariSource;
 import games.synx.pscore.storage.IDatabase;
+import games.synx.pscore.util.AsyncUtil;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.config.configs.Conf;
@@ -33,7 +34,7 @@ public class DatabaseManager extends AbstractManager implements IManager, IDatab
             databaseConf.username,
             databaseConf.password);
 
-    createTables();
+    AsyncUtil.async(this::createTables);
   }
 
   @Override
