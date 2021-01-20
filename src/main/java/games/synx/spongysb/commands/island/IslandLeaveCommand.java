@@ -2,6 +2,7 @@ package games.synx.spongysb.commands.island;
 
 import co.aikar.commands.annotation.*;
 import games.synx.spongysb.commands.AbstractIslandCommand;
+import games.synx.spongysb.events.IslandLeaveEvent;
 import games.synx.spongysb.generation.WorldManager;
 import games.synx.spongysb.objects.enums.IslandPermissionLevel;
 import games.synx.spongysb.objects.SPlayer;
@@ -33,6 +34,7 @@ public class IslandLeaveCommand extends AbstractIslandCommand {
       return;
     }
 
+    postEvent(new IslandLeaveEvent(player.getUniqueId(), sPlayer.getIsland().getLeaderUUID(), sPlayer.getIsland()));
     formatMsg(player, getMessages().left_island, sPlayer.getIsland().getIslandName());
     sPlayer.removeFromIsland();
     player.setLocationSafely(WorldManager.get().getServerSpawn());
