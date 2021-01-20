@@ -15,10 +15,10 @@ import java.util.Optional;
 @CommandAlias("is|island")
 public class IslandUnbanCommand extends AbstractIslandCommand {
 
-    @Subcommand("ban")
-    @Description("Ban a player on your island!")
+    @Subcommand("unban")
+    @Description("Unban a player on your island!")
     @Syntax("<player>")
-    @CommandPermission("spongysb.island.coop")
+    @CommandPermission("spongysb.island.unban")
     public void onUnbanCommand(Player player, String name) {
 
         SPlayer sPlayer = SPlayer.get(player);
@@ -35,7 +35,6 @@ public class IslandUnbanCommand extends AbstractIslandCommand {
         }
 
         SPlayer sPlayerTarget;
-        java.util.Optional<Player> playerTarget = Optional.empty();
 
         if(!Sponge.getServer().getPlayer(name).isPresent()) {
             sPlayerTarget = SPlayer.get(PlayerUtil.getOfflineSpongeUserUUID(name));
@@ -44,13 +43,9 @@ public class IslandUnbanCommand extends AbstractIslandCommand {
             sPlayerTarget = SPlayer.get(Sponge.getServer().getPlayer(name).get());
         }
 
-        if(!sPlayer.getIslandUUID().toString().equals(sPlayerTarget.getIslandUUID().toString())) {
-            formatMsg(player, getMessages().player_is_not_in_island, name);
-            return;
-        }
-
         if(sPlayerTarget.isBanned(island.getIslandUUID())) {
             BanCache.remove(sPlayerTarget.getPlayerUUID(), island.getIslandUUID());
+            BanCache.delete(sPlayerTarget.getPlayerUUID(), island.getIslandUUID());
             formatMsg(player, getMessages().ban.unban_success, name);
             island.broadcastToOnlineMembers(getMessages().ban.player_unbanned_broadcast, player.getName(), name);
             return;

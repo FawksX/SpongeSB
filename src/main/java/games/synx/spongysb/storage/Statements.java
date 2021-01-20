@@ -95,7 +95,7 @@ public class Statements {
 
   public static final String INSERT_BAN = "REPLACE INTO spongysb_island_bans (player_uuid, island_uuid) VALUES(?,?);";
 
-  public static final String REMOVE_BAN = "DELETE FROM spongysb_island_bans WHERE player_uuid = ? AND island_uuid = ?";
+  public static final String REMOVE_BAN = "DELETE FROM spongysb_island_bans WHERE (player_uuid = ? AND island_uuid = ?)";
 
   public static final String GET_BANS_OF_PLAYER = "SELECT island_uuid FROM spongysb_island_bans WHERE player_uuid = ?";
 

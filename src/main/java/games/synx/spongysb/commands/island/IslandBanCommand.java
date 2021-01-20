@@ -18,7 +18,7 @@ public class IslandBanCommand extends AbstractIslandCommand {
     @Subcommand("ban")
     @Description("Ban a player on your island!")
     @Syntax("<player>")
-    @CommandPermission("spongysb.island.coop")
+    @CommandPermission("spongysb.island.ban")
     public void onBanCommand(Player player, String name) {
 
         SPlayer sPlayer = SPlayer.get(player);
@@ -44,8 +44,8 @@ public class IslandBanCommand extends AbstractIslandCommand {
             sPlayerTarget = SPlayer.get(Sponge.getServer().getPlayer(name).get());
         }
 
-        if(!sPlayer.getIslandUUID().toString().equals(sPlayerTarget.getIslandUUID().toString())) {
-            formatMsg(player, getMessages().player_is_not_in_island, name);
+        if(sPlayer.getIsland() == sPlayerTarget.getIsland()) {
+            msg(player, getMessages().ban.cannot_ban_member);
             return;
         }
 
@@ -56,7 +56,7 @@ public class IslandBanCommand extends AbstractIslandCommand {
             return;
         }
 
-        formatMsg(player, getMessages().ban.ban_success, name);
+        formatMsg(player, getMessages().ban.player_is_banned, name);
 
     }
 }

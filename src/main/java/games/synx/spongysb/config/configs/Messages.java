@@ -342,6 +342,9 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
 
       @Setting
       public String player_is_banned = "&e&lISLAND &c%s is already banned from your island!";
+
+      @Setting
+      public String cannot_ban_member = "&e&lISLAND &cYou cannot ban your island members from your island!";
     }
 
 

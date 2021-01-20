@@ -74,8 +74,9 @@ public class BanCache {
     }
 
     private static void save() {
-        for (UUID player : BANS.keys()) {
-            for(UUID island : BANS.keySet()) {
+        for (UUID player : BANS.keySet()) {
+            for(UUID island : BANS.get(player)) {
+                System.out.println("Saving ban for" + player + "Island: " + island);
                 AsyncUtil.async(() -> saveBan(player, island));
             }
         }
@@ -93,6 +94,22 @@ public class BanCache {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void delete(UUID player, UUID island) {
+        AsyncUtil.async(() -> {
+            try(Connection connection = DatabaseManager.get().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(Statements.REMOVE_BAN)) {
+
+                preparedStatement.setString(1, player.toString());
+                preparedStatement.setString(2, island.toString());
+
+                preparedStatement.executeUpdate();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
 }

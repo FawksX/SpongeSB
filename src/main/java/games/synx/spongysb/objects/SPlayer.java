@@ -89,6 +89,7 @@ public class SPlayer {
 
     try (Connection connection = DatabaseManager.get().getConnection();
     PreparedStatement preparedStatement = connection.prepareStatement(Statements.PLAYER_QUIT_UPDATE)) {
+
       preparedStatement.setString(1, sPlayer.getIslandUUID().toString());
       preparedStatement.setString(2, sPlayer.getIslandRole().toString());
       preparedStatement.setString(3, sPlayer.getPlayerUUID().toString());

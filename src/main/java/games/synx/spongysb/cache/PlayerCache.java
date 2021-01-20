@@ -1,10 +1,8 @@
 package games.synx.spongysb.cache;
 
-
 import com.google.common.collect.Maps;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.ConfigManager;
-import games.synx.spongysb.objects.Island;
 import games.synx.spongysb.objects.SPlayer;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.scheduler.Task;
@@ -49,6 +47,7 @@ public class PlayerCache {
 
     private static void save() {
         for (SPlayer player : PLAYERS.values()) {
+            SpongySB.get().getLogger().error("Caching Player " + player.getPlayerUUID());
             SPlayer.save(player);
         }
     }
