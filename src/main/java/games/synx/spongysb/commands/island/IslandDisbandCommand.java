@@ -54,15 +54,15 @@ public class IslandDisbandCommand extends AbstractIslandCommand {
     }
 
     island.setActive(false);
-    IslandCache.remove(island.getIslandUUID());
-    
-    IslandDeleteEvent islandDeleteEvent = new IslandDeleteEvent(player, island.getCenterLocation(), island);
-    Sponge.getEventManager().post(islandDeleteEvent);
 
     for(Player aPlayer : PlayerUtil.getAllPlayersAtIsland(island)) {
       PlayerUtil.teleportToSpawn(aPlayer);
     }
 
+    IslandCache.remove(island.getIslandUUID());
+    
+    IslandDeleteEvent islandDeleteEvent = new IslandDeleteEvent(player, island.getCenterLocation(), island);
+    Sponge.getEventManager().post(islandDeleteEvent);
 
   }
 }

@@ -14,7 +14,7 @@ public class IslandLockCommand extends AbstractIslandCommand {
     @Subcommand("lock")
     @Description("Lock/Unlock your island from all visitors!")
     @CommandPermission("spongysb.island.lock")
-    public void onCoopCommand(Player player) {
+    public void onLockCommand(Player player) {
 
         SPlayer sPlayer = SPlayer.get(player);
         Island island = sPlayer.getIsland();
