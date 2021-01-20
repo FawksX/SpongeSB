@@ -2,7 +2,7 @@ package games.synx.spongysb;
 
 import com.google.inject.Inject;
 import games.synx.pscore.PSCore;
-import games.synx.spongysb.cache.CoopCache;
+import games.synx.spongysb.cache.BanCache;
 import games.synx.spongysb.cache.IslandCache;
 import games.synx.spongysb.cache.PlayerCache;
 import games.synx.spongysb.commands.CommandManager;
@@ -63,8 +63,6 @@ public class SpongySB {
     @Listener
     public void onAboutToStart(GameAboutToStartServerEvent event) {
         instance = this;
-
-
     }
 
     @Listener
@@ -86,6 +84,7 @@ public class SpongySB {
 
         IslandCache.autosave();
         PlayerCache.autosave();
+        BanCache.autosave();
 
     }
 
@@ -93,6 +92,7 @@ public class SpongySB {
     public void onServerStop(GameStoppingServerEvent event) {
         IslandCache.shutdown();
         PlayerCache.shutdown();
+        BanCache.shutdown();
     }
 
     private void setupConfigDirectories() {

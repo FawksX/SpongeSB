@@ -1,6 +1,7 @@
 package games.synx.spongysb.objects;
 
 import games.synx.spongysb.SpongySB;
+import games.synx.spongysb.cache.BanCache;
 import games.synx.spongysb.cache.PlayerCache;
 import games.synx.spongysb.objects.enums.IslandPerm;
 import games.synx.spongysb.objects.enums.IslandPermissionLevel;
@@ -240,6 +241,14 @@ public class SPlayer {
    */
   public boolean atTheirIsland() {
     return Island.getIslandAt(getSpongePlayer().getLocation()) == getIsland();
+  }
+
+  public boolean isBanned(Island island) {
+    return isBanned(island.getIslandUUID());
+  }
+
+  public boolean isBanned(UUID island) {
+    return BanCache.isBanned(getPlayerUUID(), island);
   }
 
 }

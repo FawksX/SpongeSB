@@ -62,9 +62,17 @@ public class VanillaIslandGuard extends AbstractIslandGuard {
     if(event.getFromTransform().getLocation().equals(event.getToTransform().getLocation())) return;
 
     Location<World> to = event.getToTransform().getLocation();
-    Location<World> from = event.getFromTransform().getLocation();
-    if(Island.getIslandAt(to) == null) {
+
+    Island island = Island.getIslandAt(to);
+
+    if(island == null) {
       event.setCancelled(true);
+      return;
+    }
+
+    if(sPlayer.isBanned(island)) {
+      event.setCancelled(true);
+      MessageUtil.msg(player, getConfigManager().getMessages().ban.teleport_ban_notification, island.getIslandName());
       return;
     }
 
@@ -150,6 +158,11 @@ public class VanillaIslandGuard extends AbstractIslandGuard {
 
     if(Island.getIslandAt(to) == null) {
       MessageUtil.msg(player, ConfigManager.get().getMessages().teleport.not_allowed_to_teleport_here);
+      return true;
+    }
+
+    if(SPlayer.get(player).isBanned(Island.getIslandAt(to))) {
+      MessageUtil.msg(player, getConfigManager().getMessages().ban.teleport_ban_notification, Island.getIslandAt(to).getIslandName());
       return true;
     }
 

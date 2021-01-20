@@ -50,6 +50,9 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
     @Setting
     public Upgrades upgrades = new Upgrades();
 
+    @Setting
+    public Ban ban = new Ban();
+
 
     @Setting
     public String is_in_island_error = "&cYou are already in an island!";
@@ -311,6 +314,13 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
 
       @Setting
       public String no_funds = "&e&lISLAND &cYou do not have enough funds for this upgrade!";
+    }
+
+    @ConfigSerializable
+    public static class Ban {
+
+      @Setting
+      public String teleport_ban_notification = "&e&lISLAND &cYou are banned from Island %s!";
     }
 
 
