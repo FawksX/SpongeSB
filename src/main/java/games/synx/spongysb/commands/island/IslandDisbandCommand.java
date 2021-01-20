@@ -1,6 +1,7 @@
 package games.synx.spongysb.commands.island;
 
 import co.aikar.commands.annotation.*;
+import games.synx.spongysb.cache.IslandCache;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.events.IslandDeleteEvent;
 import games.synx.spongysb.events.IslandPreDeleteEvent;
@@ -53,6 +54,8 @@ public class IslandDisbandCommand extends AbstractIslandCommand {
     }
 
     island.setActive(false);
+    IslandCache.remove(island.getIslandUUID());
+    
     IslandDeleteEvent islandDeleteEvent = new IslandDeleteEvent(player, island.getCenterLocation(), island);
     Sponge.getEventManager().post(islandDeleteEvent);
 
