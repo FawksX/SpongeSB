@@ -1,6 +1,7 @@
 package games.synx.spongysb.commands.island;
 
 import co.aikar.commands.annotation.*;
+import games.synx.pscore.util.AsyncUtil;
 import games.synx.spongysb.cache.IslandCache;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.events.IslandDeleteEvent;
@@ -46,11 +47,21 @@ public class IslandDisbandCommand extends AbstractIslandCommand {
     Sponge.getEventManager().post(preDeleteEvent);
 
     for(UUID pp : island.getIslandMembers()) {
-      SPlayer islandMember = SPlayer.get(pp);
-      islandMember.removeFromIsland();
       if(Sponge.getServer().getPlayer(pp).isPresent()) {
+        SPlayer islandMember = SPlayer.get(pp);
+        islandMember.removeFromIsland();
         formatMsg(Sponge.getServer().getPlayer(pp).get(), getMessages().disband.island_disbanded, player.getName());
+        return;
       }
+
+      AsyncUtil.async(() -> {
+
+        SPlayer offPlayer = SPlayer.fetch(pp);
+        offPlayer.removeFromIsland();
+        SPlayer.save(offPlayer);
+
+      });
+
     }
 
     island.setActive(false);
@@ -59,7 +70,7 @@ public class IslandDisbandCommand extends AbstractIslandCommand {
       PlayerUtil.teleportToSpawn(aPlayer);
     }
 
-    IslandCache.remove(island.getIslandUUID());
+    IslandCache.remove(island);
     
     IslandDeleteEvent islandDeleteEvent = new IslandDeleteEvent(player, island.getCenterLocation(), island);
     Sponge.getEventManager().post(islandDeleteEvent);

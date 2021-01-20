@@ -44,8 +44,9 @@ public class IslandCache {
         ISLANDS.put(island.getIslandUUID(), island);
     }
 
-    public static void remove(UUID uuid) {
-        ISLANDS.remove(uuid);
+    public static void remove(Island island) {
+        ISLANDS.remove(island.getIslandUUID());
+        ISLANDS_PERMISSIONS.remove(island);
     }
 
     public static Island get(Island island) {
