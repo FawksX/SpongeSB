@@ -47,7 +47,6 @@ public class PlayerCache {
 
     private static void save() {
         for (SPlayer player : PLAYERS.values()) {
-            SpongySB.get().getLogger().error("Caching Player " + player.getPlayerUUID());
             SPlayer.save(player);
         }
     }

@@ -50,7 +50,7 @@ public class SPlayer {
   }
 
   /**
-   * Fetch a SPlayer from the Database. NOT THREAD SAFE
+   * Fetch a SPlayer from the Database.
    * @param uuid UUID of the player
    * @return SPlayer Object
    */
@@ -146,6 +146,8 @@ public class SPlayer {
    * @return Boolean, if they have permission or not.
    */
   public boolean hasPerm(IslandPerm islandPerm, Island island) {
+    if(island == null) return false;
+
     IslandPermissionLevel islandPermissionLevel = island.getIslandPermissions().get(islandPerm);
     int islandPermissionPosition = islandPermissionLevel.getPosition();
 

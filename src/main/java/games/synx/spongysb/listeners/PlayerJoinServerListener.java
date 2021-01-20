@@ -14,6 +14,7 @@ import games.synx.spongysb.util.IslandUtil;
 import org.slf4j.Logger;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.filter.cause.Root;
 import org.spongepowered.api.event.network.ClientConnectionEvent;
 
 import java.sql.Connection;
@@ -31,9 +32,7 @@ public class PlayerJoinServerListener {
     }
 
     @Listener
-    public void clientConnectCacheSave(ClientConnectionEvent.Join event) {
-
-        Player player = (Player) event.getSource();
+    public void clientConnectCacheSave(ClientConnectionEvent.Join event, @Root Player player) {
 
             SPlayer sPlayer = SPlayer.fetch(player.getUniqueId());
 
