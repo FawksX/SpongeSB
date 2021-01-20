@@ -34,7 +34,7 @@ public class IslandRenameCommand extends AbstractIslandCommand {
     }
 
     if (IslandUtil.isIslandNameTaken(name)) {
-      formatMsg(player, getMessages().island_name_taken, name);
+      formatMsg(player, getMessages().creation.island_name_taken, name);
       return;
     }
 

@@ -1,6 +1,5 @@
 package games.synx.spongysb.listeners;
 
-import games.synx.pscore.util.AsyncUtil;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.cache.BanCache;
 import games.synx.spongysb.cache.PlayerCache;

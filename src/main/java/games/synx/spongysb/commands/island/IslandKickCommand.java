@@ -47,12 +47,12 @@ public class IslandKickCommand extends AbstractIslandCommand {
     }
 
     sPlayerTarget.removeFromIsland();
-    formatMsg(player, getMessages().player_has_been_removed_from_island, name);
-    sPlayer.getIsland().broadcastToOnlineMembers(getMessages().leader_kicked_player, player.getName(), name);
+    formatMsg(player, getMessages().kick.player_has_been_removed_from_island, name);
+    sPlayer.getIsland().broadcastToOnlineMembers(getMessages().kick.leader_kicked_player, player.getName(), name);
 
     if(playerTarget.isPresent()) {
       playerTarget.get().setLocationSafely(WorldManager.get().getServerSpawn());
-      formatMsg(playerTarget.get(), getMessages().you_have_been_removed_from_your_island, sPlayer.getIsland().getIslandName(), player.getName());
+      formatMsg(playerTarget.get(), getMessages().kick.you_have_been_removed_from_your_island, sPlayer.getIsland().getIslandName(), player.getName());
     }
 
   }

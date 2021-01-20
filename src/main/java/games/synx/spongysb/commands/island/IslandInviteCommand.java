@@ -30,7 +30,7 @@ public class IslandInviteCommand extends AbstractIslandCommand {
     }
 
     if(!sPlayer.isInIsland()) {
-      msg(player, getMessages().must_be_in_island_to_invite);
+      msg(player, getMessages().invite.must_be_in_island_to_invite);
       return;
     }
 
@@ -43,7 +43,7 @@ public class IslandInviteCommand extends AbstractIslandCommand {
 
     // TODO ISLAND UPGRADE TO ALLOW FOR LARGER SIZE ISLANDS
     if(island.getMemberCount() > 2) {
-      formatMsg(player, getMessages().island_is_full, targetInvite.getName());
+      formatMsg(player, getMessages().invite.island_is_full, targetInvite.getName());
       return;
     }
 

@@ -18,14 +18,14 @@ public class IslandLeaveCommand extends AbstractIslandCommand {
   public void onLeaveCommand(Player player, @Optional String confirm) {
 
     if(!confirm.equals("confirm")) {
-      msg(player, getMessages().leave_confirm);
+      msg(player, getMessages().leave.leave_confirm);
       return;
     }
 
     SPlayer sPlayer = SPlayer.get(player);
 
     if(!sPlayer.isInIsland()) {
-      msg(player, getMessages().must_be_in_island_to_leave);
+      msg(player, getMessages().leave.must_be_in_island_to_leave);
       return;
     }
 
@@ -35,10 +35,10 @@ public class IslandLeaveCommand extends AbstractIslandCommand {
     }
 
     postEvent(new IslandLeaveEvent(player.getUniqueId(), sPlayer.getIsland().getLeaderUUID(), sPlayer.getIsland()));
-    formatMsg(player, getMessages().left_island, sPlayer.getIsland().getIslandName());
+    formatMsg(player, getMessages().leave.left_island, sPlayer.getIsland().getIslandName());
     sPlayer.removeFromIsland();
     player.setLocationSafely(WorldManager.get().getServerSpawn());
-    sPlayer.getIsland().broadcastToOnlineMembers(getMessages().player_left_island, player.getName());
+    sPlayer.getIsland().broadcastToOnlineMembers(getMessages().leave.player_left_island, player.getName());
 
   }
 

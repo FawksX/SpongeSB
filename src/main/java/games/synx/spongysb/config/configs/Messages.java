@@ -18,6 +18,9 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
   public static class MessageSettings {
 
     @Setting
+    public Creation creation = new Creation();
+
+    @Setting
     public Coop coop = new Coop();
 
     @Setting
@@ -53,12 +56,12 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
     @Setting
     public Ban ban = new Ban();
 
+    @Setting
+    public Kick kick = new Kick();
 
     @Setting
-    public String is_in_island_error = "&cYou are already in an island!";
+    public Leave leave = new Leave();
 
-    @Setting
-    public String island_created_successfully = "&e&lISLAND &aYour island has been created! type &e/is go&a to start!";
 
     @Setting
     public String player_not_in_island = "&cYou are not in an island! Type /is new <island name> to create an island!";
@@ -67,22 +70,7 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
     public String player_not_online = "&e&lISLAND &cThe specified player is not online!";
 
     @Setting
-    public String must_leave_current_island = "&e&lISLAND &cYou must leave your current island to join another!";
-
-    @Setting
-    public String joined_island_successfully = "&e&lISLAND &eYou have &asuccessfully &ejoined &a%s!";
-
-    @Setting
-    public String could_not_join_island = "&e&lISLAND &eYou do not have a pending invite to &c%s!";
-
-    @Setting
     public String island_does_not_exist = "&e&lISLAND &eIsland &c%s &edoes not exist!";
-
-    @Setting
-    public String island_name_taken = "&e&lISLAND &eIsland name &c%s &ealready exists!";
-
-    @Setting
-    public String island_is_full = "&e&lISLAND &cYour Island is full so we could not invite %s!";
 
     @Setting
     public String player_is_not_leader = "&e&lISLAND &cYou must be the Island Leader to execute this command!";
@@ -91,34 +79,7 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
     public String player_is_not_in_island = "&e&lISLAND &c%s &eis not in your island!";
 
     @Setting
-    public String player_has_been_removed_from_island = "&e&lISLAND &a%s &chas been removed from your island successfully!";
-
-    @Setting
-    public String you_have_been_removed_from_your_island = "&e&lISLAND &cYou have been removed from &e%s &cby &e%s";
-
-    @Setting
-    public String player_has_joined_island = "&e&lISLAND &ePlayer &a%s &e has joined your island!";
-
-    @Setting
-    public String must_be_in_island_to_invite = "&e&lISLAND &cYou must be in an island to invite people!";
-
-    @Setting
-    public String must_be_in_island_to_leave = "&e&lISLAND &cYou must be in an island to leave!";
-
-    @Setting
     public String must_disband_as_a_leader = "&e&lISLAND &cYou must disband your island in order to leave!";
-
-    @Setting
-    public String left_island = "&e&lISLAND &eYou have left the island &a%s.";
-
-    @Setting
-    public String leave_confirm = "&e&lISLAND &eType &a/is leave confirm &eto leave your island.";
-
-    @Setting
-    public String leader_kicked_player = "&e&lISLAND &a%s &ehas kicked &a%s &efrom your island!";
-
-    @Setting
-    public String player_left_island = "&e&lISLAND &a%s &ehas left your island!";
 
     @Setting
     public String island_name_set_successfully = "&e&lISLAND &a%s &ehas changed your island name to &a%s!";
@@ -132,10 +93,26 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
     @Setting
     public String no_permission = "&e&lISLAND &eYou do not have permission to perform this command (Island Permission Level must be lower!)";
 
-    @Setting
-    public String creating_island = "&aCreating your Island...";
 
+    @ConfigSerializable
+    public static class Creation {
 
+      @Setting
+      public String creating_island = "&aCreating your Island...";
+
+      @Setting
+      public String island_name_taken = "&e&lISLAND &eIsland name &c%s &ealready exists!";
+
+      @Setting
+      public String must_leave_current_island = "&e&lISLAND &cYou must leave your current island to join another!";
+
+      @Setting
+      public String is_in_island_error = "&cYou are already in an island!";
+
+      @Setting
+      public String island_created_successfully = "&e&lISLAND &aYour island has been created! type &e/is go&a to start!";
+
+    }
 
     @ConfigSerializable
     public static class SetHome {
@@ -235,6 +212,21 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
 
       @Setting
       public String leader_invited_player = "&e&lISLAND &a%s &ehas invited &a%s &eto your island!";
+
+      @Setting
+      public String joined_island_successfully = "&e&lISLAND &eYou have &asuccessfully &ejoined &a%s!";
+
+      @Setting
+      public String could_not_join_island = "&e&lISLAND &eYou do not have a pending invite to &c%s!";
+
+      @Setting
+      public String player_has_joined_island = "&e&lISLAND &ePlayer &a%s &e has joined your island!";
+
+      @Setting
+      public String must_be_in_island_to_invite = "&e&lISLAND &cYou must be in an island to invite people!";
+
+      @Setting
+      public String island_is_full = "&e&lISLAND &cYour Island is full so we could not invite %s!";
 
     }
 
@@ -346,6 +338,38 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
       @Setting
       public String cannot_ban_member = "&e&lISLAND &cYou cannot ban your island members from your island!";
     }
+
+    @ConfigSerializable
+    public static class Kick {
+
+      @Setting
+      public String player_has_been_removed_from_island = "&e&lISLAND &a%s &chas been removed from your island successfully!";
+
+      @Setting
+      public String you_have_been_removed_from_your_island = "&e&lISLAND &cYou have been removed from &e%s &cby &e%s";
+
+      @Setting
+      public String leader_kicked_player = "&e&lISLAND &a%s &ehas kicked &a%s &efrom your island!";
+
+    }
+
+    @ConfigSerializable
+    public static class Leave {
+
+      @Setting
+      public String left_island = "&e&lISLAND &eYou have left the island &a%s.";
+
+      @Setting
+      public String leave_confirm = "&e&lISLAND &eType &a/is leave confirm &eto leave your island.";
+
+      @Setting
+      public String player_left_island = "&e&lISLAND &a%s &ehas left your island!";
+
+      @Setting
+      public String must_be_in_island_to_leave = "&e&lISLAND &cYou must be in an island to leave!";
+
+    }
+
 
 
   }

@@ -23,12 +23,12 @@ public class IslandCreateCommand extends AbstractIslandCommand {
     SPlayer sPlayer = SPlayer.get(player);
 
     if(sPlayer.isInIsland()) {
-      msg(player, getMessages().is_in_island_error);
+      msg(player, getMessages().creation.is_in_island_error);
       return;
     }
 
     if(IslandUtil.isIslandNameTaken(name)) {
-      formatMsg(player, getMessages().island_name_taken, name);
+      formatMsg(player, getMessages().creation.island_name_taken, name);
       return;
     }
 

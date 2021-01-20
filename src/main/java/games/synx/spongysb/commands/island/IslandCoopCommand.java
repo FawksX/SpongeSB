@@ -26,7 +26,7 @@ public class IslandCoopCommand extends AbstractIslandCommand {
         }
 
         if(!sPlayer.isInIsland()) {
-            msg(player, getMessages().must_be_in_island_to_invite);
+            msg(player, getMessages().coop.must_be_in_island);
             return;
         }
 

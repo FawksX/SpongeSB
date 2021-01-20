@@ -25,7 +25,7 @@ public class IslandJoinCommand extends AbstractIslandCommand {
     SPlayer sPlayer = SPlayer.get(player);
 
     if(sPlayer.isInIsland()) {
-      msg(player, getMessages().must_leave_current_island);
+      msg(player, getMessages().creation.must_leave_current_island);
       return;
     }
 
@@ -41,15 +41,15 @@ public class IslandJoinCommand extends AbstractIslandCommand {
       sPlayer.setIsland(island);
       sPlayer.setIslandRole(IslandPermissionLevel.MEMBER);
 
-      formatMsg(player, getMessages().joined_island_successfully, island.getIslandName());
+      formatMsg(player, getMessages().invite.joined_island_successfully, island.getIslandName());
       island.revokeInvite(player.getUniqueId());
       Sponge.getEventManager().post(islandJoinEvent);
 
-      island.broadcastToOnlineMembers(getMessages().player_has_joined_island, player.getName());
+      island.broadcastToOnlineMembers(getMessages().invite.player_has_joined_island, player.getName());
       return;
     }
 
-    formatMsg(player, getMessages().could_not_join_island, island.getIslandName());
+    formatMsg(player, getMessages().invite.could_not_join_island, island.getIslandName());
 
     }
 }

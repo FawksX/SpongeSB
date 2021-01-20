@@ -24,10 +24,10 @@ public class IslandCreateGUI {
 
             Button button = confButton.getButtonBuilder()
                     .onClick((action) -> {
-                        MessageUtil.msg(player, ConfigManager.get().getMessages().creating_island);
+                        MessageUtil.msg(player, ConfigManager.get().getMessages().creation.creating_island);
                         action.getPlayer().closeScreen();
                         GridManager.get().newIsland(player, SchematicManager.get().getSchematicHandlers().get(confButton.schematic), name);
-                        MessageUtil.msg(player, ConfigManager.get().getMessages().island_created_successfully);
+                        MessageUtil.msg(player, ConfigManager.get().getMessages().creation.island_created_successfully);
                     }).build();
 
             template.set(confButton.row, confButton.column, button);
