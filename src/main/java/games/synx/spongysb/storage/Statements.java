@@ -91,7 +91,7 @@ public class Statements {
 
   public static final String CREATE_BANS_TABLE = "CREATE TABLE IF NOT EXISTS spongysb_island_bans (" +
           "player_uuid VARCHAR(36) NOT NULL," +
-          "island_uuid VARCHAR(36) NOT NULL";
+          "island_uuid VARCHAR(36) NOT NULL)";
 
   public static final String INSERT_BAN = "REPLACE INTO spongysb_island_bans (player_uuid, island_uuid) VALUES(?,?);";
 

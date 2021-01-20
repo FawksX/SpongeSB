@@ -321,6 +321,27 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
 
       @Setting
       public String teleport_ban_notification = "&e&lISLAND &cYou are banned from Island %s!";
+
+      @Setting
+      public String must_be_in_island = "&e&lISLAND &cYou must be in an island to ban!";
+
+      @Setting
+      public String unban_success = "&e&lISLAND &aYou have successfully unbanned %s from your island!";
+
+      @Setting
+      public String player_unbanned_broadcast = "&e&lISLAND &a%s has unbanned %s from your island!";
+
+      @Setting
+      public String ban_success = "&e&lISLAND &cYou have &lBANNED &c%s from your island!";
+
+      @Setting
+      public String success_broadcast = "&e&lISLAND &e%s has &lBANNED &e%s &cfrom your island!";
+
+      @Setting
+      public String player_not_banned = "&e&lISLAND &c%s is not banned from your island!";
+
+      @Setting
+      public String player_is_banned = "&e&lISLAND &c%s is already banned from your island!";
     }
 
 

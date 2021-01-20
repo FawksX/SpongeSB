@@ -71,13 +71,13 @@ public class PlayerJoinServerListener {
                 e.printStackTrace();
             }
 
-            // If they are in the island world, check to see if they're allowed to be there
-            if (!SPlayer.get(player).hasPerm(IslandPerm.ENTRY, player.getLocation())) {
-                player.setLocationSafely(WorldManager.get().getServerSpawn());
-            }
-
             IslandUtil.changeBorder(player, player.getLocation());
         });
+
+        // If they are in the island world, check to see if they're allowed to be there
+        if (!SPlayer.get(player).hasPerm(IslandPerm.ENTRY, player.getLocation())) {
+            player.setLocationSafely(WorldManager.get().getServerSpawn());
+        }
 
     }
 

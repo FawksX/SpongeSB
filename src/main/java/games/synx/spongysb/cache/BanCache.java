@@ -39,6 +39,17 @@ public class BanCache {
         BANS.remove(player, island);
     }
 
+    public static void removeIfPresent(Player playerUUID) {
+        if(BANS.containsValue(playerUUID.getUniqueId())) {
+            BANS.removeAll(playerUUID.getUniqueId());
+        }
+    }
+    public static void removeIfPresent(UUID playerUUID) {
+        if(BANS.containsValue(playerUUID)) {
+            BANS.removeAll(playerUUID);
+        }
+    }
+
     public static boolean isBanned(Player player, Island island) {
         return isBanned(player.getUniqueId(), island.getIslandUUID());
     }

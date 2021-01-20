@@ -2,6 +2,7 @@ package games.synx.spongysb.listeners;
 
 import games.synx.pscore.util.AsyncUtil;
 import games.synx.spongysb.SpongySB;
+import games.synx.spongysb.cache.BanCache;
 import games.synx.spongysb.cache.CoopCache;
 import games.synx.spongysb.cache.PlayerCache;
 import games.synx.spongysb.objects.SPlayer;
@@ -25,6 +26,7 @@ public class CacheDisconnectListener {
 
         CoopCache.removeIfPresent(event.getTargetEntity().getUniqueId());
         PlayerCache.remove(event.getTargetEntity().getUniqueId());
+        BanCache.removeIfPresent(event.getTargetEntity());
 
     }
 
