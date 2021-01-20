@@ -166,7 +166,7 @@ public class VanillaIslandGuard extends AbstractIslandGuard {
     if(isNotInWorld(player)) return;
     SPlayer sPlayer = SPlayer.get(player);
 
-    if(!player.getLocation().hasBlock()) {
+    if(player.getLocation().getBlockY() < 0) {
       if(sPlayer.isInIsland(Island.getIslandAt(player.getLocation()))) {
         player.setLocationSafely(sPlayer.getIsland().getHomeLocation());
       } else {
