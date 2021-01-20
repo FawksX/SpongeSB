@@ -8,6 +8,7 @@ import games.synx.spongysb.generation.WorldManager;
 import games.synx.spongysb.objects.Island;
 import games.synx.spongysb.objects.enums.IslandPermissionLevel;
 import games.synx.spongysb.objects.SPlayer;
+import games.synx.spongysb.util.PlayerUtil;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
 
@@ -48,13 +49,16 @@ public class IslandDisbandCommand extends AbstractIslandCommand {
       islandMember.removeFromIsland();
       if(Sponge.getServer().getPlayer(pp).isPresent()) {
         formatMsg(Sponge.getServer().getPlayer(pp).get(), getMessages().disband.island_disbanded, player.getName());
-        player.setLocationSafely(WorldManager.get().getServerSpawn());
       }
     }
 
     island.setActive(false);
     IslandDeleteEvent islandDeleteEvent = new IslandDeleteEvent(player, island.getCenterLocation(), island);
     Sponge.getEventManager().post(islandDeleteEvent);
+
+    for(Player aPlayer : PlayerUtil.getAllPlayersAtIsland(island)) {
+      PlayerUtil.teleportToSpawn(aPlayer);
+    }
 
 
   }

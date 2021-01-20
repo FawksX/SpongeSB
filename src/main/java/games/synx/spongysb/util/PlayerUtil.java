@@ -1,7 +1,9 @@
 package games.synx.spongysb.util;
 
 import com.google.common.collect.Lists;
+import games.synx.spongysb.generation.WorldManager;
 import games.synx.spongysb.objects.Island;
+import net.minecraft.entity.player.EntityPlayerMP;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
 
@@ -22,6 +24,14 @@ public class PlayerUtil {
 
     public static boolean isAtIsland(Player player, Island island) {
         return Island.getIslandAt(player.getLocation()).getCenterLocation() == island.getCenterLocation();
+    }
+
+    public static void teleportToSpawn(EntityPlayerMP player) {
+        teleportToSpawn((Player) player);
+    }
+
+    public static void teleportToSpawn(Player player) {
+        player.setLocationSafely(WorldManager.get().getServerSpawn());
     }
 
 }

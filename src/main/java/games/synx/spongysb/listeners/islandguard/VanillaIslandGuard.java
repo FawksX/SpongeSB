@@ -96,7 +96,7 @@ public class VanillaIslandGuard extends AbstractIslandGuard {
    * @param event NucleusTeleportEvent.AboutToTeleport
    * @param player Player in question of the event
    */
-  @Listener
+  @Listener(order = Order.FIRST)
   public void onNucleusTeleport(NucleusTeleportEvent.AboutToTeleport event, @Root Player player) {
     SPlayer sPlayer = SPlayer.get(player);
 
