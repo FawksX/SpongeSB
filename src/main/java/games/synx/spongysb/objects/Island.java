@@ -177,7 +177,7 @@ public class Island {
       preparedStatement.setInt(6, 0);
       preparedStatement.setInt(7, 0);
       preparedStatement.setInt(8, 0);
-      preparedStatement.setBoolean(7, true);
+      preparedStatement.setBoolean(9, true);
       preparedStatement.executeUpdate();
 
     } catch (SQLException e) {
@@ -455,7 +455,7 @@ public class Island {
 
   /**
    * Gets the Island Size
-   * @return Size (value from Configuration)
+   * @return Size (NOT from config, this is the identifier!)
    */
   public String getIslandSizeValue() {
     return island_size;
@@ -477,10 +477,19 @@ public class Island {
     this.homeLocation = homeLocation;
   }
 
+
+  /**
+   * Gets Member Limit Value
+   * @return Member Limit Value (NOT the actual limit, the identifier for the config)
+   */
   public String getIslandMemberLimitValue() {
     return this.member_limit;
   }
 
+  /**
+   * Gets Island Generator Value
+   * @return Island Generator Value (NOT the actual limit, the identifier for the config)
+   */
   public String getIslandGeneratorValue() {
     return this.island_generator;
   }
