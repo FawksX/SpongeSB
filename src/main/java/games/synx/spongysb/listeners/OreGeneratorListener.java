@@ -22,8 +22,6 @@ public class OreGeneratorListener {
     @Listener
     public void onBlockModify(ChangeBlockEvent.Modify e) {
 
-        System.out.println("PRINTING 1");
-
         BlockSnapshot bto = e.getTransactions().get(0).getOriginal();
         boolean isLiquidMix = e.getContext().containsKey(EventContextKeys.LIQUID_MIX);
 
@@ -31,35 +29,33 @@ public class OreGeneratorListener {
             return;
         }
 
-        System.out.println("PRINTING 2");
-
         Location<World> block = bto.getLocation().get();
 
         if(!GridManager.get().inWorld(block)) return;
 
         Island island = Island.getIslandAt(block);
 
-        System.out.println("PRINTING 3");
+        if(island == null) return;
 
         e.setCancelled(true);
 
         block.setBlockType(getRandomBlock(island));
-        System.out.println("PRINTING 4");
 
 
     }
 
     private BlockType getRandomBlock(Island island) {
 
-        System.out.println("PRINTING 5");
-
         Map<String, Double> islandRandomBlocks = ConfigManager.get().getUpgrades().oreGeneratorValues.get(island.getIslandGeneratorValue());
 
-        System.out.println("PRINTING 6");
-
-        return Sponge.getRegistry().getType(BlockType.class, RandomSelector.weighted(islandRandomBlocks.entrySet(), Map.Entry::getValue)
+        BlockType block = Sponge.getRegistry().getType(BlockType.class, RandomSelector.weighted(islandRandomBlocks.entrySet(), Map.Entry::getValue)
                 .next(ThreadLocalRandom.current())
                 .getKey()).get();
+
+        if(block == null) {
+            return BlockTypes.COBBLESTONE;
+        }
+        return block;
 
     }
 

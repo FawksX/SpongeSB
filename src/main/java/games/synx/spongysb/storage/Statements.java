@@ -17,7 +17,7 @@ public class Statements {
           "island_generators   text        NOT NULL," +
           "active              boolean     NOT NULL)";
 
-  public static final String INSERT_ISLAND = "REPLACE INTO spongysb_islands (island_uuid, leader_uuid, island_name, center_location, home_location, island_size, island_member_limit, island_generators active) VALUES(?,?,?,?,?,?,?,?,?)";
+  public static final String INSERT_ISLAND = "REPLACE INTO spongysb_islands (island_uuid, leader_uuid, island_name, center_location, home_location, island_size, island_member_limit, island_generators, active) VALUES(?,?,?,?,?,?,?,?,?)";
 
   public static final String GET_ALL_ISLANDS = "SELECT * FROM spongysb_islands WHERE active = TRUE";
 

@@ -63,6 +63,8 @@ public class Island {
     this.homeLocation = new Location<>(WorldManager.get().getWorld(), homeLoc[0], homeLoc[1], homeLoc[2]);
 
     this.island_size = island_size;
+    this.member_limit = member_limit;
+    this.island_generator = island_generator;
   }
 
   /**
@@ -174,9 +176,9 @@ public class Island {
 
       // BY DEFAULT CENTER LOCATION IS THE SAME AS THE PASTE LOCATION, AS IT WILL BE A SOLID LOCATION IF SCHEM IS MADE CORRECTLY.
       preparedStatement.setString(5, homeLocSerialised);
-      preparedStatement.setInt(6, 0);
-      preparedStatement.setInt(7, 0);
-      preparedStatement.setInt(8, 0);
+      preparedStatement.setString(6, "0");
+      preparedStatement.setString(7, "0");
+      preparedStatement.setString(8, "0");
       preparedStatement.setBoolean(9, true);
       preparedStatement.executeUpdate();
 
@@ -492,6 +494,10 @@ public class Island {
    */
   public String getIslandGeneratorValue() {
     return this.island_generator;
+  }
+
+  public void setIslandGeneratorValue(int value) {
+    this.island_generator = String.valueOf(value);
   }
 
 }

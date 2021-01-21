@@ -37,14 +37,14 @@ public class IslandUpgradesGUI {
 
         Template.Builder template = Template.builder(upgradesGUI.rows).fill(upgradesGUI.fillerSlot.getFillerButton());
 
-        for(Upgrades.UpgradeSettings.UpgradeButton confButton : upgradesGUI.buttons) {
+        for (Upgrades.UpgradeSettings.UpgradeButton confButton : upgradesGUI.buttons) {
 
             Button button = Button.builder()
                     .item(confButton.getItemStack())
                     .displayName(confButton.displayName)
                     .lore(replaceLevel(confButton, island))
                     .onClick((action) -> {
-                        if(!sPlayer.hasPerm(IslandPerm.SET_UPGRADES, sPlayer.getIsland())) {
+                        if (!sPlayer.hasPerm(IslandPerm.SET_UPGRADES, sPlayer.getIsland())) {
                             MessageUtil.msg(player, messages.upgrades.cannot_upgrade);
                             return;
                         }
@@ -72,29 +72,40 @@ public class IslandUpgradesGUI {
 
         IslandUpgradeWrapper newLevel = null;
 
-        if(upgradeButton.upgradeType == UpgradeType.SIZE) {
+        if (upgradeButton.upgradeType == UpgradeType.SIZE) {
             newLevel = upgradeButton.tiers.get(String.valueOf(Integer.valueOf(island.getIslandSizeValue() + 1)));
         }
 
+        if (upgradeButton.upgradeType == UpgradeType.GENERATOR) {
+            newLevel = upgradeButton.tiers.get(String.valueOf(Integer.valueOf(island.getIslandGeneratorValue() + 1)));
+        }
 
-            if(newLevel == null) {
-                MessageUtil.msg(player, messages.upgrades.max_upgrade);
-                return;
-            }
 
-            TransactionResult result = EconomyUtil.withdrawBalance(player, BigDecimal.valueOf(newLevel.cost));
-            if(result.getResult() == ResultType.SUCCESS) {
-                island.setSize(String.valueOf(Integer.parseInt(island.getIslandSizeValue())+1));
-                for(Player aPlayer : PlayerUtil.getAllPlayersAtIsland(island)) {
+        if (newLevel == null) {
+            MessageUtil.msg(player, messages.upgrades.max_upgrade);
+            return;
+        }
+
+        TransactionResult result = EconomyUtil.withdrawBalance(player, BigDecimal.valueOf(newLevel.cost));
+        if (result.getResult() == ResultType.SUCCESS) {
+            if(upgradeButton.upgradeType == UpgradeType.SIZE) {
+                island.setSize(String.valueOf(Integer.parseInt(island.getIslandSizeValue()) + 1));
+                for (Player aPlayer : PlayerUtil.getAllPlayersAtIsland(island)) {
                     IslandUtil.changeBorder(aPlayer, island.getCenterLocation());
                 }
-                island.broadcastToOnlineMembers(messages.upgrades.upgraded, player.getName());
-                action.getButton().toBuilder().lore(replaceLevel(upgradeButton, island)).build();
+            }
 
+            if(upgradeButton.upgradeType == UpgradeType.GENERATOR) {
+                island.setIslandGeneratorValue(Integer.parseInt(island.getIslandGeneratorValue() + 1));
             }
-            if(result.getResult() == ResultType.FAILED || result.getResult() == ResultType.ACCOUNT_NO_FUNDS) {
-                MessageUtil.msg(player, messages.upgrades.no_funds);
-            }
+
+            island.broadcastToOnlineMembers(messages.upgrades.upgraded, player.getName());
+            action.getButton().toBuilder().lore(replaceLevel(upgradeButton, island)).build();
+
+        }
+        if (result.getResult() == ResultType.FAILED || result.getResult() == ResultType.ACCOUNT_NO_FUNDS) {
+            MessageUtil.msg(player, messages.upgrades.no_funds);
+        }
     }
 
     private static List<String> replaceLevel(Upgrades.UpgradeSettings.UpgradeButton upgradeButton, Island island) {
@@ -103,20 +114,23 @@ public class IslandUpgradesGUI {
         String setting = "";
         String cost = "";
 
-        if(upgradeButton.upgradeType == UpgradeType.SIZE) {
+        if (upgradeButton.upgradeType == UpgradeType.SIZE) {
             button = upgradeButton.tiers.get(island.getIslandSizeValue());
             setting = String.valueOf(button.setting);
             cost = String.valueOf(button.cost);
-        } else if (upgradeButton.upgradeType == UpgradeType.GENERATOR) {
-            // TODO GENERATORS
+        }
+        if (upgradeButton.upgradeType == UpgradeType.GENERATOR) {
+            button = upgradeButton.tiers.get(island.getIslandGeneratorValue());
+            setting = String.valueOf(button.setting);
+            cost = String.valueOf(button.cost);
         }
 
-        if(button == null) {
+        if (button == null) {
             return null;
         }
 
         List<String> lore = Lists.newArrayList();
-        for(String s : button.description) {
+        for (String s : button.description) {
             lore.add(s.replace("{setting}", setting)
                     .replace("{cost}", cost));
         }
