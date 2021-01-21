@@ -7,19 +7,21 @@ public class Statements {
    * USED IN games.synx.spongysb.storage.DatabaseManager
    */
   public static final String CREATE_ISLANDS_TABLE = "CREATE TABLE IF NOT EXISTS spongysb_islands (" +
-          "island_uuid     VARCHAR(36) NOT NULL PRIMARY KEY, " +
-          "leader_uuid     VARCHAR(36) NOT NULL, " +
-          "island_name     text        NOT NULL, " +
-          "center_location text        NOT NULL, " +
-          "home_location   text        NOT NULL, " +
-          "island_size     text        NOT NULL, " +
-          "active          boolean     NOT NULL)";
+          "island_uuid         VARCHAR(36) NOT NULL PRIMARY KEY, " +
+          "leader_uuid         VARCHAR(36) NOT NULL, " +
+          "island_name         text        NOT NULL, " +
+          "center_location     text        NOT NULL, " +
+          "home_location       text        NOT NULL, " +
+          "island_size         text        NOT NULL, " +
+          "island_member_limit text        NOT NULL," +
+          "island_generators   text        NOT NULL," +
+          "active              boolean     NOT NULL)";
 
-  public static final String INSERT_ISLAND = "REPLACE INTO spongysb_islands (island_uuid, leader_uuid, island_name, center_location, home_location, island_size, active) VALUES(?,?,?,?,?,?,?)";
+  public static final String INSERT_ISLAND = "REPLACE INTO spongysb_islands (island_uuid, leader_uuid, island_name, center_location, home_location, island_size, island_member_limit, island_generators active) VALUES(?,?,?,?,?,?,?,?,?)";
 
   public static final String GET_ALL_ISLANDS = "SELECT * FROM spongysb_islands WHERE active = TRUE";
 
-  public static final String SAVE_ALL_ISLANDS = "UPDATE spongysb_islands SET leader_uuid = ?, island_name = ?, center_location = ?, home_location = ?, island_size = ?, active = ? WHERE island_uuid = ?";
+  public static final String SAVE_ALL_ISLANDS = "UPDATE spongysb_islands SET leader_uuid = ?, island_name = ?, center_location = ?, home_location = ?, island_size = ?, island_member_limit = ?, island_generators = ?, active = ? WHERE island_uuid = ?";
 
   public static final String CREATE_PLAYERS_TABLE = "CREATE TABLE IF NOT EXISTS spongysb_players (" +
           "player_uuid VARCHAR(36) NOT NULL PRIMARY KEY, " +
@@ -41,10 +43,6 @@ public class Statements {
   public static final String GET_LAST_LOCATION = "SELECT * FROM spongysb_grid";
 
   public static final String UPDATE_LAST_GRID_ISLAND = "REPLACE INTO spongysb_grid (id, lastisland) VALUES(1,?);";
-
-  public static final String CREATE_ISLAND_UPGRADES_TABLE = "CREATE TABLE IF NOT EXISTS spongysb_island_upgrades (" +
-          "island_uuid VARCHAR(36) NOT NULL PRIMARY KEY, " +
-          "island_size integer     NOT NULL)";
 
   public static final String CREATE_ISLAND_PERMISSIONS_TABLE = "CREATE TABLE IF NOT EXISTS spongysb_island_permissions (" +
           "island_uuid      VARCHAR(36) NOT NULL PRIMARY KEY, " +

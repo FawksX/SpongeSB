@@ -34,16 +34,22 @@ public class Island {
   private final Location<World> location;
   private Location<World> homeLocation;
   private final List<String> invited_members = Lists.newArrayList();
+
   private String island_size;
+  private String member_limit;
+  private String island_generator;
+
   private boolean active = true;
 
 
   private Island(UUID island_uuid, UUID leader_uuid, String island_name,
-                 String center_location, String home_location, String island_size) {
+                 String center_location, String home_location, String island_size, String member_limit, String island_generator) {
 
     this.island_uuid = island_uuid;
     this.leader_uuid = leader_uuid;
     this.island_name = island_name;
+    this.member_limit = member_limit;
+    this.island_generator = island_generator;
 
 
     //TODO SIMPLIFY
@@ -94,8 +100,10 @@ public class Island {
       preparedStatement.setString(3, centerSerialised);
       preparedStatement.setString(4, homeLocSerialised);
       preparedStatement.setString(5, island.getIslandSizeValue());
-      preparedStatement.setBoolean(6, island.isActive());
-      preparedStatement.setString(7, island.getIslandUUID().toString());
+      preparedStatement.setString(6, island.getIslandMemberLimitValue());
+      preparedStatement.setString(7, island.getIslandGeneratorValue());
+      preparedStatement.setBoolean(8, island.isActive());
+      preparedStatement.setString(9, island.getIslandUUID().toString());
 
 
       preparedStatement.executeUpdate();
@@ -127,7 +135,9 @@ public class Island {
                 rs.getString("island_name"),
                 rs.getString("center_location"),
                 rs.getString("home_location"),
-                rs.getString("island_size"));
+                rs.getString("island_size"),
+                rs.getString("island_member_limit"),
+                rs.getString("island_generators"));
 
         islands.add(newIsland);
 
@@ -165,13 +175,15 @@ public class Island {
       // BY DEFAULT CENTER LOCATION IS THE SAME AS THE PASTE LOCATION, AS IT WILL BE A SOLID LOCATION IF SCHEM IS MADE CORRECTLY.
       preparedStatement.setString(5, homeLocSerialised);
       preparedStatement.setInt(6, 0);
+      preparedStatement.setInt(7, 0);
+      preparedStatement.setInt(8, 0);
       preparedStatement.setBoolean(7, true);
       preparedStatement.executeUpdate();
 
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    Island newIsland = new Island(islandUUID, leaderUUID, islandName, centerSerialised, homeLocSerialised, "0");
+    Island newIsland = new Island(islandUUID, leaderUUID, islandName, centerSerialised, homeLocSerialised, "0", "0", "0");
     IslandCache.add(newIsland);
     IslandCache.addDefaultPermissions(newIsland);
 
@@ -463,6 +475,14 @@ public class Island {
    */
   public void setHome(Location<World> homeLocation) {
     this.homeLocation = homeLocation;
+  }
+
+  public String getIslandMemberLimitValue() {
+    return this.member_limit;
+  }
+
+  public String getIslandGeneratorValue() {
+    return this.island_generator;
   }
 
 }

@@ -53,7 +53,6 @@ public class DatabaseManager extends AbstractManager implements IManager, IDatab
       connection.prepareStatement(Statements.CREATE_ISLANDS_TABLE).executeUpdate();
       connection.prepareStatement(Statements.CREATE_PLAYERS_TABLE).executeUpdate();
       connection.prepareStatement(Statements.CREATE_GRID_TABLE).executeUpdate();
-      connection.prepareStatement(Statements.CREATE_ISLAND_UPGRADES_TABLE).executeUpdate();
       connection.prepareStatement(Statements.CREATE_ISLAND_PERMISSIONS_TABLE).executeUpdate();
       connection.prepareStatement(Statements.CREATE_BANS_TABLE).executeUpdate();
 

@@ -70,6 +70,8 @@ public class IslandDisbandCommand extends AbstractIslandCommand {
       PlayerUtil.teleportToSpawn(aPlayer);
     }
 
+    AsyncUtil.async(() -> Island.save(island));
+
     IslandCache.remove(island);
     
     IslandDeleteEvent islandDeleteEvent = new IslandDeleteEvent(player, island.getCenterLocation(), island);
