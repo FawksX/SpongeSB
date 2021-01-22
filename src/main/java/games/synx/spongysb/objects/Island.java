@@ -80,7 +80,7 @@ public class Island {
   public static Island get(String islandName) {
 
     for(Island island : IslandCache.getAll().values()) {
-      if(island.getIslandName().equals(islandName)) {
+      if(island.getIslandName().equalsIgnoreCase(islandName)) {
         return island;
       }
     }
