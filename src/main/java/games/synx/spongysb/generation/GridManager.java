@@ -1,5 +1,6 @@
 package games.synx.spongysb.generation;
 
+import com.google.common.util.concurrent.Atomics;
 import games.synx.pscore.util.AsyncUtil;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.ConfigManager;
@@ -21,6 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Stream;
 
 public class GridManager {
@@ -69,12 +71,12 @@ public class GridManager {
 
 
   private Location<World> getNextIslandLocation() {
-    Location<World> last = getLastLocation();
-    return getNextGridLocation(last);
+    AtomicReference<Location<World>> last = Atomics.newReference();
+    AsyncUtil.async(() -> last.set(getLastLocation()));
+    return getNextGridLocation(last.get());
   }
 
   private Location<World> getLastLocation() {
-
     try (Connection connection = DatabaseManager.get().getConnection();
          ResultSet rs = connection.prepareStatement(Statements.GET_LAST_LOCATION).executeQuery()) {
 
