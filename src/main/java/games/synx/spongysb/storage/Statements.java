@@ -20,9 +20,7 @@ public class Statements {
   public static final String INSERT_ISLAND = "REPLACE INTO spongysb_islands (island_uuid, leader_uuid, island_name, center_location, home_location, island_size, island_member_limit, island_generators, active) VALUES(?,?,?,?,?,?,?,?,?)";
 
   public static final String GET_ALL_ISLANDS = "SELECT * FROM spongysb_islands WHERE active = TRUE";
-
-  public static final String SAVE_ALL_ISLANDS = "UPDATE spongysb_islands SET leader_uuid = ?, island_name = ?, center_location = ?, home_location = ?, island_size = ?, island_member_limit = ?, island_generators = ?, active = ? WHERE island_uuid = ?";
-
+  
   public static final String CREATE_PLAYERS_TABLE = "CREATE TABLE IF NOT EXISTS spongysb_players (" +
           "player_uuid VARCHAR(36) NOT NULL PRIMARY KEY, " +
           "island_uuid VARCHAR(36) NOT NULL,  " +
@@ -33,8 +31,6 @@ public class Statements {
   public static final String GET_PLAYER = "SELECT island_uuid, island_role FROM spongysb_players WHERE player_uuid = ?";
 
   public static final String GET_PLAYERS_IN_ISLAND = "SELECT (player_uuid) FROM spongysb_players WHERE island_uuid = ?";
-
-  public static final String PLAYER_QUIT_UPDATE = "UPDATE spongysb_players SET island_uuid = ?, island_role = ? WHERE player_uuid = ?";
 
   public static final String CREATE_GRID_TABLE = "CREATE TABLE IF NOT EXISTS spongysb_grid (" +
           "id         VARCHAR(1) NOT NULL PRIMARY KEY, " +

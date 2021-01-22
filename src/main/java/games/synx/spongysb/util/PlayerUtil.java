@@ -15,6 +15,8 @@ public class PlayerUtil {
         List<Player> playersAtIsland = Lists.newArrayList();
 
         for(Player player: Sponge.getServer().getOnlinePlayers()) {
+            if(Island.getIslandAt(player.getLocation()) == null) continue;
+
             if(isAtIsland(player, island)) {
                 playersAtIsland.add(player);
             }

@@ -41,8 +41,8 @@ public class IslandInviteCommand extends AbstractIslandCommand {
 
     Player targetInvite = Sponge.getServer().getPlayer(name).get();
 
-    // TODO ISLAND UPGRADE TO ALLOW FOR LARGER SIZE ISLANDS
-    if(island.getMemberCount() > 2) {
+    System.out.println("MemberCount" + island.getMemberCount() + "MemberLimit " + island.getMemberLimit() + island.isFull());
+    if(island.isFull()) {
       formatMsg(player, getMessages().invite.island_is_full, targetInvite.getName());
       return;
     }

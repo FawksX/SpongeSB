@@ -226,7 +226,10 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
       public String must_be_in_island_to_invite = "&e&lISLAND &cYou must be in an island to invite people!";
 
       @Setting
-      public String island_is_full = "&e&lISLAND &cYour Island is full so we could not invite %s!";
+      public String island_is_full = "&e&lISLAND &cYour Island is full so you could not invite %s!";
+
+      @Setting
+      public String island_full_error = "&e&lISLAND &cThis island is full!";
 
     }
 

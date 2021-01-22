@@ -1,5 +1,6 @@
 package games.synx.spongysb.objects;
 
+import games.synx.pscore.util.AsyncUtil;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.cache.BanCache;
 import games.synx.spongysb.cache.PlayerCache;
@@ -88,17 +89,31 @@ public class SPlayer {
   public static void save(SPlayer sPlayer) {
 
     try (Connection connection = DatabaseManager.get().getConnection();
-    PreparedStatement preparedStatement = connection.prepareStatement(Statements.PLAYER_QUIT_UPDATE)) {
+    PreparedStatement preparedStatement = connection.prepareStatement(Statements.INSERT_PLAYER)) {
 
-      preparedStatement.setString(1, sPlayer.getIslandUUID().toString());
-      preparedStatement.setString(2, sPlayer.getIslandRole().toString());
-      preparedStatement.setString(3, sPlayer.getPlayerUUID().toString());
+      preparedStatement.setString(1, sPlayer.getPlayerUUID().toString());
+      preparedStatement.setString(2, sPlayer.getIslandUUID().toString());
+      preparedStatement.setString(3, sPlayer.getIslandRole().toString());
+
 
       preparedStatement.executeUpdate();
 
     } catch (SQLException e) {
       e.printStackTrace();
     }
+  }
+
+  /**
+   * Creates a new SPlayer object based on the player
+   * @param player Player to make the object for
+   * @return SPlayer
+   */
+  public static SPlayer newSPlayer(Player player) {
+    return new SPlayer(
+            new UUID(0L, 0L),
+            player.getUniqueId(),
+            IslandPermissionLevel.NONE.toString()
+    );
   }
 
   /**
@@ -200,6 +215,10 @@ public class SPlayer {
   public void removeFromIsland() {
     setIsland(new UUID(0L, 0L));
     setIslandRole(IslandPermissionLevel.NONE);
+
+    AsyncUtil.async(() -> {
+      save(this);
+    });
   }
 
   /**

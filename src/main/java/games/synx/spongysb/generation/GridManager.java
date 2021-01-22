@@ -60,6 +60,8 @@ public class GridManager {
       IslandNewEvent islandNewEvent = new IslandNewEvent(player, island, islandLoc);
       Sponge.getEventManager().post(islandNewEvent);
 
+      SPlayer.save(sPlayer);
+
     });
 
   }

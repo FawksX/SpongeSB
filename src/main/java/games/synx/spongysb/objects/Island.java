@@ -6,6 +6,7 @@ import games.synx.spongysb.cache.CoopCache;
 import games.synx.spongysb.cache.IslandCache;
 import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.config.configs.Upgrades;
+import games.synx.spongysb.generation.GridManager;
 import games.synx.spongysb.generation.WorldManager;
 import games.synx.spongysb.objects.enums.IslandPerm;
 import games.synx.spongysb.objects.enums.IslandPermissionLevel;
@@ -96,16 +97,17 @@ public class Island {
     String homeLocSerialised = island.getHomeLocation().getBlockX() + "," + island.getHomeLocation().getBlockY() + "," + island.getHomeLocation().getBlockZ();
 
     try (Connection connection = DatabaseManager.get().getConnection();
-         PreparedStatement preparedStatement = connection.prepareStatement(Statements.SAVE_ALL_ISLANDS)) {
-      preparedStatement.setString(1, island.getLeaderUUID().toString());
-      preparedStatement.setString(2, island.getIslandName());
-      preparedStatement.setString(3, centerSerialised);
-      preparedStatement.setString(4, homeLocSerialised);
-      preparedStatement.setString(5, island.getIslandSizeValue());
-      preparedStatement.setString(6, island.getIslandMemberLimitValue());
-      preparedStatement.setString(7, island.getIslandGeneratorValue());
-      preparedStatement.setBoolean(8, island.isActive());
-      preparedStatement.setString(9, island.getIslandUUID().toString());
+         PreparedStatement preparedStatement = connection.prepareStatement(Statements.INSERT_ISLAND)) {
+      preparedStatement.setString(1, island.getIslandUUID().toString());
+      preparedStatement.setString(2, island.getLeaderUUID().toString());
+      preparedStatement.setString(3, island.getIslandName());
+      preparedStatement.setString(4, centerSerialised);
+      preparedStatement.setString(5, homeLocSerialised);
+      preparedStatement.setString(6, island.getIslandSizeValue());
+      preparedStatement.setString(7, island.getIslandMemberLimitValue());
+      preparedStatement.setString(8, island.getIslandGeneratorValue());
+      preparedStatement.setBoolean(9, island.isActive());
+
 
 
       preparedStatement.executeUpdate();
@@ -199,6 +201,7 @@ public class Island {
    * @return getIslandAt(x,z)
    */
   public static Island getIslandAt(Location<World> location) {
+    if(!GridManager.get().inWorld(location)) return null;
     return getIslandAt(location.getBlockX(), location.getBlockZ());
   }
 
@@ -210,6 +213,7 @@ public class Island {
    * @return Island
    */
   public static Island getIslandAt(int x, int z) {
+
     int nearestX =
         (int) ((Math.round((double) x / ConfigManager.get().getConf().world.islandDistance) * ConfigManager.get().getConf().world.islandDistance));
     int nearestZ =
@@ -287,6 +291,12 @@ public class Island {
    */
   public void broadcastToOnlineMembers(String message, Object ... replacements) {
     for(Player player : Sponge.getServer().getOnlinePlayers()) {
+      SPlayer sPlayer = SPlayer.get(player);
+
+      if(sPlayer.getIsland() == null) {
+        continue;
+      }
+
       if(SPlayer.get(player).getIsland().getIslandUUID() == this.getIslandUUID()) {
         MessageUtil.msg(player, message, replacements);
       }
@@ -496,8 +506,41 @@ public class Island {
     return this.island_generator;
   }
 
+  /**
+   * Sets the Island Generator Value for an Island
+   * @param value The value to set it to (Identifier)
+   */
   public void setIslandGeneratorValue(int value) {
     this.island_generator = String.valueOf(value);
+  }
+
+  /**
+   * Sets the Member Limit Value for the island
+   * @param value The value to set it to (Identifier)
+   */
+  public void setMemberLimitValue(int value) {
+    this.member_limit = String.valueOf(value);
+  }
+
+  /**
+   * Gets the actual member limit of the island (NOT the identifier)
+   * @return Actual Member Limit
+   */
+  public int getMemberLimit() {
+    for (Upgrades.UpgradeSettings.UpgradeButton upgradeButton : ConfigManager.get().getUpgrades().buttons) {
+      if (upgradeButton.upgradeType == UpgradeType.MEMBER_LIMIT) {
+        return upgradeButton.tiers.get(this.member_limit).setting;
+      }
+    }
+    return 1;
+  }
+
+  /**
+   * Returns if the Island is full on members or not
+   * @return Boolean, if it's full or not
+   */
+  public boolean isFull() {
+    return getMemberCount() >= getMemberLimit();
   }
 
 }

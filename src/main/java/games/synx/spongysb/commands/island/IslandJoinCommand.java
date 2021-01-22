@@ -5,6 +5,7 @@ import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
 import co.aikar.commands.annotation.Syntax;
+import games.synx.pscore.util.AsyncUtil;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.events.IslandJoinEvent;
 import games.synx.spongysb.objects.Island;
@@ -36,6 +37,11 @@ public class IslandJoinCommand extends AbstractIslandCommand {
       return;
     }
 
+    if(island.isFull()) {
+      msg(player, getMessages().invite.island_full_error);
+      return;
+    }
+
     if(island.isInvited(player.getUniqueId())) {
       IslandJoinEvent islandJoinEvent = new IslandJoinEvent(player.getUniqueId(), island.getLeaderUUID(), island);
       sPlayer.setIsland(island);
@@ -46,6 +52,9 @@ public class IslandJoinCommand extends AbstractIslandCommand {
       Sponge.getEventManager().post(islandJoinEvent);
 
       island.broadcastToOnlineMembers(getMessages().invite.player_has_joined_island, player.getName());
+      AsyncUtil.async(() -> {
+        SPlayer.save(sPlayer);
+      });
       return;
     }
 

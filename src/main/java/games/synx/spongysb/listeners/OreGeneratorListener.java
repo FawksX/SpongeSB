@@ -15,6 +15,7 @@ import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class OreGeneratorListener {
@@ -41,21 +42,17 @@ public class OreGeneratorListener {
 
         block.setBlockType(getRandomBlock(island));
 
-
     }
 
     private BlockType getRandomBlock(Island island) {
 
         Map<String, Double> islandRandomBlocks = ConfigManager.get().getUpgrades().oreGeneratorValues.get(island.getIslandGeneratorValue());
 
-        BlockType block = Sponge.getRegistry().getType(BlockType.class, RandomSelector.weighted(islandRandomBlocks.entrySet(), Map.Entry::getValue)
+        Optional<BlockType> block = Sponge.getRegistry().getType(BlockType.class, RandomSelector.weighted(islandRandomBlocks.entrySet(), Map.Entry::getValue)
                 .next(ThreadLocalRandom.current())
-                .getKey()).get();
+                .getKey());
 
-        if(block == null) {
-            return BlockTypes.COBBLESTONE;
-        }
-        return block;
+        return block.orElse(BlockTypes.COBBLESTONE);
 
     }
 

@@ -46,23 +46,23 @@ public class IslandDisbandCommand extends AbstractIslandCommand {
     IslandPreDeleteEvent preDeleteEvent = new IslandPreDeleteEvent(player.getUniqueId(), island);
     Sponge.getEventManager().post(preDeleteEvent);
 
-    for(UUID pp : island.getIslandMembers()) {
-      if(Sponge.getServer().getPlayer(pp).isPresent()) {
-        SPlayer islandMember = SPlayer.get(pp);
-        islandMember.removeFromIsland();
-        formatMsg(Sponge.getServer().getPlayer(pp).get(), getMessages().disband.island_disbanded, player.getName());
-        return;
+    AsyncUtil.async(() -> {
+
+      for(UUID pp : island.getIslandMembers()) {
+        if(Sponge.getServer().getPlayer(pp).isPresent()) {
+          SPlayer islandMember = SPlayer.get(pp);
+          islandMember.removeFromIsland();
+          formatMsg(Sponge.getServer().getPlayer(pp).get(), getMessages().disband.island_disbanded, player.getName());
+          continue;
+        }
+
+          SPlayer offPlayer = SPlayer.fetch(pp);
+          offPlayer.removeFromIsland();
+
       }
 
-      AsyncUtil.async(() -> {
+    });
 
-        SPlayer offPlayer = SPlayer.fetch(pp);
-        offPlayer.removeFromIsland();
-        SPlayer.save(offPlayer);
-
-      });
-
-    }
 
     island.setActive(false);
 

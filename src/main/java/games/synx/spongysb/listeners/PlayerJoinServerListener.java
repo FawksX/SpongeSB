@@ -37,23 +37,11 @@ public class PlayerJoinServerListener {
 
             // If player has no data, make their object.
             if (sPlayer == null) {
-                try (Connection connection = DatabaseManager.get().getConnection();
-                     PreparedStatement stmt = connection.prepareStatement(Statements.INSERT_PLAYER)) {
-
-                    stmt.setString(1, player.getUniqueId().toString());
-                    stmt.setString(2, String.valueOf(new UUID(0L, 0L)));
-                    stmt.setString(3, IslandPermissionLevel.NONE.toString());
-
-                    stmt.executeUpdate();
-
-                } catch (SQLException e) {
-                    SpongySB.get().getLogger().error("Something went wrong with your database!");
-                    e.printStackTrace();
-                }
-
+                sPlayer = SPlayer.newSPlayer(player);
+                SPlayer.save(sPlayer);
             }
 
-            PlayerCache.add(SPlayer.fetch(player.getUniqueId()));
+            PlayerCache.add(sPlayer);
 
             try(Connection connection = DatabaseManager.get().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(Statements.GET_BANS_OF_PLAYER)) {
