@@ -69,13 +69,20 @@ public class GridManager {
   }
 
 
-
+  /**
+   * Gets the next center location for a new island
+   * @return Sponge Location
+   */
   private Location<World> getNextIslandLocation() {
     AtomicReference<Location<World>> last = Atomics.newReference();
     AsyncUtil.async(() -> last.set(getLastLocation()));
     return getNextGridLocation(last.get());
   }
 
+  /**
+   * Fetches the Last Island Center
+   * @return Last Center Location
+   */
   private Location<World> getLastLocation() {
     try (Connection connection = DatabaseManager.get().getConnection();
          ResultSet rs = connection.prepareStatement(Statements.GET_LAST_LOCATION).executeQuery()) {
@@ -105,6 +112,11 @@ public class GridManager {
 
   }
 
+  /**
+   * Fetches the next Grid location
+   * @param lastCenterLocation Last Island to be created's center location
+   * @return the next Grid Location
+   */
   private Location<World> getNextGridLocation(Location<World> lastCenterLocation) {
 
     int x = lastCenterLocation.getBlockX();
@@ -139,6 +151,10 @@ public class GridManager {
 
   }
 
+  /**
+   * Overwrite the Last Location stored in the database with a new one
+   * @param location Location to overwrite with
+   */
   private void saveLastLocation(Location<World> location) {
     try (Connection connection = DatabaseManager.get().getConnection();
          PreparedStatement preparedStatement = connection.prepareStatement(Statements.UPDATE_LAST_GRID_ISLAND)) {
@@ -151,6 +167,11 @@ public class GridManager {
 
   }
 
+  /**
+   * Returns if an Island is on the grid
+   * @param loc Location to check
+   * @return If it is on the grid or not
+   */
   public boolean onGrid(Location<World> loc) {
     int x = loc.getBlockX();
     int z = loc.getBlockZ();
@@ -158,16 +179,31 @@ public class GridManager {
     return onGrid(x, z);
   }
 
+  /**
+   * Returns if two coordinates are on the grid
+   * @param x X Coordinate
+   * @param z Z Coordinate
+   * @return If it is on the grid or not
+   */
   public boolean onGrid(int x, int z) {
     if ((x) % ConfigManager.get().getConf().world.islandDistance != 0) return false;
     return (z % ConfigManager.get().getConf().world.islandDistance == 0);
   }
 
-
+  /**
+   * Checks if an Entity is in the Island World
+   * @param entity Entity in question
+   * @return If it is in the Island World
+   */
   public boolean inWorld(Entity entity) {
     return inWorld(entity.getLocation());
   }
 
+  /**
+   * Checks if a Location is in the Island World
+   * @param location Location in question
+   * @return If it is in the Island World
+   */
   public boolean inWorld(Location<World> location) {
     return location.getExtent() == WorldManager.get().getWorld();
   }
