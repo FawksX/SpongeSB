@@ -68,15 +68,12 @@ public class GridManager {
 
   }
 
-
   /**
    * Gets the next center location for a new island
    * @return Sponge Location
    */
   private Location<World> getNextIslandLocation() {
-    AtomicReference<Location<World>> last = Atomics.newReference();
-    AsyncUtil.async(() -> last.set(getLastLocation()));
-    return getNextGridLocation(last.get());
+    return getNextGridLocation(getLastLocation());
   }
 
   /**

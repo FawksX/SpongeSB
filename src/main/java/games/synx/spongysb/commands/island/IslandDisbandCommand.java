@@ -1,20 +1,12 @@
 package games.synx.spongysb.commands.island;
 
 import co.aikar.commands.annotation.*;
-import games.synx.pscore.util.AsyncUtil;
-import games.synx.spongysb.cache.IslandCache;
 import games.synx.spongysb.commands.AbstractIslandCommand;
-import games.synx.spongysb.events.IslandDeleteEvent;
-import games.synx.spongysb.events.IslandPreDeleteEvent;
-import games.synx.spongysb.generation.WorldManager;
+import games.synx.spongysb.commands.common.DisbandCommandCommon;
 import games.synx.spongysb.objects.Island;
 import games.synx.spongysb.objects.enums.IslandPermissionLevel;
 import games.synx.spongysb.objects.SPlayer;
-import games.synx.spongysb.util.PlayerUtil;
-import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
-
-import java.util.UUID;
 
 @CommandAlias("is|island")
 public class IslandDisbandCommand extends AbstractIslandCommand {
@@ -43,39 +35,7 @@ public class IslandDisbandCommand extends AbstractIslandCommand {
 
     Island island = sPlayer.getIsland();
 
-    IslandPreDeleteEvent preDeleteEvent = new IslandPreDeleteEvent(player.getUniqueId(), island);
-    Sponge.getEventManager().post(preDeleteEvent);
-
-    AsyncUtil.async(() -> {
-
-      for(UUID pp : island.getIslandMembers()) {
-        if(Sponge.getServer().getPlayer(pp).isPresent()) {
-          SPlayer islandMember = SPlayer.get(pp);
-          islandMember.removeFromIsland();
-          formatMsg(Sponge.getServer().getPlayer(pp).get(), getMessages().disband.island_disbanded, player.getName());
-          continue;
-        }
-
-          SPlayer offPlayer = SPlayer.fetch(pp);
-          offPlayer.removeFromIsland();
-
-      }
-
-    });
-
-
-    island.setActive(false);
-
-    for(Player aPlayer : PlayerUtil.getAllPlayersAtIsland(island)) {
-      PlayerUtil.teleportToSpawn(aPlayer);
-    }
-
-    AsyncUtil.async(() -> Island.save(island));
-
-    IslandCache.remove(island);
-    
-    IslandDeleteEvent islandDeleteEvent = new IslandDeleteEvent(player, island.getCenterLocation(), island);
-    Sponge.getEventManager().post(islandDeleteEvent);
+    DisbandCommandCommon.executeCommon(player, island);
 
   }
 }

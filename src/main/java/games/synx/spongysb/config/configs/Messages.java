@@ -62,6 +62,9 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
     @Setting
     public Leave leave = new Leave();
 
+    @Setting
+    public Admin admin = new Admin();
+
 
     @Setting
     public String player_not_in_island = "&cYou are not in an island! Type /is new <island name> to create an island!";
@@ -370,6 +373,25 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
 
       @Setting
       public String must_be_in_island_to_leave = "&e&lISLAND &cYou must be in an island to leave!";
+
+    }
+
+    @ConfigSerializable
+    public static class Admin {
+
+      @Setting
+      public Disband disband = new Disband();
+
+
+
+
+      @ConfigSerializable
+      public static class Disband {
+
+        @Setting
+        public String admin_command_confirmation = "&3&lADMIN &eYou have successfully disbanded the island &b%s&e!";
+
+      }
 
     }
 
