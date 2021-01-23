@@ -13,7 +13,7 @@ import org.spongepowered.api.world.World;
 
 public abstract class AbstractIslandGuard {
 
-    private final ConfigManager configManager = ConfigManager.get();
+    private final ConfigManager CONFIG = ConfigManager.get();
 
     /**
      * Check if a Forge Minecraft Player Instance has access to said location
@@ -51,7 +51,7 @@ public abstract class AbstractIslandGuard {
     }
 
     protected ConfigManager getConfigManager() {
-        return this.configManager;
+        return this.CONFIG;
     }
 
 }

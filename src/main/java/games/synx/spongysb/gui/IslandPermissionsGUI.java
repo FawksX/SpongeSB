@@ -7,7 +7,7 @@ import com.google.common.collect.Lists;
 import games.synx.pscore.util.MessageUtil;
 import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.config.configs.Messages;
-import games.synx.spongysb.config.configs.guis.PermGUI;
+import games.synx.spongysb.config.configs.guis.IGUIConfig;
 import games.synx.spongysb.config.configs.guis.button.PermissionsGUIButton;
 import games.synx.spongysb.objects.Island;
 import games.synx.spongysb.objects.enums.IslandPerm;
@@ -21,28 +21,28 @@ import java.util.List;
 
 public class IslandPermissionsGUI {
 
-    private static final Messages.MessageSettings messages = ConfigManager.get().getMessages();
+    private static final Messages.MessageSettings MESSAGES = ConfigManager.get().getMessages();
 
     public static void open(Player player) {
 
         SPlayer sPlayer = SPlayer.get(player);
         Island island = sPlayer.getIsland();
 
-        PermGUI.PermGUISettings permissionsGUI = ConfigManager.get().getPermissionsGUI();
+        IGUIConfig<PermissionsGUIButton> permissionsGUI = ConfigManager.get().getPermissionsGUI();
 
-        Template.Builder template = Template.builder(permissionsGUI.rows).fill(permissionsGUI.fillerSlot.getFillerButton());
+        Template.Builder template = Template.builder(permissionsGUI.getRows()).fill(permissionsGUI.getFillerItem().getFillerButton());
 
-        for(PermissionsGUIButton confButton : permissionsGUI.buttons) {
+        for(PermissionsGUIButton confButton : permissionsGUI.getButtons()) {
 
             Button button = confButton.getButtonBuilder()
-                    .lore(replaceLevel(confButton.lore, island, confButton.islandPerm))
+                    .lore(replaceLevel(confButton.getLore(), island, confButton.getIslandPerm()))
                     .onClick((action) -> {
                         if(!sPlayer.hasPerm(IslandPerm.SET_PERMS, sPlayer.getIsland())) {
-                            MessageUtil.msg(player, messages.permission.can_only_view_permissions);
+                            MessageUtil.msg(player, MESSAGES.permission.can_only_view_permissions);
                             return;
                         }
 
-                        int position = island.getIslandPermissions().get(confButton.islandPerm).getPosition();
+                        int position = island.getIslandPermissions().get(confButton.getIslandPerm()).getPosition();
 
                         if(action.getClickType() == ClickType.QUICK_MOVE) {
                             position = position - 1;
@@ -51,17 +51,17 @@ public class IslandPermissionsGUI {
                             position = position + 1;
                         }
 
-                        changePermission(player, island, position, confButton.islandPerm);
-                        action.getButton().toBuilder().lore(replaceLevel(confButton.lore, island, confButton.islandPerm)).build();
+                        changePermission(player, island, position, confButton.getIslandPerm());
+                        action.getButton().toBuilder().lore(replaceLevel(confButton.getLore(), island, confButton.getIslandPerm())).build();
 
                     }).build();
 
-            template.set(confButton.row, confButton.column, button);
+            template.set(confButton.getRow(), confButton.getColumn(), button);
         }
 
         Page.builder()
                 .template(template.build())
-                .title(permissionsGUI.menuTitle)
+                .title(permissionsGUI.getMenuTitle())
                 .build()
                 .openPage((EntityPlayerMP) player);
 
@@ -70,11 +70,11 @@ public class IslandPermissionsGUI {
     private static void changePermission(Player player, Island island, int newPosition, IslandPerm islandPerm) {
 
         if(newPosition < IslandPermissionLevel.NONE.getPosition()) {
-            MessageUtil.msg(player, messages.permission.cannot_put_less_than_visitor);
+            MessageUtil.msg(player, MESSAGES.permission.cannot_put_less_than_visitor);
             return;
         }
         if(newPosition > IslandPermissionLevel.LEADER.getPosition()) {
-            MessageUtil.msg(player, messages.permission.cannot_put_more_than_leader);
+            MessageUtil.msg(player, MESSAGES.permission.cannot_put_more_than_leader);
             return;
         }
 

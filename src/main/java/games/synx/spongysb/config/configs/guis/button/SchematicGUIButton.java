@@ -10,32 +10,56 @@ import org.spongepowered.configurate.objectmapping.meta.Setting;
 import java.util.List;
 
 @ConfigSerializable
-public class SchematicGUIButton {
+public class SchematicGUIButton implements IGUIButton {
 
     @Setting
-    public int column = 4;
+    private final int COLUMN = 4;
 
     @Setting
-    public int row = 1;
+    private final int ROW = 1;
 
     @Setting
-    public String item = "minecraft:glowstone";
+    private final String ITEM = "minecraft:glowstone";
 
     @Setting
-    public String displayName = "ItemName!";
+    private final String DISPLAY_NAME = "ItemName!";
 
     @Setting
-    public List<String> lore = Lists.newArrayList();
+    private final List<String> LORE = Lists.newArrayList();
 
     @Setting
-    public String schematic = "default.schematic";
+    private final String SCHEMATIC = "default.schematic";
+
+    @Override
+    public int getColumn() {
+        return this.COLUMN;
+    }
+
+    @Override
+    public int getRow() {
+        return this.ROW;
+    }
 
     public ItemStack getItemStack() {
-        return new ItemStack(Item.getByNameOrId(item));
+        return new ItemStack(Item.getByNameOrId(this.ITEM));
+    }
+
+    @Override
+    public String getDisplayName() {
+        return this.DISPLAY_NAME;
+    }
+
+    @Override
+    public List<String> getLore() {
+        return this.LORE;
+    }
+
+    public String getSchematic() {
+        return this.SCHEMATIC;
     }
 
     public Button.Builder getButtonBuilder() {
-        return Button.builder().item(getItemStack()).displayName(displayName).lore(lore);
+        return Button.builder().item(getItemStack()).displayName(this.DISPLAY_NAME).lore(this.LORE);
     }
 
 }

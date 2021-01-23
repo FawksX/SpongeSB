@@ -68,11 +68,6 @@ public class SpongySB {
     @Listener
     public void onServerStart(GameStartedServerEvent event) {
 
-        Sponge.getServer().getConsole().getCommandSource().get().sendMessage(Text.of(TextColors.DARK_GRAY, "------------------------------"));
-        Sponge.getServer().getConsole().getCommandSource().get().sendMessage(Text.of(TextColors.YELLOW, TextStyles.BOLD, "SpongeSB by FawksX"));
-        Sponge.getServer().getConsole().getCommandSource().get().sendMessage(Text.of(TextColors.WHITE, "Licensed to ", TextColors.RED, "Blaze", TextColors.YELLOW, "Gaming"));
-        Sponge.getServer().getConsole().getCommandSource().get().sendMessage(Text.of(TextColors.DARK_GRAY, "------------------------------"));
-
         this.setupConfigDirectories();
         new ConfigManager();
         new DatabaseManager();

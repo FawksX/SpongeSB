@@ -1,6 +1,5 @@
 package games.synx.spongysb.generation;
 
-import com.google.common.util.concurrent.Atomics;
 import games.synx.pscore.util.AsyncUtil;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.ConfigManager;
@@ -22,15 +21,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Stream;
 
 public class GridManager {
 
-  private static GridManager instance = new GridManager();
+  private static final GridManager INSTANCE = new GridManager();
 
   public static GridManager get() {
-    return instance;
+    return INSTANCE;
   }
 
   /**

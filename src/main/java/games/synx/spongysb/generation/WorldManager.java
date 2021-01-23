@@ -15,7 +15,7 @@ public class WorldManager extends AbstractManager implements IManager {
     return instance;
   }
 
-  public static WorldManager instance;
+  private static WorldManager instance;
 
   private final Conf.ConfSettings conf;
 

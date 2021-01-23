@@ -21,14 +21,15 @@ import java.util.UUID;
 
 public class SPlayer {
 
+  private final UUID PLAYER_UUID;
+
   private UUID island_uuid;
-  private final UUID player_uuid;
   private String island_role;
   private boolean island_bypass = false;
 
   private SPlayer(UUID island_uuid, UUID player_uuid, String island_role) {
     this.island_uuid = island_uuid;
-    this.player_uuid = player_uuid;
+    this.PLAYER_UUID = player_uuid;
     this.island_role = island_role;
   }
 
@@ -75,7 +76,7 @@ public class SPlayer {
       return null;
 
     } catch (SQLException e) {
-      SpongySB.get().getLogger().error("Could not fetch user from MySQL! (SPlayer#fetch). Is this intentional?");
+      SpongySB.get().getLogger().error("Could not fetch user from MySQL!");
       e.printStackTrace();
       return null;
     }
@@ -239,7 +240,7 @@ public class SPlayer {
    * @return The Players' UUID
    */
   public UUID getPlayerUUID() {
-    return this.player_uuid;
+    return this.PLAYER_UUID;
   }
 
   /**

@@ -19,7 +19,7 @@ public class DatabaseManager extends AbstractManager implements IManager, IDatab
 
   private static DatabaseManager instance;
 
-  public HikariSource database;
+  private final HikariSource DATABASE;
 
   public DatabaseManager() {
     super(SpongySB.get().getLogger());
@@ -27,7 +27,7 @@ public class DatabaseManager extends AbstractManager implements IManager, IDatab
 
     Conf.ConfSettings.Database databaseConf = ConfigManager.get().getConf().database;
 
-    database = new HikariSource(
+    DATABASE = new HikariSource(
             databaseConf.address,
             databaseConf.port,
             databaseConf.database,
@@ -39,12 +39,12 @@ public class DatabaseManager extends AbstractManager implements IManager, IDatab
 
   @Override
   public Connection getConnection() throws SQLException {
-    return this.database.getConnection();
+    return this.DATABASE.getConnection();
   }
 
   @Override
   public void close() {
-    this.database.close();
+    this.DATABASE.close();
   }
 
 

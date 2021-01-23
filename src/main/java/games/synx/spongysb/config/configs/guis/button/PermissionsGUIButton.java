@@ -11,40 +11,62 @@ import org.spongepowered.configurate.objectmapping.meta.Setting;
 import java.util.List;
 
 @ConfigSerializable
-public class PermissionsGUIButton {
-
-    public PermissionsGUIButton() {
-
-    }
+public class PermissionsGUIButton implements IGUIButton {
 
     @Setting
-    public int column = 1;
+    private final int COLUMN = 1;
 
     @Setting
-    public int row = 1;
+    private final int ROW = 1;
 
     @Setting
-    public IslandPerm islandPerm = IslandPerm.PLACE;
+    private final IslandPerm ISLAND_PERM = IslandPerm.PLACE;
 
     @Setting
-    public String item = "pixelmon:tm12";
+    private final String ITEM = "pixelmon:tm12";
 
     @Setting
-    public String displayName = "§c§lPLACE";
+    private final String DISPLAY_NAME = "§c§lPLACE";
 
     @Setting
-    public List<String> lore = Lists.newArrayList(
+    private final List<String> LORE = Lists.newArrayList(
             "§eCurrent Permission Level: §a§l{level}",
             "§d§lLeft Click to increase needed level",
             "§e§lShift Click to decrease needed level"
     );
 
-    public ItemStack getItemStack() {
-        return new ItemStack(Item.getByNameOrId(item));
+    @Override
+    public int getColumn() {
+        return this.COLUMN;
     }
 
+    @Override
+    public int getRow() {
+        return this.ROW;
+    }
+
+    @Override
+    public ItemStack getItemStack() {
+        return new ItemStack(Item.getByNameOrId(this.ITEM));
+    }
+
+    @Override
+    public String getDisplayName() {
+        return this.DISPLAY_NAME;
+    }
+
+    @Override
+    public List<String> getLore() {
+        return this.LORE;
+    }
+
+    @Override
     public Button.Builder getButtonBuilder() {
-        return Button.builder().item(getItemStack()).displayName(displayName);
+        return Button.builder().item(getItemStack()).displayName(this.DISPLAY_NAME);
+    }
+
+    public IslandPerm getIslandPerm() {
+        return this.ISLAND_PERM;
     }
 
 

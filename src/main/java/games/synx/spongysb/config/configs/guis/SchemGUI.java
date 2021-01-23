@@ -19,19 +19,38 @@ public class SchemGUI extends AbstractConfiguration<SchemGUI.SchemGUISettings> i
     }
 
     @ConfigSerializable
-    public static class SchemGUISettings {
+    public static class SchemGUISettings implements IGUIConfig<SchematicGUIButton> {
 
         @Setting
-        public String menuTitle = "§aIsland Creation";
+        private final String MENU_TITLE = "§aIsland Creation";
 
         @Setting
-        public int rows = 3;
+        private final int ROWS = 3;
 
         @Setting
-        public FillerButton fillerSlot = new FillerButton();
+        private final  FillerButton FILLER_SLOT = new FillerButton();
 
         @Setting
-        public List<SchematicGUIButton> buttons = Lists.newArrayList(new SchematicGUIButton());
+        private final List<SchematicGUIButton> BUTTONS = Lists.newArrayList(new SchematicGUIButton());
 
+        @Override
+        public String getMenuTitle() {
+            return this.MENU_TITLE;
+        }
+
+        @Override
+        public int getRows() {
+            return ROWS;
+        }
+
+        @Override
+        public FillerButton getFillerItem() {
+            return FILLER_SLOT;
+        }
+
+        @Override
+        public List<SchematicGUIButton> getButtons() {
+            return BUTTONS;
+        }
     }
 }

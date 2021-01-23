@@ -1,10 +1,12 @@
 package games.synx.spongysb.config.configs;
 
+import ca.landonjw.gooeylibs.inventory.api.Button;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import games.synx.pscore.config.gui.templates.FillerButton;
 import games.synx.pscore.config.impl.AbstractConfiguration;
 import games.synx.pscore.config.impl.IConfiguration;
+import games.synx.spongysb.config.configs.guis.button.IGUIButton;
 import games.synx.spongysb.config.configs.wrappers.IslandUpgradeWrapper;
 import games.synx.spongysb.objects.enums.UpgradeType;
 import net.minecraft.item.Item;
@@ -44,32 +46,66 @@ public class Upgrades extends AbstractConfiguration<Upgrades.UpgradeSettings> im
 
 
     @ConfigSerializable
-    public static class UpgradeButton {
+    public static class UpgradeButton implements IGUIButton {
 
       @Setting
-      public UpgradeType upgradeType = UpgradeType.SIZE;
+      private final UpgradeType UPGRADE_TYPE = UpgradeType.SIZE;
 
       @Setting
-      public int column = 4;
+      private final int COLUMN = 4;
 
       @Setting
-      public int row = 1;
+      private final int ROW = 1;
 
       @Setting
-      public String item = "minecraft:glowstone";
+      private final String ITEM = "minecraft:glowstone";
 
       @Setting
-      public String displayName = "§dItemName!";
-
-      public ItemStack getItemStack() {
-        return new ItemStack(Item.getByNameOrId(item));
-      }
+      private final String DISPLAY_NAME = "§dItemName!";
 
       @Setting
-      public Map<String, IslandUpgradeWrapper> tiers = new HashMap<String, IslandUpgradeWrapper>() {{
+      private final Map<String, IslandUpgradeWrapper> TIERS = new HashMap<String, IslandUpgradeWrapper>() {{
         put("0", new IslandUpgradeWrapper());
         put("1", new IslandUpgradeWrapper());
       }};
+
+
+      @Override
+      public int getColumn() {
+        return this.COLUMN;
+      }
+
+      @Override
+      public int getRow() {
+        return this.ROW;
+      }
+
+      public ItemStack getItemStack() {
+        return new ItemStack(Item.getByNameOrId(this.ITEM));
+      }
+
+      @Override
+      public String getDisplayName() {
+        return this.DISPLAY_NAME;
+      }
+
+      @Override
+      public List<String> getLore() {
+        return null;
+      }
+
+      @Override
+      public Button.Builder getButtonBuilder() {
+        return null;
+      }
+
+      public UpgradeType getUpgradeType() {
+        return this.UPGRADE_TYPE;
+      }
+
+      public Map<String, IslandUpgradeWrapper> getTiers() {
+        return this.TIERS;
+      }
 
     }
 

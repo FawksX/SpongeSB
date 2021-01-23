@@ -12,16 +12,16 @@ import java.util.List;
 public class PlayerUtil {
 
     public static List<Player> getAllPlayersAtIsland(Island island) {
-        List<Player> playersAtIsland = Lists.newArrayList();
+        final List<Player> PLAYERS_AT_ISLAND = Lists.newArrayList();
 
         for(Player player: Sponge.getServer().getOnlinePlayers()) {
             if(Island.getIslandAt(player.getLocation()) == null) continue;
 
             if(isAtIsland(player, island)) {
-                playersAtIsland.add(player);
+                PLAYERS_AT_ISLAND.add(player);
             }
         }
-        return playersAtIsland;
+        return PLAYERS_AT_ISLAND;
     }
 
     public static boolean isAtIsland(Player player, Island island) {

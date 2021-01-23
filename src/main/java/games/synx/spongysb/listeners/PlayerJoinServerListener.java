@@ -6,7 +6,6 @@ import games.synx.spongysb.cache.PlayerCache;
 import games.synx.spongysb.generation.WorldManager;
 import games.synx.spongysb.objects.enums.IslandPerm;
 import games.synx.spongysb.objects.SPlayer;
-import games.synx.spongysb.objects.enums.IslandPermissionLevel;
 import games.synx.spongysb.storage.DatabaseManager;
 import games.synx.spongysb.storage.Statements;
 import games.synx.spongysb.util.IslandUtil;
@@ -24,10 +23,10 @@ import java.util.UUID;
 
 public class PlayerJoinServerListener {
 
-    private final Logger logger = SpongySB.get().getLogger();
+    final Logger LOGGER = SpongySB.get().getLogger();
 
     public PlayerJoinServerListener() {
-        logger.info("Registering PlayerJoinServerListener");
+        LOGGER.info("Registering PlayerJoinServerListener");
     }
 
     @Listener

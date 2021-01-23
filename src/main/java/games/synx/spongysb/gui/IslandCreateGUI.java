@@ -5,6 +5,7 @@ import ca.landonjw.gooeylibs.inventory.api.Page;
 import ca.landonjw.gooeylibs.inventory.api.Template;
 import games.synx.pscore.util.MessageUtil;
 import games.synx.spongysb.config.ConfigManager;
+import games.synx.spongysb.config.configs.guis.IGUIConfig;
 import games.synx.spongysb.config.configs.guis.SchemGUI;
 import games.synx.spongysb.config.configs.guis.button.SchematicGUIButton;
 import games.synx.spongysb.generation.GridManager;
@@ -16,26 +17,26 @@ public class IslandCreateGUI {
 
     public static void open(Player player, String name) {
 
-        SchemGUI.SchemGUISettings guiSettings = ConfigManager.get().getSchematicGUI();
+        final IGUIConfig<SchematicGUIButton> GUI_SETTINGS = ConfigManager.get().getSchematicGUI();
 
-        Template.Builder template = Template.builder(guiSettings.rows).fill(guiSettings.fillerSlot.getFillerButton());
+        Template.Builder template = Template.builder(GUI_SETTINGS.getRows()).fill(GUI_SETTINGS.getFillerItem().getFillerButton());
 
-        for(SchematicGUIButton confButton : guiSettings.buttons) {
+        for(SchematicGUIButton confButton : GUI_SETTINGS.getButtons()) {
 
             Button button = confButton.getButtonBuilder()
                     .onClick((action) -> {
                         MessageUtil.msg(player, ConfigManager.get().getMessages().creation.creating_island);
                         action.getPlayer().closeScreen();
-                        GridManager.get().newIsland(player, SchematicManager.get().getSchematicHandlers().get(confButton.schematic), name);
+                        GridManager.get().newIsland(player, SchematicManager.get().getSchematicHandlers().get(confButton.getSchematic()), name);
                         MessageUtil.msg(player, ConfigManager.get().getMessages().creation.island_created_successfully);
                     }).build();
 
-            template.set(confButton.row, confButton.column, button);
+            template.set(confButton.getRow(), confButton.getColumn(), button);
         }
 
         Page.builder()
                 .template(template.build())
-                .title(guiSettings.menuTitle)
+                .title(GUI_SETTINGS.getMenuTitle())
                 .build()
                 .openPage((EntityPlayerMP) player);
 

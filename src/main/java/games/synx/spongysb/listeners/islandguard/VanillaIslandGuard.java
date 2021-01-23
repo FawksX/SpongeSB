@@ -180,8 +180,10 @@ public class VanillaIslandGuard extends AbstractIslandGuard {
     SPlayer sPlayer = SPlayer.get(player);
 
     if(player.getLocation().getBlockY() < 0) {
+
       if(sPlayer.isInIsland(Island.getIslandAt(player.getLocation()))) {
         player.setLocationSafely(sPlayer.getIsland().getHomeLocation());
+
       } else {
         player.setLocationSafely(WorldManager.get().getServerSpawn());
         MessageUtil.msg(player, getConfigManager().getMessages().teleport.void_to_spawn);

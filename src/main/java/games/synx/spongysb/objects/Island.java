@@ -29,12 +29,13 @@ import java.util.stream.Stream;
 
 public class Island {
 
-  private final UUID island_uuid;
+  private final UUID ISLAND_UUID;
+  private final Location<World> LOCATION;
+  private final List<String> INVITED_MEMBERS = Lists.newArrayList();
+
   private UUID leader_uuid;
   private String island_name;
-  private final Location<World> location;
   private Location<World> homeLocation;
-  private final List<String> invited_members = Lists.newArrayList();
 
   private String island_size;
   private String member_limit;
@@ -46,7 +47,8 @@ public class Island {
   private Island(UUID island_uuid, UUID leader_uuid, String island_name,
                  String center_location, String home_location, String island_size, String member_limit, String island_generator) {
 
-    this.island_uuid = island_uuid;
+    this.ISLAND_UUID = island_uuid;
+
     this.leader_uuid = leader_uuid;
     this.island_name = island_name;
     this.member_limit = member_limit;
@@ -57,7 +59,7 @@ public class Island {
 
     // STORED IN FORMAT: x,z
     double[] arr = Stream.of(center_location.split(",")).mapToDouble(Double::parseDouble).toArray();
-    this.location = new Location<>(WorldManager.get().getWorld(), arr[0], ConfigManager.get().getConf().world.island_paste_height, arr[1]);
+    this.LOCATION = new Location<>(WorldManager.get().getWorld(), arr[0], ConfigManager.get().getConf().world.island_paste_height, arr[1]);
 
     // HOME LOCATION
     double[] homeLoc = Stream.of(home_location.split(",")).mapToDouble(Double::parseDouble).toArray();
@@ -230,15 +232,19 @@ public class Island {
   }
 
   /**
-   * Removes a UUID from pending invites
+   * Adds a UUID to pending invites
    * @param uuid UUID of the user to remove from the database
    */
   public void addInvite(UUID uuid) {
-    invited_members.add(uuid.toString());
+    INVITED_MEMBERS.add(uuid.toString());
   }
 
+  /**
+   * Removes a UUID from pending invites
+   * @param uuid UUID of the user to remove from the database
+   */
   public void revokeInvite(UUID uuid) {
-    invited_members.remove(uuid.toString());
+    INVITED_MEMBERS.remove(uuid.toString());
   }
 
   /**
@@ -247,7 +253,7 @@ public class Island {
    * @return if they have been invited
    */
   public boolean isInvited(UUID uuid) {
-    return invited_members.contains(uuid.toString());
+    return INVITED_MEMBERS.contains(uuid.toString());
   }
 
   /**
@@ -374,7 +380,7 @@ public class Island {
    * @return Island UUID
    */
   public UUID getIslandUUID() {
-    return this.island_uuid;
+    return this.ISLAND_UUID;
   }
 
   /**
@@ -399,7 +405,7 @@ public class Island {
    * @return Islands' Center Location
    */
   public Location<World> getCenterLocation() {
-    return this.location;
+    return this.LOCATION;
   }
 
   /**

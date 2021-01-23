@@ -96,7 +96,6 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
     @Setting
     public String no_permission = "&e&lISLAND &eYou do not have permission to perform this command (Island Permission Level must be lower!)";
 
-
     @ConfigSerializable
     public static class Creation {
 

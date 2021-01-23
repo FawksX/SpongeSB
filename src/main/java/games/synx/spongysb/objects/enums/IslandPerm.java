@@ -30,7 +30,7 @@ public enum IslandPerm {
   SET_UPGRADES("set_upgrades"), //cmpl
   PROMOTE("promote"), //cmpl
   DEMOTE("demote"), //cmpl
-  BAN("ban"),
+  BAN("ban"), // cmpl
   HOME("home"), // cmpl
   IS_LOCK("is_lock"), //cmpl
   SET_HOME("set_home"), //cmpl

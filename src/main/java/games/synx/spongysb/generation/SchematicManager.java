@@ -12,7 +12,8 @@ import java.util.Map;
 
 public class SchematicManager extends AbstractManager implements IManager {
 
-    private static SchematicManager instance = new SchematicManager();
+    private static SchematicManager instance;
+
     public static SchematicManager get() {
         return instance;
     }
