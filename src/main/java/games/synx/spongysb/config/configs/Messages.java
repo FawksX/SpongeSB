@@ -382,8 +382,8 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
       @Setting
       public Disband disband = new Disband();
 
-
-
+      @Setting
+      public Rename rename = new Rename();
 
       @ConfigSerializable
       public static class Disband {
@@ -391,6 +391,13 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
         @Setting
         public String admin_command_confirmation = "&3&lADMIN &eYou have successfully disbanded the island &b%s&e!";
 
+      }
+
+      @ConfigSerializable
+      public static class Rename {
+
+        @Setting
+        public String admin_command_notification = "&3&lADMIN &eYou have successfully changed %s's name to %s!";
       }
 
     }

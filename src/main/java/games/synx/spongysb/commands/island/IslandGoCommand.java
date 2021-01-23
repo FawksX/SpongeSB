@@ -5,6 +5,7 @@ import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
 import games.synx.spongysb.commands.AbstractIslandCommand;
+import games.synx.spongysb.commands.common.TeleportCommandCommon;
 import games.synx.spongysb.events.IslandEnterEvent;
 import games.synx.spongysb.events.IslandPreTeleportEvent;
 import games.synx.spongysb.objects.enums.IslandPerm;
@@ -34,25 +35,6 @@ public class IslandGoCommand extends AbstractIslandCommand {
       return;
     }
 
-    postEvent(new IslandPreTeleportEvent(sPlayer.getIsland(), player, IslandPreTeleportEvent.Reason.HOME, sPlayer.getIsland().getHomeLocation()));
-
-    Location<World> teleportLocation = sPlayer.getIsland().getHomeLocation();
-
-    if(player.setLocationSafely(teleportLocation)) {
-      IslandEnterEvent event = new IslandEnterEvent(sPlayer.getPlayerUUID(), sPlayer.getIsland(), teleportLocation);
-      player.setLocationSafely(teleportLocation);
-      Sponge.getEventManager().post(event);
-      msg(player, getMessages().teleport.teleporting_to_your_island);
-
-    } else {
-      if(player.setLocationSafely(sPlayer.getIsland().getCenterLocation())) {
-        IslandEnterEvent event = new IslandEnterEvent(sPlayer.getPlayerUUID(), sPlayer.getIsland(), teleportLocation);
-        player.setLocationSafely(sPlayer.getIsland().getCenterLocation());
-        Sponge.getEventManager().post(event);
-        msg(player, getMessages().teleport.teleporting_to_default_home_location);
-      } else {
-        msg(player, getMessages().teleport.could_not_teleport_to_island);
-      }
-    }
+    TeleportCommandCommon.executeCommon(SPlayer.get(player).getIsland(), player, IslandPreTeleportEvent.Reason.HOME);
   }
 }

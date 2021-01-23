@@ -44,7 +44,8 @@ public class IslandPreTeleportEvent extends CancellableIslandEvent {
     public enum Reason {
         HOME,
         WARP,
-        SPAWN
+        SPAWN,
+        ADMIN
 
     }
 

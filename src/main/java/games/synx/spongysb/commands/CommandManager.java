@@ -2,9 +2,7 @@ package games.synx.spongysb.commands;
 
 import games.synx.pscore.command.PSCommandManager;
 import games.synx.spongysb.SpongySB;
-import games.synx.spongysb.commands.admin.AdminBypassCommand;
-import games.synx.spongysb.commands.admin.AdminDisbandCommand;
-import games.synx.spongysb.commands.admin.SpongeSBCommand;
+import games.synx.spongysb.commands.admin.*;
 import games.synx.spongysb.commands.island.*;
 
 public class CommandManager extends PSCommandManager {
@@ -42,6 +40,8 @@ public class CommandManager extends PSCommandManager {
     getCommandManager().registerCommand(new SpongeSBCommand());
     getCommandManager().registerCommand(new AdminBypassCommand());
     getCommandManager().registerCommand(new AdminDisbandCommand());
+    getCommandManager().registerCommand(new AdminTeleportCommand());
+    getCommandManager().registerCommand(new AdminRenameCommand());
   }
 
 }
