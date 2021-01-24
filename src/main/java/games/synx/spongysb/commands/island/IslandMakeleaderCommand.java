@@ -8,6 +8,7 @@ import co.aikar.commands.annotation.Subcommand;
 import co.aikar.commands.annotation.Syntax;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.events.IslandChangeOwnerEvent;
+import games.synx.spongysb.gui.CommandConfirmGUI;
 import games.synx.spongysb.objects.Island;
 import games.synx.spongysb.objects.enums.IslandPermissionLevel;
 import games.synx.spongysb.objects.SPlayer;
@@ -45,18 +46,19 @@ public class IslandMakeleaderCommand extends AbstractIslandCommand {
       return;
     }
 
-    sPlayer.setIslandRole(IslandPermissionLevel.MEMBER);
-    sTargetLeader.setIslandRole(IslandPermissionLevel.LEADER);
-    island.setLeaderUUID(targetLeader.getUniqueId());
+    CommandConfirmGUI.open(player, (action) -> {
+      sPlayer.setIslandRole(IslandPermissionLevel.MEMBER);
+      sTargetLeader.setIslandRole(IslandPermissionLevel.LEADER);
+      island.setLeaderUUID(targetLeader.getUniqueId());
 
-    SPlayer.save(sPlayer);
-    SPlayer.save(sTargetLeader);
+      SPlayer.save(sPlayer);
+      SPlayer.save(sTargetLeader);
 
-    island.broadcastToOnlineMembers(getMessages().leader_changed_broadcast, player.getName(), targetLeader.getName());
+      island.broadcastToOnlineMembers(getMessages().leader_changed_broadcast, player.getName(), targetLeader.getName());
 
-    postEvent(new IslandChangeOwnerEvent(island, sPlayer.getPlayerUUID(), sTargetLeader.getPlayerUUID()));
-
-
+      postEvent(new IslandChangeOwnerEvent(island, sPlayer.getPlayerUUID(), sTargetLeader.getPlayerUUID()));
+      action.getPlayer().closeScreen();
+    });
 
   }
 }

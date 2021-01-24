@@ -1,7 +1,10 @@
 package games.synx.spongysb.commands.island;
 
 import co.aikar.commands.annotation.*;
+import games.synx.pscore.util.MessageUtil;
 import games.synx.spongysb.commands.AbstractIslandCommand;
+import games.synx.spongysb.config.ConfigManager;
+import games.synx.spongysb.gui.CommandConfirmGUI;
 import games.synx.spongysb.objects.enums.IslandPerm;
 import games.synx.spongysb.objects.SPlayer;
 import org.spongepowered.api.entity.living.player.Player;
@@ -21,16 +24,22 @@ public class IslandSethomeCommand extends AbstractIslandCommand {
             return;
         }
 
-        if(!sPlayer.hasPerm(IslandPerm.SET_HOME, sPlayer.getIsland())) {
+        if (!sPlayer.hasPerm(IslandPerm.SET_HOME, sPlayer.getIsland())) {
             msg(player, getMessages().no_permission);
             return;
         }
 
-        if(sPlayer.atTheirIsland()) {
-            if(player.getLocation().hasBlock()) {
-                sPlayer.getIsland().setHome(player.getLocation());
-                msg(player, getMessages().setHome.island_home_set_successfully);
+        if (sPlayer.atTheirIsland()) {
+            if (player.getLocation().hasBlock()) {
+
+                CommandConfirmGUI.open(player, (action) -> {
+                    sPlayer.getIsland().setHome(player.getLocation());
+                    MessageUtil.msg(player, ConfigManager.get().getMessages().setHome.island_home_set_successfully);
+                    action.getPlayer().closeScreen();
+                });
+
                 return;
+
             }
 
             msg(player, getMessages().setHome.unsafe_home_location);

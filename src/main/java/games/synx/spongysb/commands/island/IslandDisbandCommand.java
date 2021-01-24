@@ -3,6 +3,7 @@ package games.synx.spongysb.commands.island;
 import co.aikar.commands.annotation.*;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.commands.common.DisbandCommandCommon;
+import games.synx.spongysb.gui.CommandConfirmGUI;
 import games.synx.spongysb.objects.Island;
 import games.synx.spongysb.objects.enums.IslandPermissionLevel;
 import games.synx.spongysb.objects.SPlayer;
@@ -35,7 +36,12 @@ public class IslandDisbandCommand extends AbstractIslandCommand {
 
     Island island = sPlayer.getIsland();
 
-    DisbandCommandCommon.executeCommon(player, island);
+    CommandConfirmGUI.open(player, (action) -> {
+      DisbandCommandCommon.executeCommon(player, island);
+      action.getPlayer().closeScreen();
+    });
+
+
 
   }
 }

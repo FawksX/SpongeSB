@@ -6,6 +6,7 @@ import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
 import co.aikar.commands.annotation.Syntax;
 import games.synx.spongysb.commands.AbstractIslandCommand;
+import games.synx.spongysb.gui.CommandConfirmGUI;
 import games.synx.spongysb.objects.Island;
 import games.synx.spongysb.objects.enums.IslandPerm;
 import games.synx.spongysb.objects.SPlayer;
@@ -38,9 +39,13 @@ public class IslandRenameCommand extends AbstractIslandCommand {
       return;
     }
 
-    Island island = sPlayer.getIsland();
-    island.setIslandName(name);
-    island.broadcastToOnlineMembers(getMessages().island_name_set_successfully, player.getName(), name);
+    CommandConfirmGUI.open(player, (action) -> {
+      Island island = sPlayer.getIsland();
+      island.setIslandName(name);
+      island.broadcastToOnlineMembers(getMessages().island_name_set_successfully, player.getName(), name);
+      action.getPlayer().closeScreen();
+    });
+
 
 
 
