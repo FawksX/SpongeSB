@@ -1,10 +1,6 @@
 package games.synx.spongysb.commands.island;
 
-import co.aikar.commands.annotation.CommandAlias;
-import co.aikar.commands.annotation.CommandPermission;
-import co.aikar.commands.annotation.Description;
-import co.aikar.commands.annotation.Subcommand;
-import co.aikar.commands.annotation.Syntax;
+import co.aikar.commands.annotation.*;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.objects.Island;
 import games.synx.spongysb.objects.enums.IslandPerm;
@@ -17,6 +13,7 @@ public class IslandInviteCommand extends AbstractIslandCommand {
 
   @Subcommand("invite")
   @Description("Invite a player to your Island!")
+  @CommandCompletion("@spongeplayers")
   @Syntax("<player>")
   @CommandPermission("spongysb.island.invite")
   public void onInviteCommand(Player player, String name) {

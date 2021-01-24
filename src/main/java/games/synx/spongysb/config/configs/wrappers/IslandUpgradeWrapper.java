@@ -11,13 +11,13 @@ import java.util.List;
 public class IslandUpgradeWrapper {
 
     @Setting
-    private final int COST = 0;
+    private int cost = 0;
 
     @Setting
-    private final int SETTING = 50;
+    private int setting = 50;
 
     @Setting
-    private final List<String> DESCRIPTION = Lists.newArrayList(
+    private List<String> description = Lists.newArrayList(
             "§7Upgrade the ores produced by your",
             "§7Ore Generators.",
             "{setting} : {cost}",
@@ -36,15 +36,15 @@ public class IslandUpgradeWrapper {
     );
 
     public BigDecimal getCost() {
-        return BigDecimal.valueOf(this.COST);
+        return BigDecimal.valueOf(this.cost);
     }
 
     public int getSetting() {
-        return this.SETTING;
+        return this.setting;
     }
 
     public List<String> getDescription() {
-        return this.DESCRIPTION;
+        return this.description;
     }
 
 }

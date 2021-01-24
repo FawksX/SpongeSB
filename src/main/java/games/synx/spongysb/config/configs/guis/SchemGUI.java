@@ -22,35 +22,35 @@ public class SchemGUI extends AbstractConfiguration<SchemGUI.SchemGUISettings> i
     public static class SchemGUISettings implements IGUIConfig<SchematicGUIButton> {
 
         @Setting
-        private final String MENU_TITLE = "§aIsland Creation";
+        private final String menuTitle = "§aIsland Creation";
 
         @Setting
-        private final int ROWS = 3;
+        private final int rows = 3;
 
         @Setting
-        private final  FillerButton FILLER_SLOT = new FillerButton();
+        private final  FillerButton fillerSlot = new FillerButton();
 
         @Setting
-        private final List<SchematicGUIButton> BUTTONS = Lists.newArrayList(new SchematicGUIButton());
+        private final List<SchematicGUIButton> buttons = Lists.newArrayList(new SchematicGUIButton());
 
         @Override
         public String getMenuTitle() {
-            return this.MENU_TITLE;
+            return this.menuTitle;
         }
 
         @Override
         public int getRows() {
-            return ROWS;
+            return rows;
         }
 
         @Override
         public FillerButton getFillerItem() {
-            return FILLER_SLOT;
+            return fillerSlot;
         }
 
         @Override
         public List<SchematicGUIButton> getButtons() {
-            return BUTTONS;
+            return buttons;
         }
     }
 }

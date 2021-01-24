@@ -13,53 +13,53 @@ import java.util.List;
 public class SchematicGUIButton implements IGUIButton {
 
     @Setting
-    private final int COLUMN = 4;
+    private int column = 4;
 
     @Setting
-    private final int ROW = 1;
+    private int row = 1;
 
     @Setting
-    private final String ITEM = "minecraft:glowstone";
+    private String item = "minecraft:glowstone";
 
     @Setting
-    private final String DISPLAY_NAME = "ItemName!";
+    private String displayName = "ItemName!";
 
     @Setting
-    private final List<String> LORE = Lists.newArrayList();
+    private List<String> lore = Lists.newArrayList();
 
     @Setting
-    private final String SCHEMATIC = "default.schematic";
+    private String schematic = "default.schematic";
 
     @Override
     public int getColumn() {
-        return this.COLUMN;
+        return this.column;
     }
 
     @Override
     public int getRow() {
-        return this.ROW;
+        return this.row;
     }
 
     public ItemStack getItemStack() {
-        return new ItemStack(Item.getByNameOrId(this.ITEM));
+        return new ItemStack(Item.getByNameOrId(this.item));
     }
 
     @Override
     public String getDisplayName() {
-        return this.DISPLAY_NAME;
+        return this.displayName;
     }
 
     @Override
     public List<String> getLore() {
-        return this.LORE;
+        return this.lore;
     }
 
     public String getSchematic() {
-        return this.SCHEMATIC;
+        return this.schematic;
     }
 
     public Button.Builder getButtonBuilder() {
-        return Button.builder().item(getItemStack()).displayName(this.DISPLAY_NAME).lore(this.LORE);
+        return Button.builder().item(getItemStack()).displayName(this.displayName).lore(this.lore);
     }
 
 }

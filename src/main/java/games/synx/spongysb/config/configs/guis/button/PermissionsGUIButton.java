@@ -14,22 +14,22 @@ import java.util.List;
 public class PermissionsGUIButton implements IGUIButton {
 
     @Setting
-    private final int COLUMN = 1;
+    private int column = 1;
 
     @Setting
-    private final int ROW = 1;
+    private int row = 1;
 
     @Setting
-    private final IslandPerm ISLAND_PERM = IslandPerm.PLACE;
+    private IslandPerm islandPerm = IslandPerm.PLACE;
 
     @Setting
-    private final String ITEM = "pixelmon:tm12";
+    private String item = "pixelmon:tm12";
 
     @Setting
-    private final String DISPLAY_NAME = "§c§lPLACE";
+    private String displayName = "§c§lPLACE";
 
     @Setting
-    private final List<String> LORE = Lists.newArrayList(
+    private final List<String> lore = Lists.newArrayList(
             "§eCurrent Permission Level: §a§l{level}",
             "§d§lLeft Click to increase needed level",
             "§e§lShift Click to decrease needed level"
@@ -37,36 +37,36 @@ public class PermissionsGUIButton implements IGUIButton {
 
     @Override
     public int getColumn() {
-        return this.COLUMN;
+        return this.column;
     }
 
     @Override
     public int getRow() {
-        return this.ROW;
+        return this.row;
     }
 
     @Override
     public ItemStack getItemStack() {
-        return new ItemStack(Item.getByNameOrId(this.ITEM));
+        return new ItemStack(Item.getByNameOrId(this.item));
     }
 
     @Override
     public String getDisplayName() {
-        return this.DISPLAY_NAME;
+        return this.displayName;
     }
 
     @Override
     public List<String> getLore() {
-        return this.LORE;
+        return this.lore;
     }
 
     @Override
     public Button.Builder getButtonBuilder() {
-        return Button.builder().item(getItemStack()).displayName(this.DISPLAY_NAME);
+        return Button.builder().item(getItemStack()).displayName(this.displayName);
     }
 
     public IslandPerm getIslandPerm() {
-        return this.ISLAND_PERM;
+        return this.islandPerm;
     }
 
 

@@ -22,13 +22,13 @@ public class PermGUI extends AbstractConfiguration<PermGUI.PermGUISettings> impl
     public static class PermGUISettings implements IGUIConfig<PermissionsGUIButton> {
 
         @Setting
-        private final String MENU_TITLE = "§3Island Permissions";
+        private String menuTitle = "§3Island Permissions";
 
         @Setting
-        private final int ROWS = 6;
+        private int rows = 6;
 
         @Setting
-        private final FillerButton FILLER_SLOT = new FillerButton();
+        private FillerButton fillerSlot = new FillerButton();
 
         /**
          * SETTINGS NOT HERE:
@@ -45,27 +45,27 @@ public class PermGUI extends AbstractConfiguration<PermGUI.PermGUISettings> impl
          * ANIMALS
          */
         @Setting
-        private final List<PermissionsGUIButton> BUTTONS = Lists.newArrayList(new PermissionsGUIButton());
+        private List<PermissionsGUIButton> buttons = Lists.newArrayList(new PermissionsGUIButton());
 
 
         @Override
         public String getMenuTitle() {
-            return this.MENU_TITLE;
+            return this.menuTitle;
         }
 
         @Override
         public int getRows() {
-            return this.ROWS;
+            return this.rows;
         }
 
         @Override
         public FillerButton getFillerItem() {
-            return this.FILLER_SLOT;
+            return this.fillerSlot;
         }
 
         @Override
         public List<PermissionsGUIButton> getButtons() {
-            return this.BUTTONS;
+            return this.buttons;
         }
 
     }
