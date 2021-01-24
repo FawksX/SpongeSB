@@ -6,14 +6,10 @@ import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.commands.common.TeleportCommandCommon;
-import games.synx.spongysb.events.IslandEnterEvent;
 import games.synx.spongysb.events.IslandPreTeleportEvent;
 import games.synx.spongysb.objects.enums.IslandPerm;
 import games.synx.spongysb.objects.SPlayer;
-import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.world.Location;
-import org.spongepowered.api.world.World;
 
 @CommandAlias("is|island")
 public class IslandGoCommand extends AbstractIslandCommand {

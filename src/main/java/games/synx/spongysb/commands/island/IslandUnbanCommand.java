@@ -10,8 +10,6 @@ import games.synx.spongysb.objects.enums.IslandPerm;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
 
-import java.util.Optional;
-
 @CommandAlias("is|island")
 public class IslandUnbanCommand extends AbstractIslandCommand {
 

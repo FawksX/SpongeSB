@@ -13,6 +13,7 @@ public class IslandCoopCommand extends AbstractIslandCommand {
 
     @Subcommand("coop")
     @Description("Coop a player on your island!")
+    @CommandCompletion("@spongeplayers")
     @Syntax("<player>")
     @CommandPermission("spongysb.island.coop")
     public void onCoopCommand(Player player, String name) {

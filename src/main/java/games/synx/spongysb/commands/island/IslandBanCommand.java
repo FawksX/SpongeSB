@@ -17,6 +17,7 @@ public class IslandBanCommand extends AbstractIslandCommand {
 
     @Subcommand("ban")
     @Description("Ban a player on your island!")
+    @CommandCompletion("@spongeplayers")
     @Syntax("<player>")
     @CommandPermission("spongysb.island.ban")
     public void onBanCommand(Player player, String name) {

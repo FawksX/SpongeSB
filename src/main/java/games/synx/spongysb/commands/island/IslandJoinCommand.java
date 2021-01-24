@@ -1,10 +1,6 @@
 package games.synx.spongysb.commands.island;
 
-import co.aikar.commands.annotation.CommandAlias;
-import co.aikar.commands.annotation.CommandPermission;
-import co.aikar.commands.annotation.Description;
-import co.aikar.commands.annotation.Subcommand;
-import co.aikar.commands.annotation.Syntax;
+import co.aikar.commands.annotation.*;
 import games.synx.pscore.util.AsyncUtil;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.events.IslandJoinEvent;
@@ -19,6 +15,7 @@ public class IslandJoinCommand extends AbstractIslandCommand {
 
   @Subcommand("join")
   @Description("Join another players' Island!")
+  @CommandCompletion("@islands")
   @Syntax("<island name>")
   @CommandPermission("spongysb.island.invite")
   public void onJoinCommand(Player player, String islandName) {

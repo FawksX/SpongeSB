@@ -16,7 +16,7 @@ public class IslandDemoteCommand extends AbstractIslandCommand {
 
     @Subcommand("demote")
     @Syntax("<player>")
-    @CommandCompletion("@onlineplayers")
+    @CommandCompletion("@spongeplayers")
     @Description("Demote an Island Member in your island!")
     @CommandPermission("spongysb.island.demote")
     public void onPromoteCommand(Player player, String member) {

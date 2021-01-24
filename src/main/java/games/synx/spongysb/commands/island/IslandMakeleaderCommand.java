@@ -20,7 +20,7 @@ public class IslandMakeleaderCommand extends AbstractIslandCommand {
 
   @Subcommand("makeleader")
   @Syntax("<player>")
-  @CommandCompletion("@onlineplayers")
+  @CommandCompletion("@spongeplayers")
   @Description("Give your island to someone else")
   @CommandPermission("spongysb.island.makeleader")
   public void onMakeLeaderCommand(Player player, String newLeader) {

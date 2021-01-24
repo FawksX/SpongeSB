@@ -10,10 +10,13 @@ import org.spongepowered.api.entity.living.player.Player;
 
 import java.util.function.Consumer;
 
+/**
+ * Very Basic Confirmation GUI
+ * Used in quite a few of the commands. Just pass in a Consumer for the button as GooeyLibs would normally want - (action) -> ...
+ */
 public class CommandConfirmGUI {
 
     public static void open(Player player, Consumer<ButtonAction> actions) {
-
         Template.Builder template = Template.builder(3).fill(new FillerButton().getFillerButton());
         template.set(1, 2, ConfirmButtons.CONFIRM_BUTTON.onClick(actions).build());
         template.set(1, 6, ConfirmButtons.DENY_BUTTON);

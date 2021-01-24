@@ -1,10 +1,6 @@
 package games.synx.spongysb.commands.island;
 
-import co.aikar.commands.annotation.CommandAlias;
-import co.aikar.commands.annotation.CommandPermission;
-import co.aikar.commands.annotation.Description;
-import co.aikar.commands.annotation.Subcommand;
-import co.aikar.commands.annotation.Syntax;
+import co.aikar.commands.annotation.*;
 import games.synx.pscore.util.PlayerUtil;
 import games.synx.spongysb.commands.AbstractIslandCommand;
 import games.synx.spongysb.generation.WorldManager;
@@ -21,6 +17,7 @@ public class IslandKickCommand extends AbstractIslandCommand {
   @Subcommand("kick")
   @Description("Kick a player from your island")
   @Syntax("<player>")
+  @CommandCompletion("@spongeplayers")
   @CommandPermission("spongysb.island.kick")
   public void onKickCommand(Player player, String name) {
 

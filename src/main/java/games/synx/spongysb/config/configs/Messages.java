@@ -270,9 +270,6 @@ public class Messages extends AbstractConfiguration<Messages.MessageSettings> im
     public static class Disband {
 
       @Setting
-      public String disband_confirm = "&e&lISLAND &eType &a/is disband confirm &eto leave your island.";
-
-      @Setting
       public String disband_must_be_in_island = "&e&lISLAND &eYou must be in an island to be able to disband!";
 
       @Setting

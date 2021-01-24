@@ -7,7 +7,6 @@ import games.synx.spongysb.config.configs.Conf;
 import games.synx.spongysb.config.configs.Messages;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.Event;
-import org.spongepowered.api.event.impl.AbstractEvent;
 
 public class AbstractIslandCommand extends AbstractPSCommand {
 
