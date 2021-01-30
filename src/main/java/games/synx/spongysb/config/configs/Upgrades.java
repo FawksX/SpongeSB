@@ -46,65 +46,32 @@ public class Upgrades extends AbstractConfiguration<Upgrades.UpgradeSettings> im
 
 
     @ConfigSerializable
-    public static class UpgradeButton implements IGUIButton {
+    public static class UpgradeButton {
 
       @Setting
-      private final UpgradeType UPGRADE_TYPE = UpgradeType.SIZE;
+      public UpgradeType upgradeType = UpgradeType.SIZE;
 
       @Setting
-      private final int COLUMN = 4;
+      public int column = 4;
 
       @Setting
-      private final int ROW = 1;
+      public int row = 1;
 
       @Setting
-      private final String ITEM = "minecraft:glowstone";
+      public String item = "minecraft:glowstone";
 
       @Setting
-      private final String DISPLAY_NAME = "§dItemName!";
+      public String displayName = "§dItemName!";
 
       @Setting
-      private final Map<String, IslandUpgradeWrapper> TIERS = new HashMap<String, IslandUpgradeWrapper>() {{
+      public Map<String, IslandUpgradeWrapper> tiers = new HashMap<String, IslandUpgradeWrapper>() {{
         put("0", new IslandUpgradeWrapper());
         put("1", new IslandUpgradeWrapper());
       }};
 
 
-      @Override
-      public int getColumn() {
-        return this.COLUMN;
-      }
-
-      @Override
-      public int getRow() {
-        return this.ROW;
-      }
-
       public ItemStack getItemStack() {
-        return new ItemStack(Item.getByNameOrId(this.ITEM));
-      }
-
-      @Override
-      public String getDisplayName() {
-        return this.DISPLAY_NAME;
-      }
-
-      @Override
-      public List<String> getLore() {
-        return null;
-      }
-
-      @Override
-      public Button.Builder getButtonBuilder() {
-        return null;
-      }
-
-      public UpgradeType getUpgradeType() {
-        return this.UPGRADE_TYPE;
-      }
-
-      public Map<String, IslandUpgradeWrapper> getTiers() {
-        return this.TIERS;
+        return new ItemStack(Item.getByNameOrId(this.item));
       }
 
     }

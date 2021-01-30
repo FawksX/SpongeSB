@@ -11,13 +11,13 @@ import java.util.List;
 public class IslandUpgradeWrapper {
 
     @Setting
-    private int cost = 0;
+    public int cost = 0;
 
     @Setting
-    private int setting = 50;
+    public int setting = 50;
 
     @Setting
-    private List<String> description = Lists.newArrayList(
+    public List<String> description = Lists.newArrayList(
             "§7Upgrade the ores produced by your",
             "§7Ore Generators.",
             "{setting} : {cost}",

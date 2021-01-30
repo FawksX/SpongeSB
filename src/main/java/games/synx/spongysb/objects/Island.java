@@ -463,8 +463,8 @@ public class Island {
    */
   public double getSize() {
     for(Upgrades.UpgradeSettings.UpgradeButton upgradeButton : ConfigManager.get().getUpgrades().buttons) {
-      if(upgradeButton.getUpgradeType() == UpgradeType.SIZE) {
-        return upgradeButton.getTiers().get(this.island_size).getSetting();
+      if(upgradeButton.upgradeType == UpgradeType.SIZE) {
+        return upgradeButton.tiers.get(this.island_size).getSetting();
       }
     }
     // this will never be null so who cares
@@ -534,8 +534,8 @@ public class Island {
    */
   public int getMemberLimit() {
     for (Upgrades.UpgradeSettings.UpgradeButton upgradeButton : ConfigManager.get().getUpgrades().buttons) {
-      if (upgradeButton.getUpgradeType() == UpgradeType.MEMBER_LIMIT) {
-        return upgradeButton.getTiers().get(this.member_limit).getSetting();
+      if (upgradeButton.upgradeType == UpgradeType.MEMBER_LIMIT) {
+        return upgradeButton.tiers.get(this.member_limit).getSetting();
       }
     }
     return 1;

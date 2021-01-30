@@ -21,6 +21,7 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.service.economy.transaction.ResultType;
 import org.spongepowered.api.service.economy.transaction.TransactionResult;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class IslandUpgradesGUI {
@@ -40,7 +41,7 @@ public class IslandUpgradesGUI {
 
             Button button = Button.builder()
                     .item(confButton.getItemStack())
-                    .displayName(confButton.getDisplayName())
+                    .displayName(confButton.displayName)
                     .lore(replaceLevel(confButton, island))
                     .onClick((action) -> {
                         if (!sPlayer.hasPerm(IslandPerm.SET_UPGRADES, sPlayer.getIsland())) {
@@ -52,7 +53,7 @@ public class IslandUpgradesGUI {
 
                     }).build();
 
-            template.set(confButton.getRow(), confButton.getColumn(), button);
+            template.set(confButton.row, confButton.column, button);
         }
 
         Page.builder()
@@ -71,16 +72,16 @@ public class IslandUpgradesGUI {
 
         IslandUpgradeWrapper newLevel = null;
 
-        if (upgradeButton.getUpgradeType() == UpgradeType.SIZE) {
-            newLevel = upgradeButton.getTiers().get(String.valueOf(Integer.valueOf(island.getIslandSizeValue() + 1)));
+        if (upgradeButton.upgradeType == UpgradeType.SIZE) {
+            newLevel = upgradeButton.tiers.get(String.valueOf(Integer.valueOf(island.getIslandSizeValue() + 1)));
         }
 
-        if (upgradeButton.getUpgradeType() == UpgradeType.GENERATOR) {
-            newLevel = upgradeButton.getTiers().get(String.valueOf(Integer.valueOf(island.getIslandGeneratorValue() + 1)));
+        if (upgradeButton.upgradeType == UpgradeType.GENERATOR) {
+            newLevel = upgradeButton.tiers.get(String.valueOf(Integer.valueOf(island.getIslandGeneratorValue() + 1)));
         }
 
-        if(upgradeButton.getUpgradeType() == UpgradeType.MEMBER_LIMIT) {
-            newLevel = upgradeButton.getTiers().get(String.valueOf(Integer.parseInt(island.getIslandMemberLimitValue()) + 1));
+        if(upgradeButton.upgradeType == UpgradeType.MEMBER_LIMIT) {
+            newLevel = upgradeButton.tiers.get(String.valueOf(Integer.parseInt(island.getIslandMemberLimitValue()) + 1));
         }
 
 
@@ -89,21 +90,21 @@ public class IslandUpgradesGUI {
             return;
         }
 
-        TransactionResult result = EconomyUtil.withdrawBalance(player, newLevel.getCost());
+        TransactionResult result = EconomyUtil.withdrawBalance(player, BigDecimal.valueOf(newLevel.cost));
         if (result.getResult() == ResultType.SUCCESS) {
 
-            if(upgradeButton.getUpgradeType() == UpgradeType.SIZE) {
+            if(upgradeButton.upgradeType == UpgradeType.SIZE) {
                 island.setSize(String.valueOf(Integer.parseInt(island.getIslandSizeValue()) + 1));
                 for (Player aPlayer : PlayerUtil.getAllPlayersAtIsland(island)) {
                     IslandUtil.changeBorder(aPlayer, island.getCenterLocation());
                 }
             }
 
-            if(upgradeButton.getUpgradeType() == UpgradeType.GENERATOR) {
+            if(upgradeButton.upgradeType == UpgradeType.GENERATOR) {
                 island.setIslandGeneratorValue(Integer.parseInt(island.getIslandGeneratorValue() + 1));
             }
 
-            if (upgradeButton.getUpgradeType() == UpgradeType.MEMBER_LIMIT) {
+            if (upgradeButton.upgradeType == UpgradeType.MEMBER_LIMIT) {
                 island.setMemberLimitValue(Integer.parseInt(island.getIslandMemberLimitValue() + 1));
             }
 
@@ -122,14 +123,14 @@ public class IslandUpgradesGUI {
         String setting = "";
         String cost = "";
 
-        if (upgradeButton.getUpgradeType() == UpgradeType.SIZE) {
-            button = upgradeButton.getTiers().get(island.getIslandSizeValue());
+        if (upgradeButton.upgradeType == UpgradeType.SIZE) {
+            button = upgradeButton.tiers.get(island.getIslandSizeValue());
         }
-        if (upgradeButton.getUpgradeType() == UpgradeType.GENERATOR) {
-            button = upgradeButton.getTiers().get(island.getIslandGeneratorValue());
+        if (upgradeButton.upgradeType == UpgradeType.GENERATOR) {
+            button = upgradeButton.tiers.get(island.getIslandGeneratorValue());
         }
-        if(upgradeButton.getUpgradeType() == UpgradeType.MEMBER_LIMIT) {
-            button = upgradeButton.getTiers().get(island.getIslandMemberLimitValue());
+        if(upgradeButton.upgradeType == UpgradeType.MEMBER_LIMIT) {
+            button = upgradeButton.tiers.get(island.getIslandMemberLimitValue());
         }
 
         if (button == null) {
