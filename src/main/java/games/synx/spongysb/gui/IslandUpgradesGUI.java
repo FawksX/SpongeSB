@@ -26,9 +26,9 @@ import java.util.List;
 
 public class IslandUpgradesGUI {
 
-    private static final Messages.MessageSettings MESSAGES = ConfigManager.get().getMessages();
-
     public static void open(Player player) {
+
+        final Messages.MessageSettings MESSAGES = ConfigManager.get().getMessages();
 
         SPlayer sPlayer = SPlayer.get(player);
         Island island = sPlayer.getIsland();
@@ -49,7 +49,7 @@ public class IslandUpgradesGUI {
                             return;
                         }
 
-                        buttonClick(confButton, action, player);
+                        buttonClick(MESSAGES, confButton, action, player);
 
                     }).build();
 
@@ -65,7 +65,7 @@ public class IslandUpgradesGUI {
     }
 
 
-    private static void buttonClick(Upgrades.UpgradeSettings.UpgradeButton upgradeButton, ButtonAction action, Player player) {
+    private static void buttonClick(Messages.MessageSettings messageSettings, Upgrades.UpgradeSettings.UpgradeButton upgradeButton, ButtonAction action, Player player) {
 
         SPlayer sPlayer = SPlayer.get(player);
         Island island = sPlayer.getIsland();
@@ -86,7 +86,7 @@ public class IslandUpgradesGUI {
 
 
         if (newLevel == null) {
-            MessageUtil.msg(player, MESSAGES.upgrades.max_upgrade);
+            MessageUtil.msg(player, messageSettings.upgrades.max_upgrade);
             return;
         }
 
@@ -108,12 +108,12 @@ public class IslandUpgradesGUI {
                 island.setMemberLimitValue(Integer.parseInt(island.getIslandMemberLimitValue() + 1));
             }
 
-            island.broadcastToOnlineMembers(MESSAGES.upgrades.upgraded, player.getName());
+            island.broadcastToOnlineMembers(messageSettings.upgrades.upgraded, player.getName());
             action.getButton().toBuilder().lore(replaceLevel(upgradeButton, island)).build();
 
         }
         if (result.getResult() == ResultType.FAILED || result.getResult() == ResultType.ACCOUNT_NO_FUNDS) {
-            MessageUtil.msg(player, MESSAGES.upgrades.no_funds);
+            MessageUtil.msg(player, messageSettings.upgrades.no_funds);
         }
     }
 

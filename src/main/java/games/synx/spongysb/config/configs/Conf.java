@@ -1,5 +1,6 @@
 package games.synx.spongysb.config.configs;
 
+import games.synx.pscore.config.annotation.Config;
 import games.synx.pscore.config.impl.AbstractConfiguration;
 import games.synx.pscore.config.impl.IConfiguration;
 import games.synx.spongysb.objects.enums.IslandPerm;
@@ -7,16 +8,14 @@ import games.synx.spongysb.objects.enums.IslandPermissionLevel;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.objectmapping.meta.Setting;
 
-import java.io.IOException;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class Conf extends AbstractConfiguration<Conf.ConfSettings> implements IConfiguration {
-
-    public Conf(Path configFile) throws IOException {
-        super(configFile, ConfSettings.class);
-    }
+@Config(
+        file = "conf.json",
+        clazz = Conf.ConfSettings.class
+)
+public final class Conf extends AbstractConfiguration implements IConfiguration {
 
     @ConfigSerializable
     public static class ConfSettings {

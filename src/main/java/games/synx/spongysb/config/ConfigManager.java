@@ -1,7 +1,9 @@
 package games.synx.spongysb.config;
 
+import games.synx.pscore.config.exception.ConfigLoadException;
 import games.synx.pscore.config.impl.AbstractConfigManager;
 import games.synx.pscore.config.impl.IConfigManager;
+import games.synx.pscore.config.impl.IConfiguration;
 import games.synx.pscore.manager.IManager;
 import games.synx.spongysb.SpongySB;
 import games.synx.spongysb.config.configs.Conf;
@@ -9,8 +11,6 @@ import games.synx.spongysb.config.configs.Messages;
 import games.synx.spongysb.config.configs.Upgrades;
 import games.synx.spongysb.config.configs.guis.PermGUI;
 import games.synx.spongysb.config.configs.guis.SchemGUI;
-
-import java.io.IOException;
 
 public class ConfigManager extends AbstractConfigManager implements IManager, IConfigManager {
 
@@ -20,12 +20,12 @@ public class ConfigManager extends AbstractConfigManager implements IManager, IC
 
   private static ConfigManager instance;
 
-  private Conf conf;
-  private Messages message;
-  private Upgrades upgrades;
+  private IConfiguration conf;
+  private IConfiguration message;
+  private IConfiguration upgrades;
 
-  private PermGUI permGUI;
-  private SchemGUI schemGUI;
+  private IConfiguration permGUI;
+  private IConfiguration schemGUI;
 
   public ConfigManager() {
     super(SpongySB.get().getLogger(), SpongySB.get().getConfigDir());
@@ -33,17 +33,16 @@ public class ConfigManager extends AbstractConfigManager implements IManager, IC
     instance = this;
 
     try {
-      conf = new Conf(getFilePath("conf.json"));
-      message = new Messages(getFilePath("messages.json"));
-      upgrades = new Upgrades(getFilePath("upgrades.json"));
+      conf = setupConfig(new Conf());
+      message = setupConfig(new Messages());
+      upgrades = setupConfig(new Upgrades());
 
-      permGUI = new PermGUI(getGUIPath("permissions.json"));
-      schemGUI = new SchemGUI(getGUIPath("createisland.json"));
-
-    } catch (IOException e) {
-      getLogger().error("Could not instantiate a config!");
+      permGUI = setupConfig(new PermGUI());
+      schemGUI = setupConfig(new SchemGUI());
+    } catch (ConfigLoadException e) {
       e.printStackTrace();
     }
+
   }
 
   // ----------------------------------------------- //
@@ -51,23 +50,23 @@ public class ConfigManager extends AbstractConfigManager implements IManager, IC
   // ----------------------------------------------- //
 
   public Conf.ConfSettings getConf() {
-    return this.conf.getSettings();
+    return (Conf.ConfSettings) this.conf.getSettings();
   }
 
   public Messages.MessageSettings getMessages() {
-    return this.message.getSettings();
+    return (Messages.MessageSettings) this.message.getSettings();
   }
 
   public Upgrades.UpgradeSettings getUpgrades() {
-    return this.upgrades.getSettings();
+    return (Upgrades.UpgradeSettings) this.upgrades.getSettings();
   }
 
   public PermGUI.PermGUISettings getPermissionsGUI() {
-    return this.permGUI.getSettings();
+    return (PermGUI.PermGUISettings) this.permGUI.getSettings();
   }
 
   public SchemGUI.SchemGUISettings getSchematicGUI() {
-    return this.schemGUI.getSettings();
+    return (SchemGUI.SchemGUISettings) this.schemGUI.getSettings();
   }
 
 }

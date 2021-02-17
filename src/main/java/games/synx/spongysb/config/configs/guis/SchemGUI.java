@@ -1,6 +1,7 @@
 package games.synx.spongysb.config.configs.guis;
 
 import com.google.common.collect.Lists;
+import games.synx.pscore.config.annotation.Config;
 import games.synx.pscore.config.gui.templates.FillerButton;
 import games.synx.pscore.config.impl.AbstractConfiguration;
 import games.synx.pscore.config.impl.IConfiguration;
@@ -12,11 +13,11 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
-public class SchemGUI extends AbstractConfiguration<SchemGUI.SchemGUISettings> implements IConfiguration {
-
-    public SchemGUI(Path configFile) throws IOException {
-        super(configFile, SchemGUISettings.class);
-    }
+@Config(
+        file = "createisland.json",
+        clazz = SchemGUI.SchemGUISettings.class
+)
+public class SchemGUI extends AbstractConfiguration implements IConfiguration {
 
     @ConfigSerializable
     public static class SchemGUISettings implements IGUIConfig<SchematicGUIButton> {

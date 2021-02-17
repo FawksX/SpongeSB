@@ -6,7 +6,6 @@ import ca.landonjw.gooeylibs.inventory.api.Template;
 import games.synx.pscore.util.MessageUtil;
 import games.synx.spongysb.config.ConfigManager;
 import games.synx.spongysb.config.configs.guis.IGUIConfig;
-import games.synx.spongysb.config.configs.guis.SchemGUI;
 import games.synx.spongysb.config.configs.guis.button.SchematicGUIButton;
 import games.synx.spongysb.generation.GridManager;
 import games.synx.spongysb.generation.SchematicManager;

@@ -1,18 +1,16 @@
 package games.synx.spongysb.config.configs;
 
+import games.synx.pscore.config.annotation.Config;
 import games.synx.pscore.config.impl.AbstractConfiguration;
 import games.synx.pscore.config.impl.IConfiguration;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.objectmapping.meta.Setting;
 
-import java.io.IOException;
-import java.nio.file.Path;
-
-public class Messages extends AbstractConfiguration<Messages.MessageSettings> implements IConfiguration {
-
-  public Messages(Path configFile) throws IOException {
-    super(configFile, MessageSettings.class);
-  }
+@Config(
+        file = "messages.json",
+        clazz = Messages.MessageSettings.class
+)
+public class Messages extends AbstractConfiguration implements IConfiguration {
 
   @ConfigSerializable
   public static class MessageSettings {

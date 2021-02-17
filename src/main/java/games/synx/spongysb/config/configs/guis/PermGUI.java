@@ -1,6 +1,7 @@
 package games.synx.spongysb.config.configs.guis;
 
 import com.google.common.collect.Lists;
+import games.synx.pscore.config.annotation.Config;
 import games.synx.pscore.config.gui.templates.FillerButton;
 import games.synx.pscore.config.impl.AbstractConfiguration;
 import games.synx.pscore.config.impl.IConfiguration;
@@ -8,15 +9,13 @@ import games.synx.spongysb.config.configs.guis.button.PermissionsGUIButton;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.objectmapping.meta.Setting;
 
-import java.io.IOException;
-import java.nio.file.Path;
 import java.util.List;
 
-public class PermGUI extends AbstractConfiguration<PermGUI.PermGUISettings> implements IConfiguration {
-
-    public PermGUI(Path configFile) throws IOException {
-        super(configFile, PermGUISettings.class);
-    }
+@Config(
+        file = "permissions.json",
+        clazz = PermGUI.PermGUISettings.class
+)
+public class PermGUI extends AbstractConfiguration implements IConfiguration {
 
     @ConfigSerializable
     public static class PermGUISettings implements IGUIConfig<PermissionsGUIButton> {

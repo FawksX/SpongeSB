@@ -1,32 +1,27 @@
 package games.synx.spongysb.config.configs;
 
-import ca.landonjw.gooeylibs.inventory.api.Button;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import games.synx.pscore.config.annotation.Config;
 import games.synx.pscore.config.gui.templates.FillerButton;
 import games.synx.pscore.config.impl.AbstractConfiguration;
 import games.synx.pscore.config.impl.IConfiguration;
-import games.synx.spongysb.config.configs.guis.button.IGUIButton;
 import games.synx.spongysb.config.configs.wrappers.IslandUpgradeWrapper;
 import games.synx.spongysb.objects.enums.UpgradeType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import org.spongepowered.api.block.BlockType;
-import org.spongepowered.api.block.BlockTypes;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.objectmapping.meta.Setting;
 
-import java.io.IOException;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Upgrades extends AbstractConfiguration<Upgrades.UpgradeSettings> implements IConfiguration {
-
-  public Upgrades(Path configFile) throws IOException {
-    super(configFile, UpgradeSettings.class);
-  }
+@Config(
+        file = "upgrades.json",
+        clazz = Upgrades.UpgradeSettings.class
+)
+public class Upgrades extends AbstractConfiguration implements IConfiguration {
 
   @ConfigSerializable
   public static class UpgradeSettings {

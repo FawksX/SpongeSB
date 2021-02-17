@@ -4,6 +4,7 @@ import games.synx.pscore.listener.impl.AbstractListenerManager;
 import games.synx.pscore.listener.impl.IListenerManager;
 import games.synx.pscore.manager.IManager;
 import games.synx.spongysb.SpongySB;
+import games.synx.spongysb.listeners.islandguard.ForgeIslandGuard;
 import games.synx.spongysb.listeners.islandguard.VanillaIslandGuard;
 import games.synx.spongysb.listeners.islandguard.ReforgedIslandGuard;
 
@@ -15,10 +16,11 @@ public class ListenerManager extends AbstractListenerManager implements IManager
     registerSpongeEvent(new PlayerJoinServerListener());
     registerSpongeEvent(new VanillaIslandGuard());
     registerSpongeEvent(new CacheDisconnectListener());
-
     registerSpongeEvent(new OreGeneratorListener());
 
     registerPixelmonEvent(new ReforgedIslandGuard());
+
+    registerForgeEvent(new ForgeIslandGuard());
 
   }
 

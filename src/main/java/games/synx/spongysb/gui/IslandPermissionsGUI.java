@@ -21,9 +21,11 @@ import java.util.List;
 
 public class IslandPermissionsGUI {
 
-    private static final Messages.MessageSettings MESSAGES = ConfigManager.get().getMessages();
+
 
     public static void open(Player player) {
+
+        final Messages.MessageSettings MESSAGES = ConfigManager.get().getMessages();
 
         SPlayer sPlayer = SPlayer.get(player);
         Island island = sPlayer.getIsland();
@@ -51,7 +53,7 @@ public class IslandPermissionsGUI {
                             position = position + 1;
                         }
 
-                        changePermission(player, island, position, confButton.getIslandPerm());
+                        changePermission(MESSAGES, player, island, position, confButton.getIslandPerm());
                         action.getButton().toBuilder().lore(replaceLevel(confButton.getLore(), island, confButton.getIslandPerm())).build();
 
                     }).build();
@@ -67,14 +69,14 @@ public class IslandPermissionsGUI {
 
     }
 
-    private static void changePermission(Player player, Island island, int newPosition, IslandPerm islandPerm) {
+    private static void changePermission(Messages.MessageSettings messageSettings, Player player, Island island, int newPosition, IslandPerm islandPerm) {
 
         if(newPosition < IslandPermissionLevel.NONE.getPosition()) {
-            MessageUtil.msg(player, MESSAGES.permission.cannot_put_less_than_visitor);
+            MessageUtil.msg(player, messageSettings.permission.cannot_put_less_than_visitor);
             return;
         }
         if(newPosition > IslandPermissionLevel.LEADER.getPosition()) {
-            MessageUtil.msg(player, MESSAGES.permission.cannot_put_more_than_leader);
+            MessageUtil.msg(player, messageSettings.permission.cannot_put_more_than_leader);
             return;
         }
 

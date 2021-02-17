@@ -82,9 +82,11 @@ shadowJar {
 
     relocate 'co.aikar.commands', 'games.synx.libs.acf'
     relocate 'co.aikar.locales', 'games.synx.libs.locales'
-    relocate 'org.spongepowered.configurate', 'games.synx.libs.configurate'
+    relocate ("org.spongepowered.configurate", "games.synx.libs.configurate")
     relocate 'io.leangen.geantyref', 'games.synx.libs.geantyref'
     relocate 'org.checkerframework', 'games.synx.libs.checkerframework'
+
+    exclude('com.google.code.gson:2.8.0')
 
 
     classifier '' // Replace the default JAR

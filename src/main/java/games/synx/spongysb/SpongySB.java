@@ -87,7 +87,7 @@ public class SpongySB {
     }
 
     private void setupConfigDirectories() {
-        this.configDir = PSCore.getConfigManager().setupDirectory("SpongeSB");
+        this.configDir = PSCore.get().setupDirectory("SpongeSB");
 
         this.schematicsDir = Paths.get(this.configDir + File.separator + "schematics");
 
